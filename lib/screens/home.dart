@@ -16,19 +16,26 @@ class MyHomePage extends StatelessWidget {
       drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Image(
-              image: AssetImage("assets/images/don_milani.png"),
-              fit: BoxFit.cover,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Image(
+                  image: AssetImage("assets/images/don_milani.png"),
+                  fit: BoxFit.cover,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 30, left: 15, right: 20),
+                  child: MainNews(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 30, left: 15, right: 20),
+                  child: MainBarbiana(),
+                ),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 30, left: 15, right: 20),
-              child: MainNews(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 30, left: 15, right: 20),
-              child: MainBarbiana(),
+            SizedBox(
+              height: 25,
             ),
           ],
         ),

@@ -91,7 +91,7 @@ class InfoPercorso extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text(
-              infos[0],
+              infos[0].toUpperCase(),
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
@@ -104,7 +104,7 @@ class InfoPercorso extends StatelessWidget {
               ),
             ),
             Text(
-              infos[2],
+              infos[2].toUpperCase(),
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
@@ -117,7 +117,7 @@ class InfoPercorso extends StatelessWidget {
               ),
             ),
             Text(
-              infos[4],
+              infos[4].toUpperCase(),
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
@@ -129,11 +129,11 @@ class InfoPercorso extends StatelessWidget {
                 fontSize: 23,
               ),
             ),
-            Divider(
-              color: Colors.blueGrey,
-            ),
             Image(
               image: AssetImage(infos[6]),
+            ),
+            SizedBox(
+              height: 25,
             )
           ],
         ),

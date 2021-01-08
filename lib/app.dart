@@ -1,6 +1,8 @@
 import 'package:fdmApp/screens/SeCHS.dart';
+import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
 import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/eventi.dart';
+import 'package:fdmApp/screens/eventi/InfoEvento.dart';
 import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/login.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
           Login.routeName: (context) => Login(),
           InfoPercorso.routeName: (context) => InfoPercorso(),
           Disponibilita.routeName: (context) => Disponibilita(),
+          InfoEvento.routeName: (context) => InfoEvento(),
+          InfoSeCHS.routeName: (context) => InfoSeCHS(),
         });
   }
 }
