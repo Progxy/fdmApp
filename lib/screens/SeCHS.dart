@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'SeCHS/InfoSeCHS.dart';
-import 'eventi/InfoEvento.dart';
 import 'home/mainDrawer.dart';
 
 class Stampa extends StatelessWidget {
