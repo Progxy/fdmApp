@@ -169,7 +169,7 @@ class _MediaState extends State<Media> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Image.network(
-                                "",
+                                infos[2],
                               ),
                             ],
                           ),
