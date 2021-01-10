@@ -137,7 +137,7 @@ class _MediaState extends State<Media> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 35,
             ),
             Center(
               child: Row(
@@ -264,7 +264,20 @@ class _MediaState extends State<Media> {
                   viewportFraction: 0.8),
             ),
             SizedBox(
-              height: 20,
+              height: 35,
+            ),
+            Center(
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.double_arrow,
+                  size: 30,
+                ),
+                backgroundColor: Colors.blueGrey,
+              ),
+            ),
+            SizedBox(
+              height: 25,
             ),
           ],
         ),
