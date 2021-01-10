@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,22 +26,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione Don Milani di Gioiosa Jonica.',
+      'Associazione Don\nMilani di Gioiosa Jonica.',
       'http://www.donmilanigioiosa.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione Guide e Scout Cattolici Italiani',
+      'Associazione Guide e\nScout Cattolici Italiani',
       'http://www.agesci.org/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione PRO CONSUMA',
+      'Associazione PRO\nCONSUMA',
       'http://www.proconsuma.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di MANDELLO LARIO',
+      'Comune di MANDELLO\nLARIO',
       'http://www.mandellolario.it/'
     ],
     [
@@ -50,27 +51,27 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di SAN GIORGIO IN BOSCO -PD-',
+      'Comune di SAN\nGIORGIO IN BOSCO -PD-',
       'http://www.comune.sangiorgioinbosco.pd.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di SAN VITTORE OLONA',
+      'Comune di SAN\nVITTORE OLONA',
       'http://www.sanvittoreolona.org/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Cooperativa Sociale IL FIORE per un commercio equo e solidale',
+      'Cooperativa Sociale\nIL FIORE per un\ncommercio equo\ne solidale',
       'http://ilfioreequo.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Coro Drammatico ” RENATO CONDOLEO” Direttore Paolo Bussagli',
+      'Coro Drammatico ”\nRENATO CONDOLEO”\nDirettore Paolo Bussagli',
       'http://www.cdrc.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'DALLA RETE ALLA CITTA’ DELL’UOMO – Reti in Opera Salento',
+      'DALLA RETE ALLA\nCITTA’ DELL’UOMO\nReti in Opera Salento',
       'http://www.retinoperasalento.it/'
     ],
     [
@@ -85,12 +86,12 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'GRUPPO EREMOS -Gli amici della scala di Giacobbe',
+      'GRUPPO EREMOS\nGli amici della scala\ndi Giacobbe',
       'http://www.eremos.it/index.php?page=infoblog'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'IL TREBBO – Centro di resistenza culturale:Teatro, Didattica, Scuola',
+      'IL TREBBO\nCentro di resistenza\nculturale: Teatro,\nDidattica, Scuola',
       'http://il%20trebbo/'
     ],
     [
@@ -100,7 +101,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'LIBRERIA EDITRICE FIORENTINA -LEF-',
+      'LIBRERIA EDITRICE\nFIORENTINA -LEF-',
       'http://www.lef.firenze.it/'
     ],
     [
@@ -110,27 +111,27 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Oratorio Parrocchiale di NOVELLARA',
+      'Oratorio Parrocchiale\ndi NOVELLARA',
       'http://www.novellara.net/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Parrocchia di San Martino a Vergaio -PO- MISSIONE DI PREGHIERA',
+      'Parrocchia di San\nMartino a Vergaio\n-PO- MISSIONE\nDI PREGHIERA',
       'http://www.missionedipreghiera.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'POIEIN – Cultura, solidarieta’ e varia umanita’',
+      'POIEIN – Cultura,\nsolidarieta’ e varia\numanita’',
       'http://www.poiein.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Ricordando Don Carlo Zaccaro',
+      'Ricordando\nDon Carlo Zaccaro',
       'http://doncarlozaccaro.blogspot.com/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Scuola Primaria “Don Milani di NAVE -BS-',
+      'Scuola Primaria\n“Don Milani di NAVE\n-BS-',
       'http://rsb.provincia.brescia.it/ddnave/uversion/Scuola_Primaria_Don_Milani.html'
     ],
     [
@@ -140,17 +141,17 @@ class Contatti extends StatelessWidget {
     ],
     [
       'CHIESA CATTOLICA',
-      'Azione Cattolica Diocesi di Gaeta',
+      'Azione Cattolica\nDiocesi di Gaeta',
       'http://www.azionecattolicagaeta.it/'
     ],
     [
       'CHIESA CATTOLICA',
-      'Centri Missionari dei Frati Cappuccini dell’Emilia-Romagna',
+      'Centri Missionari dei\nFrati Cappuccini\ndell’Emilia-Romagna',
       'http://www.centromissionario.com/'
     ],
     [
       'CHIESA CATTOLICA',
-      'DIOCESI di FAENZA-MODIGLIANA',
+      'DIOCESI di FAENZA-\nMODIGLIANA',
       'http://www.faenza.chiesacattolica.it/'
     ],
     [
@@ -170,22 +171,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'CHIESA CATTOLICA',
-      'Diocesi di TRIVENTO (Chieti)',
+      'Diocesi di TRIVENTO\n(Chieti)',
       'http://www.diocesitrivento.it/'
     ],
     [
       'LE “BARBIANA” NEL\nMONDO DI OGGI',
-      'Associazione AMAN IMAN NIGER',
+      'Associazione AMAN\nIMAN NIGER',
       'http://www.brownsea.it/harambee/niger/'
     ],
     [
       'LE “BARBIANA” NEL\nMONDO DI OGGI',
-      'Associazione D.U.MA onlus',
+      'Associazione D.U.MA\nonlus',
       'http://www.dumaonlus.it/'
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'ARCICONFRATERNITA’ DELLA MISERICORDIA DI FIRENZE',
+      'ARCICONFRATERNITA’\nDELLA MISERICORDIA\nDI FIRENZE',
       'http://www.misericordia.firenze.it/'
     ],
     [
@@ -195,22 +196,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'Giovani e Missione: PAULO FREIRE',
+      'Giovani e Missione:\nPAULO FREIRE',
       'http://www.giovaniemissione.it/testimoni/paulofreire.htm'
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'Progetto AGATA SMERALDA per l’adozione a distanza',
+      'Progetto AGATA\nSMERALDA per l’\nadozione a distanza',
       'http://www.agatasmeralda.org/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Istituto di Istruzione Superiore SACRA FAMIGLIA di Soncino -CR-',
+      'Istituto di Istruzione\nSuperiore SACRA\nFAMIGLIA di Soncino\n-CR-',
       'http://www.sacrafamigliasoncino.it/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Liceo “ALDO MORO” di Reggio Emilia',
+      'Liceo “ALDO MORO”\ndi Reggio Emilia',
       'http://www.liceomoro.it/'
     ],
     [
@@ -220,12 +221,12 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Pontificia Facolta’ di Scienze dell’Educazione “AUXILIUM”',
+      'Pontificia Facolta’\ndi Scienze dell’\nEducazione “AUXILIUM”',
       'http://www.pfse-auxilium.org/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Scuola Secondaria di 1^ grado “Don Lorenzo Milani” di TELVE in Valsugana -TN',
+      'Scuola Secondaria di\n1^ grado “Don Lorenzo\nMilani” di TELVE in\nValsugana -TN',
       'http://www.vecchicompagnidiscuola.it/'
     ],
     [
@@ -240,7 +241,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SINDACATI',
-      'FIM-CISL -Federazione Italiana Metalmeccanici – CISL',
+      'FIM-CISL -Federazione\nItaliana Metalmeccanici\n– CISL',
       'http://www.fim.cisl.it/'
     ],
     [
@@ -250,7 +251,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SOSTENITORI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di Vicchio del Mugello',
+      'Comune di Vicchio\ndel Mugello',
       'http://www.comune.vicchio.fi.it/'
     ],
     [
@@ -270,22 +271,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'VARIE',
-      'CENTRO DI ORIENTAMENTO SIACIALE fondato da Aldo Capitini nel 1944',
+      'CENTRO DI\nORIENTAMENTO\nSIACIALE fondato\nda Aldo Capitini\nnel 1944',
       'http://www.cosinrete.it/'
     ],
     [
       'VARIE',
-      'LA MARCIA DI BARBIANA',
+      'LA MARCIA DI\nBARBIANA',
       'http://www.marciadibarbiana.it/',
     ],
     [
       'VARIE',
-      'Libreria HERDER – ROMA',
+      'Libreria HERDER –\nROMA',
       'http://www.herder.it/',
     ],
     [
       'VARIE',
-      'URSEA; Unione rocciatori,scalatori e affini',
+      'URSEA; Unione\nrocciatori,scalatori\ne affini',
       'http://www.ursea.it/'
     ],
   ];
@@ -330,7 +331,10 @@ class Contatti extends StatelessWidget {
                   .map(
                     (info) => new Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/didattico.jpg"),
+                          fit: BoxFit.cover,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -355,11 +359,16 @@ class Contatti extends StatelessWidget {
                                       left: 10,
                                       top: 15,
                                     ),
-                                    child: Text(
-                                      info[0],
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
+                                    child: BorderedText(
+                                      strokeWidth: 4.0,
+                                      strokeColor: Colors.black,
+                                      child: Text(
+                                        info[0],
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -373,23 +382,21 @@ class Contatti extends StatelessWidget {
                                       bottom: 25,
                                       left: 10,
                                     ),
-                                    child: RichText(
-                                      text: new TextSpan(
-                                        children: [
-                                          new TextSpan(
-                                            text: info[1],
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.blue,
-                                            ),
-                                            recognizer:
-                                                new TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                    launch(info[2]);
-                                                  },
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        launch(info[2]);
+                                      },
+                                      child: BorderedText(
+                                        strokeWidth: 4.0,
+                                        strokeColor: Colors.blue,
+                                        child: Text(
+                                          info[1],
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white,
                                           ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -404,7 +411,7 @@ class Contatti extends StatelessWidget {
                   .toList(),
               options: CarouselOptions(
                   enlargeCenterPage: true,
-                  height: 200.0,
+                  height: 250.0,
                   aspectRatio: 4 / 3,
                   enableInfiniteScroll: true,
                   viewportFraction: 0.8),
