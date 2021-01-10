@@ -7,6 +7,8 @@ import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/media.dart';
+import 'package:fdmApp/screens/media/detailedPhoto.dart';
+import 'package:fdmApp/screens/media/detailedVideo.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
 import 'package:fdmApp/screens/privacy.dart';
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
           Disponibilita.routeName: (context) => Disponibilita(),
           InfoEvento.routeName: (context) => InfoEvento(),
           InfoSeCHS.routeName: (context) => InfoSeCHS(),
+          DetailedPhoto.routeName: (context) => DetailedPhoto(),
+          DetailedVideo.routeName: (context) => DetailedVideo(),
         });
   }
 }

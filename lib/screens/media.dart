@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fdmApp/screens/media/detailedPhoto.dart';
+import 'package:fdmApp/screens/media/detailedVideo.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:video_player/video_player.dart';
@@ -171,7 +173,13 @@ class _MediaState extends State<Media> {
                         size: 30,
                       ),
                       backgroundColor: Colors.blueGrey,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          DetailedVideo.routeName,
+                          arguments: mediaVideo[index],
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -214,14 +222,9 @@ class _MediaState extends State<Media> {
                         children: <Widget>[
                           Image.network(
                             infos[2],
-                            loadingBuilder: (ctx, i, k) => Container(
-                              alignment: Alignment.center,
-                              width: 150,
-                              height: 150,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 5.0,
-                                ),
+                            loadingBuilder: (ctx, i, k) => Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 5.0,
                               ),
                             ),
                             errorBuilder: (ctx, o, n) {
@@ -268,7 +271,13 @@ class _MediaState extends State<Media> {
             ),
             Center(
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    DetailedPhoto.routeName,
+                    arguments: mediaPhoto[index],
+                  );
+                },
                 child: Icon(
                   Icons.double_arrow,
                   size: 30,
