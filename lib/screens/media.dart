@@ -35,13 +35,13 @@ class _MediaState extends State<Media> {
     [
       "title2",
       "date2",
-      "https://youtu.be/OPm1TJXjXyk",
+      "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4",
       "extract2",
     ],
     [
       "title3",
       "date3",
-      "https://youtu.be/OPm1TJXjXyk",
+      "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4",
       "extract3",
     ],
   ];
@@ -49,6 +49,9 @@ class _MediaState extends State<Media> {
   VideoPlayerController _controller;
 
   Future<void> _initializeVideoPlayerFuture;
+
+  String titleVideo = "";
+  String dateVideo = "";
 
   @override
   void initState() {
@@ -60,7 +63,16 @@ class _MediaState extends State<Media> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    titleVideo = mediaVideo[index][0];
+    dateVideo = mediaVideo[index][1];
     return Scaffold(
       appBar: AppBar(
         title: Text("Foto e Video"),
@@ -90,27 +102,30 @@ class _MediaState extends State<Media> {
                           ),
                         ],
                       ),
-                      child: Center(
-                        child: FutureBuilder(
-                          future: _initializeVideoPlayerFuture,
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return Center(
-                                child: AspectRatio(
-                                  aspectRatio: _controller.value.aspectRatio,
-                                  child: VideoPlayer(_controller),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  backgroundColor: Colors.blueGrey,
-                                  strokeWidth: 5.0,
-                                ),
-                              );
-                            }
-                          },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                          child: FutureBuilder(
+                            future: _initializeVideoPlayerFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return Center(
+                                  child: AspectRatio(
+                                    aspectRatio: _controller.value.aspectRatio,
+                                    child: VideoPlayer(_controller),
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.blueGrey,
+                                    strokeWidth: 5.0,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -129,6 +144,9 @@ class _MediaState extends State<Media> {
                     _initializeVideoPlayerFuture = _controller.initialize();
                     _controller.setLooping(true);
                     _controller.setVolume(1.0);
+                    titleVideo = mediaVideo[index][0];
+                    dateVideo = mediaVideo[index][0];
+                    print("\n\n$titleVideo - $dateVideo\n\n");
                     if (index > mediaVideo.length - 1) {
                       index++;
                     } else {
@@ -191,7 +209,7 @@ class _MediaState extends State<Media> {
             SizedBox(
               height: 30,
               child: Marquee(
-                text: mediaVideo[index][0] + " - " + mediaVideo[index][1],
+                text: titleVideo + " - " + dateVideo,
                 style: TextStyle(
                   fontSize: 27,
                   fontWeight: FontWeight.w600,
