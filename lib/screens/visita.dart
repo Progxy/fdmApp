@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recaptcha_v2/flutter_recaptcha_v2.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -43,7 +42,6 @@ class _VisitaState extends State<Visita> {
   String groupType;
   bool checked = false;
   String verifyResult = "";
-  RecaptchaV2Controller recaptchaV2Controller = RecaptchaV2Controller();
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
