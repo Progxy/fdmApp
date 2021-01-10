@@ -34,7 +34,7 @@ dependencies:
   intl_phone_field: ^1.4.2
   url_launcher: ^5.7.10
   flutter_rating_bar: ^3.2.0+1
-  marquee_widget: ^1.0.0
+  marquee: ^1.6.1
   video_player: ^1.0.1
 
 dev_dependencies:

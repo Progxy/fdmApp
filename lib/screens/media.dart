@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee_widget/marquee_widget.dart';
+import 'package:marquee/marquee.dart';
 import 'package:video_player/video_player.dart';
 
 import 'home/mainDrawer.dart';
@@ -144,6 +144,7 @@ class _MediaState extends State<Media> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FloatingActionButton(
+                    heroTag: null,
                     elevation: 20.0,
                     child: Icon(
                       _controller.value.isPlaying
@@ -164,6 +165,7 @@ class _MediaState extends State<Media> {
                       left: 25,
                     ),
                     child: FloatingActionButton(
+                      heroTag: null,
                       child: Icon(
                         Icons.double_arrow,
                         size: 30,
@@ -179,19 +181,11 @@ class _MediaState extends State<Media> {
               height: 20,
             ),
             Marquee(
-              child: Text(
-                mediaVideo[index][0] + " - " + mediaVideo[index][1],
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                ),
+              text: mediaVideo[index][0] + " - " + mediaVideo[index][1],
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
               ),
-              direction: Axis.horizontal,
-              textDirection: TextDirection.rtl,
-              animationDuration: Duration(seconds: 1),
-              backDuration: Duration(milliseconds: 5000),
-              pauseDuration: Duration(milliseconds: 2500),
-              directionMarguee: DirectionMarguee.oneDirection,
             ),
             SizedBox(
               height: 25,
@@ -237,19 +231,11 @@ class _MediaState extends State<Media> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Marquee(
-                                child: Text(
-                                  infos[0] + " - " + infos[1],
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                text: infos[0] + " - " + infos[1],
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                direction: Axis.horizontal,
-                                textDirection: TextDirection.rtl,
-                                animationDuration: Duration(seconds: 1),
-                                backDuration: Duration(milliseconds: 5000),
-                                pauseDuration: Duration(milliseconds: 2500),
-                                directionMarguee: DirectionMarguee.oneDirection,
                               ),
                             ],
                           ),
