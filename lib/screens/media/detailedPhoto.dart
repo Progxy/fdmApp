@@ -1,4 +1,3 @@
-import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
 
 class DetailedPhoto extends StatelessWidget {
@@ -11,7 +10,6 @@ class DetailedPhoto extends StatelessWidget {
       appBar: AppBar(
         title: Text(titlePhoto),
       ),
-      drawer: MainDrawer(),
     );
   }
 }
