@@ -185,7 +185,7 @@ class _MediaState extends State<Media> {
               child: Marquee(
                 text: mediaVideo[index][0] + " - " + mediaVideo[index][1],
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 27,
                   fontWeight: FontWeight.w600,
                 ),
                 blankSpace: 225,
@@ -239,9 +239,10 @@ class _MediaState extends State<Media> {
                                 child: Marquee(
                                   text: infos[0] + " - " + infos[1],
                                   style: TextStyle(
-                                    fontSize: 25,
+                                    fontSize: 27,
                                     fontWeight: FontWeight.w600,
                                   ),
+                                  blankSpace: 225,
                                 ),
                               ),
                             ],
