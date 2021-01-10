@@ -1,11 +1,21 @@
+import 'dart:ffi';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
+import 'package:video_player/video_player.dart';
 
 import 'home/mainDrawer.dart';
 
-class Media extends StatelessWidget {
+class Media extends StatefulWidget {
   static const String routeName = "/media";
+
+  @override
+  _MediaState createState() => _MediaState();
+}
+
+class _MediaState extends State<Media> {
+  int index = 0;
   final List<List> mediaPhoto = [
     [
       "title",
@@ -20,6 +30,7 @@ class Media extends StatelessWidget {
       "extract1",
     ],
   ];
+
   final List<List> mediaVideo = [
     [
       "title2",
@@ -34,6 +45,20 @@ class Media extends StatelessWidget {
       "extract3",
     ],
   ];
+
+  VideoPlayerController _controller;
+
+  Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    _controller = VideoPlayerController.network(mediaVideo[0][0]);
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    _controller.setVolume(1.0);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +72,48 @@ class Media extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             CarouselSlider(
-              items: mediaPhoto
+              items: mediaVideo
                   .map(
                     (infos) => new Container(
                       child: Row(
                         children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 10,
+                                  left: 10,
+                                ),
+                                child: FutureBuilder(
+                                  future: _initializeVideoPlayerFuture,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      return Center(
+                                        child: AspectRatio(
+                                          aspectRatio:
+                                              _controller.value.aspectRatio,
+                                          child: VideoPlayer(_controller),
+                                        ),
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.blueGrey,
+                                          strokeWidth: 5.0,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Marquee(
                                 child: Text(
@@ -77,22 +138,44 @@ class Media extends StatelessWidget {
                   )
                   .toList(),
               options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  height: 200.0,
-                  aspectRatio: 4 / 3,
-                  enableInfiniteScroll: true,
-                  viewportFraction: 0.8),
+                enlargeCenterPage: true,
+                height: 200.0,
+                aspectRatio: 4 / 3,
+                enableInfiniteScroll: true,
+                viewportFraction: 0.8,
+                onScrolled: (r) {
+                  setState(() {
+                    _controller = mediaVideo[index][2];
+                    if (index == mediaVideo.length) {
+                      index = 0;
+                    } else {
+                      index++;
+                    }
+                  });
+                },
+              ),
             ),
             SizedBox(
               height: 25,
             ),
             CarouselSlider(
-              items: mediaVideo
+              items: mediaPhoto
                   .map(
                     (infos) => new Container(
                       child: Row(
                         children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Image.network(
+                                "",
+                              ),
+                            ],
+                          ),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Marquee(
                                 child: Text(
