@@ -180,11 +180,15 @@ class _MediaState extends State<Media> {
             SizedBox(
               height: 20,
             ),
-            Marquee(
-              text: mediaVideo[index][0] + " - " + mediaVideo[index][1],
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
+            SizedBox(
+              height: 30,
+              child: Marquee(
+                text: mediaVideo[index][0] + " - " + mediaVideo[index][1],
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
+                ),
+                blankSpace: 225,
               ),
             ),
             SizedBox(
@@ -230,11 +234,14 @@ class _MediaState extends State<Media> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Marquee(
-                                text: infos[0] + " - " + infos[1],
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w600,
+                              SizedBox(
+                                height: 30,
+                                child: Marquee(
+                                  text: infos[0] + " - " + infos[1],
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
