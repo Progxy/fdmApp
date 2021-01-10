@@ -18,13 +18,13 @@ class _MediaState extends State<Media> {
     [
       "title",
       "date",
-      "https://www.donlorenzomilani.it/fotografie-scuola-tavernerio-co-intitolata-don-lorenzo-milani/",
+      "https://www.donlorenzomilani.it/wp-content/uploads/2017/03/23-marzo-relatori-800x445.jpg",
       "extract",
     ],
     [
       "title1",
       "date1",
-      "https://www.donlorenzomilani.it/20-giugno-2017-barbiana-2/",
+      "https://www.donlorenzomilani.it/wp-content/uploads/2017/06/papabarbiana7853-800x445.jpg",
       "extract1",
     ],
   ];
@@ -215,17 +215,21 @@ class _MediaState extends State<Media> {
                           Image.network(
                             infos[2],
                             loadingBuilder: (ctx, i, k) => Container(
-                                alignment: Alignment.center,
-                                width: 150,
-                                height: 150,
-                                child:
-                                    Center(child: CircularProgressIndicator())),
+                              alignment: Alignment.center,
+                              width: 150,
+                              height: 150,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 5.0,
+                                ),
+                              ),
+                            ),
                             errorBuilder: (ctx, o, n) {
-                              print(o);
+                              print("Object: $o\n\nStackTrace: $n\n\n");
                               return Center(
                                 child: Icon(
                                   Icons.error,
-                                  size: 40,
+                                  size: 50,
                                 ),
                               );
                             },
