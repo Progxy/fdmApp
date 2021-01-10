@@ -176,7 +176,7 @@ class _MediaState extends State<Media> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 20,
             ),
             Marquee(
               child: Text(
