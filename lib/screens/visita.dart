@@ -1,8 +1,10 @@
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mailer2/mailer.dart';
+import 'package:intl/intl.dart';
 
 import 'home.dart';
 import 'home/mainDrawer.dart';
@@ -18,7 +20,6 @@ class Visita extends StatefulWidget {
 class _VisitaState extends State<Visita> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  DateTime _dateTime;
   final _emailController = TextEditingController();
   final _groupController = TextEditingController();
   final _sizeController = TextEditingController();
@@ -45,6 +46,7 @@ class _VisitaState extends State<Visita> {
   String groupType;
   bool checked = false;
   String verifyResult = "";
+  final format = DateFormat("yyyy-MM-dd HH:mm");
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -75,22 +77,22 @@ class _VisitaState extends State<Visita> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    sendFeedBack(String feedBack, double rating) async {
+    sendFeedBack(Map datas) async {
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'
         ..password = 'CASTELLO1967';
 
       var emailTransport = new SmtpTransport(options);
 
+      String emailBody = "";
+
+      datas.forEach((k, v) => emailBody += '$k: $v');
+
       var envelope = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
         ..recipients.add('eossmario@gmail.com')
-        ..subject = 'FeedBack'
-        ..text = "FeedBack:\n" +
-            feedBack +
-            "\n\nRating: " +
-            rating.toString() +
-            "\n\nErmes-Express FDM";
+        ..subject = 'Info Visita'
+        ..text = "Info Visita:\n" + emailBody + "\n\nErmes-Express FDM";
 
       emailTransport.send(envelope).then((envelope) {
         if (isIOS) {
@@ -291,33 +293,41 @@ class _VisitaState extends State<Visita> {
                           key: _formKey,
                           child: Column(
                             children: <Widget>[
-                              FlatButton(
-                                onPressed: () {
-                                  showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2001),
-                                    lastDate: DateTime(2050),
-                                  ).then((date) {
-                                    setState(() {
-                                      _dateTime = date;
-                                      data["giorno"] = date;
-                                    });
-                                  });
+                              DateTimeField(
+                                decoration: InputDecoration(
+                                  labelText: "Data Visita",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                format: format,
+                                onShowPicker: (context, currentValue) async {
+                                  final date = await showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(1900),
+                                      initialDate:
+                                          currentValue ?? DateTime.now(),
+                                      lastDate: DateTime(2100));
+                                  if (date != null) {
+                                    final time = await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          currentValue ?? DateTime.now()),
+                                    );
+                                    return DateTimeField.combine(date, time);
+                                  } else {
+                                    return currentValue;
+                                  }
                                 },
-                                child: Icon(
-                                  Icons.date_range,
-                                  size: 40.0,
-                                ),
-                              ),
-                              Text(
-                                _dateTime == null
-                                    ? "Scegliere una data!"
-                                    : _dateTime.toString(),
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["giorno"] = value.toString();
+                                  return null;
+                                },
                               ),
                               SizedBox(
                                 height: 15,
@@ -778,12 +788,12 @@ class _VisitaState extends State<Visita> {
                                 onPressed: () {
                                   if (_formKey.currentState.validate() &&
                                       checked) {
-                                    showerSnackBar("Dati Inviati!");
                                     data["email"] = email;
                                     data["email responsabile"] =
                                         emailResponsabile;
                                     data["tipo di gruppo"] = groupType;
                                     print(data);
+                                    sendFeedBack(data);
                                   } else {
                                     showerSnackBar(
                                         "I Dati Inseriti Sono Incorretti!");
