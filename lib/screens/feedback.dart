@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -129,12 +130,59 @@ class _FeedBackState extends State<FeedBack> {
                       color: Colors.blueGrey,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          showerInfoSnackBar(
-                              "Grazie per la tua recensione! Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.");
+                          CupertinoAlertDialog(
+                            title: Text(
+                              "Grazie per la Recensione!",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                onPressed: () {},
+                                child: Text(
+                                  "Vai alla HomePage",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                           print(feedBack);
                           print(ratingValue);
                         } else {
-                          showerSnackBar("Dati Mancanti!");
+                          CupertinoAlertDialog(
+                            title: Text(
+                              "Errore",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Dati Mancanti!",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                onPressed: () {},
+                              )
+                            ],
+                          );
                         }
                       },
                       child: Text(
