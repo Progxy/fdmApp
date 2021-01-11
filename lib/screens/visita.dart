@@ -295,7 +295,7 @@ class _VisitaState extends State<Visita> {
                             children: <Widget>[
                               DateTimeField(
                                 decoration: InputDecoration(
-                                  labelText: "Data Visita",
+                                  labelText: "Data Visita (8:00 - 17:30)",
                                   labelStyle: TextStyle(
                                     fontSize: 23.0,
                                     fontWeight: FontWeight.w600,
