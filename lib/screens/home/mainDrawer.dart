@@ -72,7 +72,7 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("Home", style: TextStyle(fontSize: 23)),
+            title: Text("HomePage", style: TextStyle(fontSize: 23)),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => MyHomePage()));

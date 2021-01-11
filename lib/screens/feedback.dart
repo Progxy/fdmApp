@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'home.dart';
 import 'home/mainDrawer.dart';
 
 class FeedBack extends StatefulWidget {
@@ -145,7 +146,12 @@ class _FeedBackState extends State<FeedBack> {
                             ),
                             actions: [
                               CupertinoDialogAction(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                                },
                                 child: Text(
                                   "Vai alla HomePage",
                                   style: TextStyle(
@@ -179,7 +185,10 @@ class _FeedBackState extends State<FeedBack> {
                                     fontSize: 28,
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop('dialog');
+                                },
                               )
                             ],
                           );
@@ -205,39 +214,5 @@ class _FeedBackState extends State<FeedBack> {
         ),
       ),
     );
-  }
-
-  void showerInfoSnackBar(String text) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Container(
-        height: 240.0,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 23.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      duration: Duration(seconds: 6),
-    ));
-  }
-
-  void showerSnackBar(String text) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Container(
-        height: 40.0,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 23.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      duration: Duration(seconds: 4),
-    ));
   }
 }
