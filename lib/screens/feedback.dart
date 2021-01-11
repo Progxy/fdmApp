@@ -19,34 +19,160 @@ class _FeedBackState extends State<FeedBack> {
   final _feedBackController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  sendFeedBack(String feedBack, double rating) async {
-    var options = new GmailSmtpOptions()
-      ..username = 'ermes.express.fdm@gmail.com'
-      ..password = 'CASTELLO1967';
-
-    var emailTransport = new SmtpTransport(options);
-
-    var envelope = new Envelope()
-      ..from = 'ermes.express.fdm@gmail.com'
-      ..recipients.add('eossmario@gmail.com')
-      ..subject = 'FeedBack'
-      ..text = "FeedBack:\n" +
-          feedBack +
-          "\nRating: " +
-          rating.toString() +
-          ".\n\nErmes-Express FDM";
-
-    emailTransport.send(envelope).then((envelope) {
-      return 0;
-    }).catchError((e) {
-      print(e);
-      return 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    sendFeedBack(String feedBack, double rating) async {
+      var options = new GmailSmtpOptions()
+        ..username = 'ermes.express.fdm@gmail.com'
+        ..password = 'CASTELLO1967';
+
+      var emailTransport = new SmtpTransport(options);
+
+      var envelope = new Envelope()
+        ..from = 'ermes.express.fdm@gmail.com'
+        ..recipients.add('eossmario@gmail.com')
+        ..subject = 'FeedBack'
+        ..text = "FeedBack:\n" +
+            feedBack +
+            "\n\nRating: " +
+            rating.toString() +
+            "\n\nErmes-Express FDM";
+
+      emailTransport.send(envelope).then((envelope) {
+        if (isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(
+                "Grazie per la Recensione!",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                  child: Text(
+                    "Vai alla HomePage",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                "Grazie per la Recensione!",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                  child: Text(
+                    "Vai alla HomePage",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+      }).catchError((e) {
+        print(e);
+        if (isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(
+                "Errore",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                "Errore",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                FlatButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Feedback"),
@@ -157,151 +283,7 @@ class _FeedBackState extends State<FeedBack> {
                       color: Colors.blueGrey,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          print(feedBack);
-                          print(ratingValue);
-                          if (sendFeedBack(feedBack, ratingValue) != 0) {
-                            if (isIOS) {
-                              showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    CupertinoAlertDialog(
-                                  title: Text(
-                                    "Errore",
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop('dialog');
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                    "Errore",
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    FlatButton(
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop('dialog');
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                          } else {
-                            if (isIOS) {
-                              showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    CupertinoAlertDialog(
-                                  title: Text(
-                                    "Grazie per la Recensione!",
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                      child: Text(
-                                        "Vai alla HomePage",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                    "Grazie per la Recensione!",
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    FlatButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                      child: Text(
-                                        "Vai alla HomePage",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                          }
+                          sendFeedBack(feedBack, ratingValue);
                         } else {
                           if (isIOS) {
                             showCupertinoDialog(
