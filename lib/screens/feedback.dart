@@ -15,7 +15,6 @@ class FeedBack extends StatefulWidget {
 class _FeedBackState extends State<FeedBack> {
   double ratingValue;
   String feedBack;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _feedBackController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -131,66 +130,75 @@ class _FeedBackState extends State<FeedBack> {
                       color: Colors.blueGrey,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          CupertinoAlertDialog(
-                            title: Text(
-                              "Grazie per la Recensione!",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              CupertinoDialogAction(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MyHomePage()));
-                                },
-                                child: Text(
-                                  "Vai alla HomePage",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                              title: Text(
+                                "Grazie per la Recensione!",
+                                style: TextStyle(
+                                  fontSize: 28,
                                 ),
-                              )
-                            ],
+                              ),
+                              content: Text(
+                                "Provvederemo a prendere in esame i problemi ed i suggerimenti.\nLa Fondazione Don Milani.",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyHomePage()));
+                                  },
+                                  child: Text(
+                                    "Vai alla HomePage",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           );
                           print(feedBack);
                           print(ratingValue);
                         } else {
-                          CupertinoAlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Dati Mancanti!",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text(
-                                  "OK",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                },
-                              )
-                            ],
+                              ),
+                              content: Text(
+                                "Dati Mancanti!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
                           );
                         }
                       },
