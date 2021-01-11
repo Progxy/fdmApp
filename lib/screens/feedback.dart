@@ -74,6 +74,7 @@ class _FeedBackState extends State<FeedBack> {
           );
         } else {
           showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: Text(
@@ -140,6 +141,7 @@ class _FeedBackState extends State<FeedBack> {
           );
         } else {
           showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: Text(
