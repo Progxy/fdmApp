@@ -47,4 +47,6 @@
 <dict>
   <key>NSAllowsArbitraryLoads</key>
   <true/>
+<key>io.flutter.embedded_views_preview</key>
+<true/>
 </dict>
