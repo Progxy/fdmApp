@@ -309,11 +309,11 @@ class _VisitaState extends State<Visita> {
                                 format: format,
                                 onShowPicker: (context, currentValue) async {
                                   final date = await showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(1900),
-                                      initialDate:
-                                          currentValue ?? DateTime.now(),
-                                      lastDate: DateTime(2100));
+                                    context: context,
+                                    firstDate: DateTime.now(),
+                                    initialDate: currentValue ?? DateTime.now(),
+                                    lastDate: DateTime(2100),
+                                  );
                                   if (date != null) {
                                     final time = await showTimePicker(
                                       context: context,
