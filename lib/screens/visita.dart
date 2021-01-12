@@ -45,7 +45,12 @@ class _VisitaState extends State<Visita> {
   String groupType;
   bool checked = false;
   String verifyResult = "";
-  final format = DateFormat("dd-MM-yyyy HH:mm");
+  final format = DateFormat("dd/MM/yyyy HH:mm");
+  final List<List> disponibility = [
+    ["12/01/2021", "Burberi Agostino"],
+    ["21/10/2021", "Emanuele Burberi"],
+    ["12/11/2021", "Burberi Agostino e \nBurberi Emanuele"]
+  ];
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -246,10 +251,8 @@ class _VisitaState extends State<Visita> {
                   padding: EdgeInsets.only(top: 15),
                   child: FloatingActionButton.extended(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Disponibilita()));
+                      Navigator.pushNamed(context, Disponibilita.routeName,
+                          arguments: disponibility);
                     },
                     label: Text(
                       "Verifica Disponibilità",
@@ -321,8 +324,21 @@ class _VisitaState extends State<Visita> {
                                   }
                                 },
                                 validator: (value) {
+                                  int validTime;
+                                  final DateFormat formatter =
+                                      DateFormat('dd/MM/yyyy');
+                                  for (var element in disponibility) {
+                                    if (formatter.format(value) == element[0]) {
+                                      validTime = 0;
+                                      break;
+                                    } else {
+                                      validTime = 1;
+                                    }
+                                  }
                                   if (value == null) {
                                     return "Dati Mancanti";
+                                  } else if (validTime != 0) {
+                                    return "Data Non Disponibile";
                                   }
                                   data["giorno"] = value.toString();
                                   return null;
@@ -862,7 +878,6 @@ class _VisitaState extends State<Visita> {
                                         ),
                                       );
                                     }
-                                    print(data);
                                   }
                                 },
                                 child: Icon(

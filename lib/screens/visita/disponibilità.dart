@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 
 class Disponibilita extends StatelessWidget {
   static const String routeName = "/disponibilità";
-  final List<List> disponibility = [
-    ["12/08/2021", "Burberi Agostino"],
-    ["21/10/2021", "Emanuele Burberi"],
-    ["12/11/2021", "Burberi Agostino e \nBurberi Emanuele"]
-  ];
   @override
   Widget build(BuildContext context) {
+    final List disponibility =
+        ModalRoute.of(context).settings.arguments as List;
     return Scaffold(
       appBar: AppBar(
         title: Text("Calendario Disponibilità"),
