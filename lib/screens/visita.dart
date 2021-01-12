@@ -344,7 +344,7 @@ class _VisitaState extends State<Visita> {
                                     if (validTime != 0) {
                                       return "Data Non Disponibile";
                                     } else {
-                                      data["giorno"] = value.toString();
+                                      data["giorno"] = value;
                                       print(data["giorno"]);
                                       return null;
                                     }
@@ -616,7 +616,8 @@ class _VisitaState extends State<Visita> {
                                 onChanged: (String newValue) {
                                   setState(() {
                                     dropdownValue = newValue;
-                                    groupType = newValue;
+                                    groupType = lista[newValue];
+                                    print(groupType);
                                   });
                                 },
                                 items: elementi
@@ -655,7 +656,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return "Dati Mancanti";
+                                    return null;
                                   }
                                   data["conoscenze"] = value;
                                   return null;
@@ -689,7 +690,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return "Dati Mancanti";
+                                    return null;
                                   }
                                   data["preparazione"] = value;
                                   return null;
@@ -722,7 +723,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return "Dati Mancanti";
+                                    return null;
                                   }
                                   data["richieste"] = value;
                                   return null;
@@ -811,9 +812,24 @@ class _VisitaState extends State<Visita> {
                                 onPressed: () {
                                   if (_formKey.currentState.validate() &&
                                       checked) {
-                                    data["tipo di gruppo"] = lista[groupType];
-                                    print(data);
-                                    sendFeedBack(data);
+                                    data["tipo di gruppo"] =
+                                        lista[dropdownValue];
+                                    //sendFeedBack(data);
+                                    FutureBuilder<bool>(
+                                      future: sendFeedBack(data),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (snapshot.hasData) {
+                                          return null;
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              strokeWidth: 5.0,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
                                   } else {
                                     if (isIOS) {
                                       showCupertinoDialog(
@@ -892,9 +908,6 @@ class _VisitaState extends State<Visita> {
                                   size: 40.0,
                                 ),
                               ),
-                              SizedBox(
-                                height: 35,
-                              ),
                             ],
                           ),
                         ),
@@ -903,9 +916,6 @@ class _VisitaState extends State<Visita> {
                   ),
                 ),
               ],
-            ),
-            SizedBox(
-              height: 20,
             ),
           ],
         ),
