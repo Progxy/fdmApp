@@ -23,8 +23,6 @@
 //   }
 // }
 
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -47,7 +45,6 @@ class _LoginState extends State<Login> {
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   double _volume = 100;
-  bool _muted = false;
   bool _isPlayerReady = false;
 
   final List<String> _ids = [
@@ -122,16 +119,6 @@ class _LoginState extends State<Login> {
               maxLines: 1,
             ),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            onPressed: () {
-              log('Settings Tapped!');
-            },
-          ),
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -139,7 +126,6 @@ class _LoginState extends State<Login> {
         onEnded: (data) {
           _controller
               .load(_ids[(_ids.indexOf(data.videoId) + 1) % _ids.length]);
-          _showSnackBar('Next Video Started!');
         },
       ),
       builder: (context, player) => Scaffold(
@@ -153,42 +139,6 @@ class _LoginState extends State<Login> {
         body: ListView(
           children: [
             player,
-            _space,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    _controller.value.isPlaying
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                  ),
-                  onPressed: _isPlayerReady
-                      ? () {
-                          _controller.value.isPlaying
-                              ? _controller.pause()
-                              : _controller.play();
-                          setState(() {});
-                        }
-                      : null,
-                ),
-                IconButton(
-                  icon: Icon(_muted ? Icons.volume_off : Icons.volume_up),
-                  onPressed: _isPlayerReady
-                      ? () {
-                          _muted ? _controller.unMute() : _controller.mute();
-                          setState(() {
-                            _muted = !_muted;
-                          });
-                        }
-                      : null,
-                ),
-                FullScreenButton(
-                  controller: _controller,
-                  color: Colors.blueAccent,
-                ),
-              ],
-            ),
             _space,
             Row(
               children: <Widget>[
@@ -229,25 +179,4 @@ class _LoginState extends State<Login> {
   }
 
   Widget get _space => const SizedBox(height: 10);
-
-  void _showSnackBar(String message) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 16.0,
-          ),
-        ),
-        backgroundColor: Colors.blueAccent,
-        behavior: SnackBarBehavior.floating,
-        elevation: 1.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-      ),
-    );
-  }
 }
