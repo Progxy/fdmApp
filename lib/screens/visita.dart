@@ -33,7 +33,6 @@ class _VisitaState extends State<Visita> {
   final _preparazioneController = TextEditingController();
   final _richiesteController = TextEditingController();
   Map data = {};
-  String email;
   String emailResponsabile;
   Map lista = {
     "One": "Scolastico",
@@ -46,7 +45,7 @@ class _VisitaState extends State<Visita> {
   String groupType;
   bool checked = false;
   String verifyResult = "";
-  final format = DateFormat("yyyy-MM-dd HH:mm");
+  final format = DateFormat("dd-MM-yyyy HH:mm");
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -351,7 +350,8 @@ class _VisitaState extends State<Visita> {
                                   ),
                                 ),
                                 onSaved: (String value) {
-                                  email = value;
+                                  data["email"] = value;
+                                  print(data["email"]);
                                 },
                                 validator: MultiValidator([
                                   RequiredValidator(errorText: "Dati Mancanti"),
@@ -566,7 +566,8 @@ class _VisitaState extends State<Visita> {
                                   ),
                                 ),
                                 onSaved: (String value) {
-                                  emailResponsabile = value;
+                                  data["email responsabile"] = value;
+                                  print(data["email responsabile"]);
                                 },
                                 validator: MultiValidator([
                                   RequiredValidator(errorText: "Dati Mancanti"),
@@ -734,7 +735,6 @@ class _VisitaState extends State<Visita> {
                                                   } else {
                                                     checked = true;
                                                   }
-                                                  print(checked);
                                                 });
                                               },
                                               icon: Icon(
@@ -788,15 +788,80 @@ class _VisitaState extends State<Visita> {
                                 onPressed: () {
                                   if (_formKey.currentState.validate() &&
                                       checked) {
-                                    data["email"] = email;
-                                    data["email responsabile"] =
-                                        emailResponsabile;
-                                    data["tipo di gruppo"] = groupType;
+                                    data["tipo di gruppo"] = lista[groupType];
                                     print(data);
                                     sendFeedBack(data);
                                   } else {
-                                    showerSnackBar(
-                                        "I Dati Inseriti Sono Incorretti!");
+                                    if (isIOS) {
+                                      showCupertinoDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            CupertinoAlertDialog(
+                                          title: Text(
+                                            "Errore",
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                            ),
+                                          ),
+                                          content: Text(
+                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                            style: TextStyle(
+                                              fontSize: 27,
+                                            ),
+                                          ),
+                                          actions: [
+                                            CupertinoDialogAction(
+                                              child: Text(
+                                                "OK",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop('dialog');
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: Text(
+                                            "Errore",
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                            ),
+                                          ),
+                                          content: Text(
+                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                            style: TextStyle(
+                                              fontSize: 27,
+                                            ),
+                                          ),
+                                          actions: [
+                                            FlatButton(
+                                              child: Text(
+                                                "OK",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop('dialog');
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
                                     print(data);
                                   }
                                 },
@@ -806,7 +871,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                               ),
                               SizedBox(
-                                height: 25,
+                                height: 35,
                               ),
                             ],
                           ),
@@ -817,27 +882,13 @@ class _VisitaState extends State<Visita> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
     );
-  }
-
-  void showerSnackBar(String text) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Container(
-        height: 40.0,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 23.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-      duration: Duration(seconds: 4),
-    ));
   }
 
   void showerInfoSnackBar(String text) {
