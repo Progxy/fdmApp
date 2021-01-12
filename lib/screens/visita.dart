@@ -345,6 +345,8 @@ class _VisitaState extends State<Visita> {
                                   } else {
                                     final DateFormat formatter =
                                         DateFormat('dd/MM/yyyy');
+                                    final DateFormat formatters =
+                                        DateFormat('dd/MM/yyyy HH:mm');
                                     for (var element in disponibility) {
                                       if (formatter.format(value) ==
                                           element[0]) {
@@ -357,8 +359,7 @@ class _VisitaState extends State<Visita> {
                                     if (validTime != 0) {
                                       return "Data Non Disponibile";
                                     } else {
-                                      data["giorno"] = value;
-                                      print(data["giorno"]);
+                                      data["giorno"] = formatters.format(value);
                                       return null;
                                     }
                                   }
@@ -397,7 +398,6 @@ class _VisitaState extends State<Visita> {
                                     return "Email Errata";
                                   }
                                   data["email"] = value;
-                                  print(data["email"]);
                                   return null;
                                 },
                               ),
@@ -619,7 +619,6 @@ class _VisitaState extends State<Visita> {
                                     return "Email Errata";
                                   }
                                   data["email del responsabile"] = value;
-                                  print(data["email del responsabile"]);
                                   return null;
                                 },
                               ),
@@ -642,7 +641,6 @@ class _VisitaState extends State<Visita> {
                                   setState(() {
                                     dropdownValue = newValue;
                                     groupType = lista[newValue];
-                                    print(groupType);
                                   });
                                 },
                                 items: elementi
@@ -806,7 +804,6 @@ class _VisitaState extends State<Visita> {
                                                   } else {
                                                     checked = true;
                                                   }
-                                                  print(checked);
                                                 });
                                               },
                                               color: Colors.red,
@@ -839,22 +836,7 @@ class _VisitaState extends State<Visita> {
                                       checked) {
                                     data["tipo di gruppo"] =
                                         lista[dropdownValue];
-                                    //sendFeedBack(data);
-                                    FutureBuilder<bool>(
-                                      future: sendFeedBack(data),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot snapshot) {
-                                        if (snapshot.hasData) {
-                                          return null;
-                                        } else {
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 5.0,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    );
+                                    sendFeedBack(data);
                                   } else {
                                     if (isIOS) {
                                       showCupertinoDialog(
