@@ -32,6 +32,7 @@ class _VisitaState extends State<Visita> {
   final _conoscenzaController = TextEditingController();
   final _preparazioneController = TextEditingController();
   final _richiesteController = TextEditingController();
+  final _dateController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -296,6 +297,7 @@ class _VisitaState extends State<Visita> {
                           child: Column(
                             children: <Widget>[
                               DateTimeField(
+                                controller: _dateController,
                                 decoration: InputDecoration(
                                   labelText: "Data Visita (8:00 - 17:30)",
                                   labelStyle: TextStyle(
