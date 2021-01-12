@@ -86,7 +86,7 @@ class _VisitaState extends State<Visita> {
 
       String emailBody = "";
 
-      datas.forEach((k, v) => emailBody += '$k: $v');
+      datas.forEach((k, v) => emailBody += "$k: $v\n");
 
       var envelope = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
