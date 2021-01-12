@@ -734,6 +734,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
+                                    data["conoscenze"] = "Nessuna conoscenza";
                                     return null;
                                   }
                                   data["conoscenze"] = value;
@@ -768,6 +769,8 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
+                                    data["preparazione"] =
+                                        "Nessuna preparazione.";
                                     return null;
                                   }
                                   data["preparazione"] = value;
@@ -801,6 +804,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
+                                    data["richieste"] = "Nessuna richiesta.";
                                     return null;
                                   }
                                   data["richieste"] = value;
