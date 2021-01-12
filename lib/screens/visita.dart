@@ -327,23 +327,28 @@ class _VisitaState extends State<Visita> {
                                 },
                                 validator: (value) {
                                   int validTime;
-                                  final DateFormat formatter =
-                                      DateFormat('dd/MM/yyyy');
-                                  for (var element in disponibility) {
-                                    if (formatter.format(value) == element[0]) {
-                                      validTime = 0;
-                                      break;
-                                    } else {
-                                      validTime = 1;
-                                    }
-                                  }
                                   if (value == null) {
                                     return "Dati Mancanti";
-                                  } else if (validTime != 0) {
-                                    return "Data Non Disponibile";
+                                  } else {
+                                    final DateFormat formatter =
+                                        DateFormat('dd/MM/yyyy');
+                                    for (var element in disponibility) {
+                                      if (formatter.format(value) ==
+                                          element[0]) {
+                                        validTime = 0;
+                                        break;
+                                      } else {
+                                        validTime = 1;
+                                      }
+                                    }
+                                    if (validTime != 0) {
+                                      return "Data Non Disponibile";
+                                    } else {
+                                      data["giorno"] = value.toString();
+                                      print(data["giorno"]);
+                                      return null;
+                                    }
                                   }
-                                  data["giorno"] = value.toString();
-                                  return null;
                                 },
                               ),
                               SizedBox(
