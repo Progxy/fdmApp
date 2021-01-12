@@ -95,7 +95,7 @@ class _VisitaState extends State<Visita> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    sendFeedBack(Map datas) async {
+    sendData(Map datas) async {
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'
         ..password = 'CASTELLO1967';
@@ -112,7 +112,61 @@ class _VisitaState extends State<Visita> {
         ..subject = 'Info Visita'
         ..text = "Info Visita:\n" + emailBody + "\n\nErmes-Express FDM";
 
-      emailTransport.send(envelope).then((envelope) {
+      if (isIOS) {
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text(
+              "Caricamento...",
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 6.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } else {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              "Caricamento...",
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 6.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+
+      await emailTransport.send(envelope).then((envelope) {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
         if (isIOS) {
           showCupertinoDialog(
             context: context,
@@ -180,6 +234,7 @@ class _VisitaState extends State<Visita> {
           );
         }
       }).catchError((e) {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
         print(e);
         if (isIOS) {
           showCupertinoDialog(
@@ -836,7 +891,7 @@ class _VisitaState extends State<Visita> {
                                       checked) {
                                     data["tipo di gruppo"] =
                                         lista[dropdownValue];
-                                    sendFeedBack(data);
+                                    sendData(data);
                                   } else {
                                     if (isIOS) {
                                       showCupertinoDialog(
