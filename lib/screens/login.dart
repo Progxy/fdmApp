@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 15,
+              height: 25,
             ),
             TextFormField(
               controller: _emailController,
@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
               },
             ),
             SizedBox(
-              height: 20,
+              height: 25,
             ),
             TextFormField(
               controller: _passwordController,
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
               },
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Center(
               child: FlatButton(
@@ -183,7 +183,11 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 35,
+            ),
+            Image(
+              image: AssetImage("assets/images/don_milani.png"),
+              fit: BoxFit.cover,
             ),
           ],
         ),

@@ -5,6 +5,5 @@ class AccountInfo {
   setter(String username, String mail) {
     name = username;
     email = mail;
-    print("$name, $email");
   }
 }
