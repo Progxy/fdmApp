@@ -47,9 +47,6 @@ class _MediaState extends State<Media> {
     ],
   ];
 
-  String titleVideo = "";
-  String dateVideo = "";
-
   YoutubePlayerController _controller;
   TextEditingController _idController;
   TextEditingController _seekToController;
@@ -104,8 +101,6 @@ class _MediaState extends State<Media> {
 
   @override
   Widget build(BuildContext context) {
-    titleVideo = mediaVideo[index][0];
-    dateVideo = mediaVideo[index][1];
     return Scaffold(
       appBar: AppBar(
         title: Text("Foto e Video"),
@@ -192,7 +187,7 @@ class _MediaState extends State<Media> {
                                 child: SizedBox(
                                   height: 30,
                                   child: Marquee(
-                                    text: titleVideo + " - " + dateVideo,
+                                    text: infos[0] + " - " + infos[1],
                                     style: TextStyle(
                                       fontSize: 27,
                                       fontWeight: FontWeight.w600,
@@ -231,6 +226,37 @@ class _MediaState extends State<Media> {
                               ],
                             ),
                           ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(10.0),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     children: <Widget>[
+                          //       Column(
+                          //         mainAxisAlignment: MainAxisAlignment.end,
+                          //         children: <Widget>[
+                          //           FloatingActionButton(
+                          //             heroTag: null,
+                          //             child: Icon(
+                          //               _controller.value.isPlaying
+                          //                   ? Icons.pause
+                          //                   : Icons.play_arrow,
+                          //               size: 30,
+                          //             ),
+                          //             backgroundColor: Colors.blueGrey,
+                          //             onPressed: _isPlayerReady
+                          //                 ? () {
+                          //                     _controller.value.isPlaying
+                          //                         ? _controller.pause()
+                          //                         : _controller.play();
+                          //                     setState(() {});
+                          //                   }
+                          //                 : null,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -243,25 +269,15 @@ class _MediaState extends State<Media> {
                   enableInfiniteScroll: true,
                   viewportFraction: 0.8,
                   onPageChanged: (r, m) {
-                    titleVideo = mediaVideo[index][0];
-                    dateVideo = mediaVideo[index][0];
-                    print("\n\n$titleVideo - $dateVideo\n\n");
-                    if (index > mediaVideo.length - 1) {
-                      index++;
-                      print(r);
-                      print(index);
-                      print(m);
-                    } else {
-                      index = 0;
-                      print(r);
-                      print(index);
-                      print(m);
-                    }
-                    //_controller.load(mediaVideo[index][2]);
+                    setState(() {
+                      index = r;
+                    });
+                    _controller.load(mediaVideo[index][2]);
+                    _controller.pause();
                   }),
             ),
             SizedBox(
-              height: 25,
+              height: 35,
             ),
             CarouselSlider(
               items: mediaPhoto
@@ -287,20 +303,6 @@ class _MediaState extends State<Media> {
                                 padding: const EdgeInsets.all(20.0),
                                 child: Image.network(
                                   infos[2],
-                                  loadingBuilder: (ctx, i, k) => Center(
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 5.0,
-                                    ),
-                                  ),
-                                  errorBuilder: (ctx, o, n) {
-                                    print("Object: $o\n\nStackTrace: $n\n\n");
-                                    return Center(
-                                      child: Icon(
-                                        Icons.error,
-                                        size: 50,
-                                      ),
-                                    );
-                                  },
                                 ),
                               ),
                             ],
@@ -336,6 +338,7 @@ class _MediaState extends State<Media> {
                                   Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: FloatingActionButton(
+                                      heroTag: null,
                                       onPressed: () {
                                         Navigator.pushNamed(
                                           context,
