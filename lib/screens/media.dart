@@ -327,7 +327,6 @@ class _MediaState extends State<Media> {
                               ),
                             ],
                           ),
-                          SizedBox(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
