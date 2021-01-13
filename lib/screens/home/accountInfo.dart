@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class AccountInfo {
   static String name = "Login";
   static String email = "me@example.com";
