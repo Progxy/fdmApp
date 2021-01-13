@@ -91,6 +91,25 @@ class _MediaState extends State<Media> {
   }
 
   @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    for (var _controller in _controllers) {
+      _controller.pause();
+    }
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    for (var _controller in _controllers) {
+      _controller.dispose();
+      _idController.dispose();
+      _seekToController.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
