@@ -55,11 +55,11 @@ class _MediaState extends State<Media> {
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   bool _isPlayerReady = false;
-  int index = 0;
 
   @override
   void initState() {
     super.initState();
+    int index = 0;
     for (var element in mediaVideo) {
       _controllers.add(YoutubePlayerController(
         initialVideoId: element[2],
