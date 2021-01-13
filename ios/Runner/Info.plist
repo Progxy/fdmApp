@@ -49,4 +49,10 @@
   <true/>
 <key>io.flutter.embedded_views_preview</key>
 <true/>
+<key>NSLocalNetworkUsageDescription</key>
+<string>Used to search for chromecast devices</string>
+<key>NSBonjourServices</key>
+<array>
+  <string>_googlecast._tcp</string>
+</array>
 </dict>

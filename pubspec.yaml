@@ -35,10 +35,10 @@ dependencies:
   url_launcher: ^5.7.10
   flutter_rating_bar: ^3.2.0+1
   marquee: ^1.6.1
-  video_player: ^1.0.1
   mailer2: ^1.2.5
   datetime_picker_formfield: ^1.0.0
   youtube_player_flutter: ^7.0.0+7
+  flutter_vlc_player: ^4.0.3
 
 dev_dependencies:
   flutter_test:
