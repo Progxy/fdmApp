@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "887278562770",
+    "project_id": "fdmapp-2dad1",
+    "storage_bucket": "fdmapp-2dad1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887278562770:android:d25bb3f7dea7f8382eec0b",
+        "android_client_info": {
+          "package_name": "com.example.fdmApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887278562770-t4kljg16uleemlih5g83ia713au50t37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fdmApp",
+            "certificate_hash": "876f2ffb373e7095f43cda06a41df490b1f1f324"
+          }
+        },
+        {
+          "client_id": "887278562770-8utgrto2ovd7353o852bkjhjmmb5udod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmiAVLF7dIR9U90riDHxbLalq80dBUlfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887278562770-8utgrto2ovd7353o852bkjhjmmb5udod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
