@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fdmApp/screens/media/detailedPhoto.dart';
 import 'package:fdmApp/screens/media/detailedVideo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:marquee/marquee.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'home/mainDrawer.dart';
 
@@ -21,13 +22,13 @@ class _MediaState extends State<Media> {
       "title",
       "date",
       "https://www.donlorenzomilani.it/wp-content/uploads/2017/03/23-marzo-relatori-800x445.jpg",
-      "extract",
+      "infos_arcticle",
     ],
     [
       "title1",
       "date1",
       "https://www.donlorenzomilani.it/wp-content/uploads/2017/06/papabarbiana7853-800x445.jpg",
-      "extract1",
+      "infos_arcticle1",
     ],
   ];
 
@@ -35,37 +36,69 @@ class _MediaState extends State<Media> {
     [
       "title2",
       "date2",
-      "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4",
-      "extract2",
+      "fzoF_KhJO8c",
+      "infos_arcticle2",
     ],
     [
       "title3",
       "date3",
-      "http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4",
-      "extract3",
+      "OCLl6dGK11Q",
+      "infos_arcticle3",
     ],
   ];
-
-  VideoPlayerController _controller;
-
-  Future<void> _initializeVideoPlayerFuture;
 
   String titleVideo = "";
   String dateVideo = "";
 
+  YoutubePlayerController _controller;
+  TextEditingController _idController;
+  TextEditingController _seekToController;
+
+  PlayerState _playerState;
+  YoutubeMetaData _videoMetaData;
+  bool _isPlayerReady = false;
+
   @override
   void initState() {
-    _controller = VideoPlayerController.network(mediaVideo[0][2]);
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true);
-    _controller.setVolume(1.0);
     super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: mediaVideo[0][2],
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: false,
+        disableDragSeek: false,
+        loop: true,
+        isLive: false,
+        forceHD: false,
+        enableCaption: true,
+      ),
+    )..addListener(listener);
+    _idController = TextEditingController();
+    _seekToController = TextEditingController();
+    _videoMetaData = const YoutubeMetaData();
+    _playerState = PlayerState.unknown;
+  }
+
+  void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
+    }
+  }
+
+  @override
+  void deactivate() {
+    _controller.pause();
+    super.deactivate();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-
+    _idController.dispose();
+    _seekToController.dispose();
     super.dispose();
   }
 
@@ -102,119 +135,129 @@ class _MediaState extends State<Media> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Center(
-                          child: FutureBuilder(
-                            future: _initializeVideoPlayerFuture,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return Center(
-                                  child: AspectRatio(
-                                    aspectRatio: _controller.value.aspectRatio,
-                                    child: VideoPlayer(_controller),
+                      child: Stack(
+                        children: <Widget>[
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 10,
+                                  right: 10,
+                                  top: 20,
+                                ),
+                                child: Center(
+                                  child: YoutubePlayerBuilder(
+                                    onExitFullScreen: () {
+                                      SystemChrome.setPreferredOrientations(
+                                          DeviceOrientation.values);
+                                    },
+                                    player: YoutubePlayer(
+                                      controller: _controller,
+                                      showVideoProgressIndicator: true,
+                                      progressIndicatorColor: Colors.blueGrey,
+                                      topActions: <Widget>[
+                                        const SizedBox(width: 8.0),
+                                        Expanded(
+                                          child: Text(
+                                            _controller.metadata.title,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                      ],
+                                      onReady: () {
+                                        _isPlayerReady = true;
+                                      },
+                                    ),
+                                    builder: (context, player) => Container(
+                                      child: player,
+                                    ),
                                   ),
-                                );
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: Colors.blueGrey,
-                                    strokeWidth: 5.0,
-                                  ),
-                                );
-                              }
-                            },
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 115,
+                                ),
+                                child: SizedBox(
+                                  height: 30,
+                                  child: Marquee(
+                                    text: titleVideo + " - " + dateVideo,
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    blankSpace: 225,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    FloatingActionButton(
+                                      heroTag: null,
+                                      child: Icon(
+                                        Icons.double_arrow,
+                                        size: 30,
+                                      ),
+                                      backgroundColor: Colors.blueGrey,
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          DetailedVideo.routeName,
+                                          arguments: mediaVideo[index],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   )
                   .toList(),
               options: CarouselOptions(
                 enlargeCenterPage: true,
-                height: 250.0,
+                height: 300.0,
                 aspectRatio: 16 / 9,
                 enableInfiniteScroll: true,
                 viewportFraction: 0.8,
                 onScrolled: (r) {
                   setState(() {
-                    _controller =
-                        VideoPlayerController.network(mediaVideo[index][2]);
-                    _initializeVideoPlayerFuture = _controller.initialize();
-                    _controller.setLooping(true);
-                    _controller.setVolume(1.0);
                     titleVideo = mediaVideo[index][0];
                     dateVideo = mediaVideo[index][0];
                     print("\n\n$titleVideo - $dateVideo\n\n");
                     if (index > mediaVideo.length - 1) {
                       index++;
+                      print(r);
+                      print(index);
                     } else {
                       index = 0;
+                      print(r);
+                      print(index);
                     }
                   });
                 },
-              ),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: null,
-                    elevation: 20.0,
-                    child: Icon(
-                      _controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      if (_controller.value.isPlaying) {
-                        _controller.pause();
-                      } else {
-                        _controller.play();
-                      }
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                    ),
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      child: Icon(
-                        Icons.double_arrow,
-                        size: 30,
-                      ),
-                      backgroundColor: Colors.blueGrey,
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          DetailedVideo.routeName,
-                          arguments: mediaVideo[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 30,
-              child: Marquee(
-                text: titleVideo + " - " + dateVideo,
-                style: TextStyle(
-                  fontSize: 27,
-                  fontWeight: FontWeight.w600,
-                ),
-                blankSpace: 225,
               ),
             ),
             SizedBox(
