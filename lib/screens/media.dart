@@ -16,7 +16,6 @@ class Media extends StatefulWidget {
 }
 
 class _MediaState extends State<Media> {
-  int index = 0;
   final List<List> mediaPhoto = [
     [
       "title",
@@ -38,65 +37,57 @@ class _MediaState extends State<Media> {
       "date2",
       "fzoF_KhJO8c",
       "infos_arcticle2",
+      0,
     ],
     [
       "title3",
       "date3",
       "OCLl6dGK11Q",
       "infos_arcticle3",
+      1,
     ],
   ];
 
-  YoutubePlayerController _controller;
+  List<YoutubePlayerController> _controllers = [];
   TextEditingController _idController;
   TextEditingController _seekToController;
 
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
   bool _isPlayerReady = false;
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: mediaVideo[0][2],
-      flags: const YoutubePlayerFlags(
-        mute: false,
-        autoPlay: false,
-        disableDragSeek: false,
-        loop: true,
-        isLive: false,
-        forceHD: false,
-        enableCaption: true,
-      ),
-    )..addListener(listener);
+    for (var element in mediaVideo) {
+      _controllers.add(YoutubePlayerController(
+        initialVideoId: element[2],
+        flags: const YoutubePlayerFlags(
+          mute: false,
+          autoPlay: false,
+          disableDragSeek: false,
+          loop: true,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+        ),
+      )..addListener(listener(index)));
+      index++;
+    }
     _idController = TextEditingController();
     _seekToController = TextEditingController();
     _videoMetaData = const YoutubeMetaData();
     _playerState = PlayerState.unknown;
   }
 
-  void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+  listener(int number) {
+    if (_isPlayerReady && mounted && !_controllers[number].value.isFullScreen) {
       setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
+        _playerState = _controllers[number].value.playerState;
+        _videoMetaData = _controllers[number].metadata;
       });
     }
-  }
-
-  @override
-  void deactivate() {
-    _controller.pause();
-    super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
-    super.dispose();
   }
 
   @override
@@ -148,14 +139,16 @@ class _MediaState extends State<Media> {
                                           DeviceOrientation.values);
                                     },
                                     player: YoutubePlayer(
-                                      controller: _controller,
+                                      controller: _controllers[infos.last],
                                       showVideoProgressIndicator: true,
                                       progressIndicatorColor: Colors.blueGrey,
                                       topActions: <Widget>[
                                         const SizedBox(width: 8.0),
                                         Expanded(
                                           child: Text(
-                                            _controller.metadata.title,
+                                            _controllers[infos.last]
+                                                .metadata
+                                                .title,
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18.0,
@@ -217,7 +210,7 @@ class _MediaState extends State<Media> {
                                         Navigator.pushNamed(
                                           context,
                                           DetailedVideo.routeName,
-                                          arguments: mediaVideo[index],
+                                          arguments: infos,
                                         );
                                       },
                                     ),
@@ -226,55 +219,53 @@ class _MediaState extends State<Media> {
                               ],
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.start,
-                          //     children: <Widget>[
-                          //       Column(
-                          //         mainAxisAlignment: MainAxisAlignment.end,
-                          //         children: <Widget>[
-                          //           FloatingActionButton(
-                          //             heroTag: null,
-                          //             child: Icon(
-                          //               _controller.value.isPlaying
-                          //                   ? Icons.pause
-                          //                   : Icons.play_arrow,
-                          //               size: 30,
-                          //             ),
-                          //             backgroundColor: Colors.blueGrey,
-                          //             onPressed: _isPlayerReady
-                          //                 ? () {
-                          //                     _controller.value.isPlaying
-                          //                         ? _controller.pause()
-                          //                         : _controller.play();
-                          //                     setState(() {});
-                          //                   }
-                          //                 : null,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    FloatingActionButton(
+                                      heroTag: null,
+                                      child: Icon(
+                                        _controllers[infos.last].value.isPlaying
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        size: 30,
+                                      ),
+                                      backgroundColor: Colors.blueGrey,
+                                      onPressed: _isPlayerReady
+                                          ? () {
+                                              _controllers[infos.last]
+                                                      .value
+                                                      .isPlaying
+                                                  ? _controllers[infos.last]
+                                                      .pause()
+                                                  : _controllers[infos.last]
+                                                      .play();
+                                              setState(() {});
+                                            }
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   )
                   .toList(),
               options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  height: 300.0,
-                  aspectRatio: 16 / 9,
-                  enableInfiniteScroll: true,
-                  viewportFraction: 0.8,
-                  onPageChanged: (r, m) {
-                    setState(() {
-                      index = r;
-                    });
-                    _controller.load(mediaVideo[index][2]);
-                    _controller.pause();
-                  }),
+                enlargeCenterPage: true,
+                height: 300.0,
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: true,
+                viewportFraction: 0.8,
+              ),
             ),
             SizedBox(
               height: 35,
@@ -343,7 +334,7 @@ class _MediaState extends State<Media> {
                                         Navigator.pushNamed(
                                           context,
                                           DetailedPhoto.routeName,
-                                          arguments: mediaPhoto[index],
+                                          arguments: infos,
                                         );
                                       },
                                       child: Icon(
