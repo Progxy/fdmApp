@@ -74,6 +74,7 @@ class _MediaState extends State<Media> {
         ),
       )..addListener(listener(index)));
       index++;
+      print(index);
     }
     _idController = TextEditingController();
     _seekToController = TextEditingController();
