@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import 'home/accountInfo.dart';
 import 'home/mainDrawer.dart';
 
 class Login extends StatefulWidget {
@@ -10,13 +13,181 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  String email;
+  String user;
+
   @override
   Widget build(BuildContext context) {
+    final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
       ),
       drawer: MainDrawer(),
+      body: SingleChildScrollView(
+          child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: "Inserire l'email",
+                hintStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+                border: OutlineInputBorder(),
+                labelText: "Email",
+                labelStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              validator: (value) {
+                String _emailPattern =
+                    r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
+                bool isValid(String pattern, String input) =>
+                    RegExp(pattern).hasMatch(input);
+                if (value == null) {
+                  return "Dati Mancanti";
+                } else if (isValid(_emailPattern, value) == false) {
+                  return "Email Errata";
+                }
+                email = value;
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                hintText: "Inserire la password",
+                hintStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+                border: OutlineInputBorder(),
+                labelText: "Password",
+                labelStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Dati Mancanti";
+                }
+                user = value;
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: FlatButton(
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    AccountInfo().setter(user, email);
+                    print("Dati Corretti");
+                  } else {
+                    if (isIOS) {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: Text(
+                            "Errore",
+                            style: TextStyle(
+                              fontSize: 28,
+                            ),
+                          ),
+                          content: Text(
+                            "Email o Password invalida!",
+                            style: TextStyle(
+                              fontSize: 27,
+                            ),
+                          ),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop('dialog');
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                            "Errore",
+                            style: TextStyle(
+                              fontSize: 28,
+                            ),
+                          ),
+                          content: Text(
+                            "Email o Password invalida!",
+                            style: TextStyle(
+                              fontSize: 27,
+                            ),
+                          ),
+                          actions: [
+                            FlatButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop('dialog');
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                  }
+                },
+                child: Icon(
+                  Icons.login,
+                  size: 50.0,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

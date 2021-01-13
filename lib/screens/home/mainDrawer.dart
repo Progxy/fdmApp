@@ -3,6 +3,7 @@ import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/home.dart';
+import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/percorsi.dart';
@@ -16,8 +17,8 @@ class MainDrawer extends StatelessWidget {
   final int version = 0;
   final int subVersion = 1;
   final String beta = "Beta";
-  final String name = "Login";
-  final String email = "me@example.com";
+  final String name = AccountInfo.name;
+  final String email = AccountInfo.email;
 
   @override
   Widget build(BuildContext context) {
