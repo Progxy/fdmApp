@@ -239,41 +239,6 @@ class _MediaState extends State<Media> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    FloatingActionButton(
-                                      heroTag: null,
-                                      child: Icon(
-                                        _controllers[infos.last].value.isPlaying
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
-                                        size: 30,
-                                      ),
-                                      backgroundColor: Colors.blueGrey,
-                                      onPressed: _isPlayerReady
-                                          ? () {
-                                              _controllers[infos.last]
-                                                      .value
-                                                      .isPlaying
-                                                  ? _controllers[infos.last]
-                                                      .pause()
-                                                  : _controllers[infos.last]
-                                                      .play();
-                                              setState(() {});
-                                            }
-                                          : null,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
