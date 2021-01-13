@@ -49,11 +49,10 @@ class _MediaState extends State<Media> {
   ];
 
   List<YoutubePlayerController> _controllers = [];
-  TextEditingController _idController;
-  TextEditingController _seekToController;
-
-  PlayerState _playerState;
-  YoutubeMetaData _videoMetaData;
+  List<TextEditingController> _idControllers = [];
+  List<TextEditingController> _seekToControllers = [];
+  List<YoutubeMetaData> _videoMetaDatas = [];
+  List<PlayerState> _playerStates = [];
   bool _isPlayerReady = false;
 
   @override
@@ -74,19 +73,18 @@ class _MediaState extends State<Media> {
         ),
       )..addListener(listener(index)));
       index++;
-      print(index);
+      _idControllers.add(TextEditingController());
+      _seekToControllers.add(TextEditingController());
+      _videoMetaDatas.add(const YoutubeMetaData());
+      _playerStates.add(PlayerState.unknown);
     }
-    _idController = TextEditingController();
-    _seekToController = TextEditingController();
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
   }
 
   listener(int number) {
     if (_isPlayerReady && mounted && !_controllers[number].value.isFullScreen) {
       setState(() {
-        _playerState = _controllers[number].value.playerState;
-        _videoMetaData = _controllers[number].metadata;
+        _playerStates[number] = _controllers[number].value.playerState;
+        _videoMetaDatas[number] = _controllers[number].metadata;
       });
     }
   }
@@ -96,18 +94,22 @@ class _MediaState extends State<Media> {
     // Pauses video while navigating to next page.
     for (var _controller in _controllers) {
       _controller.pause();
+      super.deactivate();
     }
-    super.deactivate();
   }
 
   @override
   void dispose() {
     for (var _controller in _controllers) {
       _controller.dispose();
-      _idController.dispose();
-      _seekToController.dispose();
     }
-    super.dispose();
+    for (var _idController in _idControllers) {
+      _idController.dispose();
+      for (var _seekToController in _seekToControllers) {
+        _seekToController.dispose();
+        super.dispose();
+      }
+    }
   }
 
   @override
