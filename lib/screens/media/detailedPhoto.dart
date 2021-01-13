@@ -23,7 +23,7 @@ class DetailedPhoto extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 20,
           ),
           Text(
             textPhoto,
@@ -32,8 +32,8 @@ class DetailedPhoto extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Divider(
-            height: 2,
+          SizedBox(
+            height: 20,
           ),
           Image.network(
             details[2],

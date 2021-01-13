@@ -83,7 +83,7 @@ class _DetailedVideoState extends State<DetailedVideo> {
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 20,
           ),
           Text(
             videoText,
@@ -92,8 +92,8 @@ class _DetailedVideoState extends State<DetailedVideo> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Divider(
-            height: 3,
+          SizedBox(
+            height: 20,
           ),
           YoutubePlayerBuilder(
             onExitFullScreen: () {
