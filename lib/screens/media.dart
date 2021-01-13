@@ -237,13 +237,12 @@ class _MediaState extends State<Media> {
                   )
                   .toList(),
               options: CarouselOptions(
-                enlargeCenterPage: true,
-                height: 300.0,
-                aspectRatio: 16 / 9,
-                enableInfiniteScroll: true,
-                viewportFraction: 0.8,
-                onScrolled: (r) {
-                  setState(() {
+                  enlargeCenterPage: true,
+                  height: 300.0,
+                  aspectRatio: 16 / 9,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 0.8,
+                  onPageChanged: (r, m) {
                     titleVideo = mediaVideo[index][0];
                     dateVideo = mediaVideo[index][0];
                     print("\n\n$titleVideo - $dateVideo\n\n");
@@ -251,14 +250,15 @@ class _MediaState extends State<Media> {
                       index++;
                       print(r);
                       print(index);
+                      print(m);
                     } else {
                       index = 0;
                       print(r);
                       print(index);
+                      print(m);
                     }
-                  });
-                },
-              ),
+                    //_controller.load(mediaVideo[index][2]);
+                  }),
             ),
             SizedBox(
               height: 25,
@@ -281,37 +281,77 @@ class _MediaState extends State<Media> {
                       ),
                       child: Stack(
                         children: <Widget>[
-                          Image.network(
-                            infos[2],
-                            loadingBuilder: (ctx, i, k) => Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 5.0,
-                              ),
-                            ),
-                            errorBuilder: (ctx, o, n) {
-                              print("Object: $o\n\nStackTrace: $n\n\n");
-                              return Center(
-                                child: Icon(
-                                  Icons.error,
-                                  size: 50,
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Image.network(
+                                  infos[2],
+                                  loadingBuilder: (ctx, i, k) => Center(
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 5.0,
+                                    ),
+                                  ),
+                                  errorBuilder: (ctx, o, n) {
+                                    print("Object: $o\n\nStackTrace: $n\n\n");
+                                    return Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        size: 50,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(
-                                height: 30,
-                                child: Marquee(
-                                  text: infos[0] + " - " + infos[1],
-                                  style: TextStyle(
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  blankSpace: 225,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 115,
                                 ),
+                                child: SizedBox(
+                                  height: 30,
+                                  child: Marquee(
+                                    text: infos[0] + " - " + infos[1],
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    blankSpace: 225,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: FloatingActionButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          DetailedPhoto.routeName,
+                                          arguments: mediaPhoto[index],
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.double_arrow,
+                                        size: 30,
+                                      ),
+                                      backgroundColor: Colors.blueGrey,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -321,29 +361,11 @@ class _MediaState extends State<Media> {
                   )
                   .toList(),
               options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  height: 250.0,
-                  aspectRatio: 16 / 9,
-                  enableInfiniteScroll: true,
-                  viewportFraction: 0.8),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    DetailedPhoto.routeName,
-                    arguments: mediaPhoto[index],
-                  );
-                },
-                child: Icon(
-                  Icons.double_arrow,
-                  size: 30,
-                ),
-                backgroundColor: Colors.blueGrey,
+                enlargeCenterPage: true,
+                height: 275.0,
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: true,
+                viewportFraction: 0.8,
               ),
             ),
             SizedBox(
