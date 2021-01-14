@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +29,6 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   String email;
   String user;
-  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
   @override
   Widget build(BuildContext context) {
