@@ -133,9 +133,7 @@ class _LoginState extends State<Login> {
                           );
                       final firebaseAuthCheck =
                           FirebaseAuth.instance.currentUser;
-                      print(firebaseAuthCheck);
                       if (firebaseAuthCheck != null) {
-                        print("Valid User!");
                         database
                             .reference()
                             .child("User")
