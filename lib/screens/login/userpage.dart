@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
+import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserPage extends StatelessWidget {
   static const String routeName = "/userpage";
@@ -14,8 +16,7 @@ class UserPage extends StatelessWidget {
         title: Text("Benvenuto $name"),
         leading: FloatingActionButton(
           onPressed: () {
-            print("Logout");
-            //Firebase logout!
+            context.read<AuthenticationService>().signOut();
           },
           child: Icon(
             Icons.logout,
