@@ -1,3 +1,4 @@
+import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
 import 'package:fdmApp/screens/contatti.dart';
@@ -13,7 +14,9 @@ import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
 import 'package:fdmApp/screens/privacy.dart';
 import 'package:fdmApp/screens/visita.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/home.dart';
 import 'screens/visita/disponibilità.dart';
 
@@ -21,7 +24,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+        ),
+      ],
+      child: MaterialApp(
         title: 'FdmApp',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
@@ -46,6 +59,8 @@ class MyApp extends StatelessWidget {
           InfoSeCHS.routeName: (context) => InfoSeCHS(),
           DetailedPhoto.routeName: (context) => DetailedPhoto(),
           DetailedVideo.routeName: (context) => DetailedVideo(),
-        });
+        },
+      ),
+    );
   }
 }
