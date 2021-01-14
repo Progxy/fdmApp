@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
