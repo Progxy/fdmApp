@@ -252,6 +252,52 @@ class _IscrizioneState extends State<Iscrizione> {
                               }
                             },
                           ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire Nome e Cognome",
+                              hintStyle: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Nome e Cognome",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["nome e cognome"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
                         ],
                       ),
                     ),
