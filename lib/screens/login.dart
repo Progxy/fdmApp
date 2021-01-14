@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdmApp/authentication_service.dart';
-import 'package:fdmApp/screens/authenticationWrapper.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'home/accountInfo.dart';
 import 'home/mainDrawer.dart';
+import 'login/errorpage.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = "/login";
@@ -117,18 +118,129 @@ class _LoginState extends State<Login> {
                 minWidth: 150.0,
                 height: 50.0,
                 child: RaisedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       context.read<AuthenticationService>().signIn(
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AuthenticationWrapper(),
-                        ),
-                      );
+                      final firebaseAuthCheck =
+                          FirebaseAuth.instance.currentUser;
+                      print(firebaseAuthCheck);
+                      if (firebaseAuthCheck != null) {
+                        print("Valid User!");
+                        FutureBuilder<DocumentSnapshot>(
+                          future: users.doc(email).get(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              if (isIOS) {
+                                showCupertinoDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      CupertinoAlertDialog(
+                                    title: Text(
+                                      "Errore",
+                                      style: TextStyle(
+                                        fontSize: 28,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Errore nell'ottenere i dati dell'utente!",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                      ),
+                                    ),
+                                    actions: [
+                                      CupertinoDialogAction(
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          context
+                                              .read<AuthenticationService>()
+                                              .signOut();
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Login()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text(
+                                      "Errore",
+                                      style: TextStyle(
+                                        fontSize: 28,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Errore nell'ottenere i dati dell'utente!",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                      ),
+                                    ),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          context
+                                              .read<AuthenticationService>()
+                                              .signOut();
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Login()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
+                              return null;
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              Map<String, dynamic> data = snapshot.data.data();
+                              print(data["name"]);
+                              AccountInfo().setter(data["name"], email);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UserPage()));
+                              return null;
+                            }
+                            return Center(
+                              child: SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 6.0,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return ErrorPage();
+                      }
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(

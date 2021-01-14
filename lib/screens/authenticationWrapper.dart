@@ -18,8 +18,7 @@ class AuthenticationWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final String email = ModalRoute.of(context).settings.arguments as String;
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    final firebaseUser = context.watch<User>();
-    if (firebaseUser != null) {
+    if (12 != null) {
       print("Valid User!");
       FutureBuilder<DocumentSnapshot>(
         future: users.doc(email).get(),
