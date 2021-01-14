@@ -31,22 +31,132 @@ class _IscrizioneState extends State<Iscrizione> {
   Map data = {};
   String emailResponsabile;
   Map lista = {
-    "One": "Scolastico",
-    "Two": "Parrocchiale",
-    "Three": "Scout",
-    "Four": "Altro",
+    "One": "Gruppo",
+    "Two": "Singolo",
+    "Three": "Familiare",
   };
-  List<String> elementi = ["One", "Two", "Three", "Four"];
+  List<String> elementi = [
+    "One",
+    "Two",
+    "Three",
+  ];
   String dropdownValue = "One";
   String groupType;
   bool checked = false;
   String verifyResult = "";
   final format = DateFormat("dd/MM/yyyy HH:mm");
-  final List<List> disponibility = [
-    ["12/01/2021", "Burberi Agostino"],
-    ["21/10/2021", "Emanuele Burberi"],
-    ["12/11/2021", "Burberi Agostino e \nBurberi Emanuele"]
-  ];
+  final Map province = {
+    'AG': 'Agrigento',
+    'AL': 'Alessandria',
+    'AN': 'Ancona',
+    'AR': 'Arezzo',
+    'AP': 'Ascoli Piceno',
+    'AT': 'Asti',
+    'AV': 'Avellino',
+    'BA': 'Bari',
+    'BT': 'Barletta-Andria-Trani',
+    'BL': 'Belluno',
+    'BN': 'Benevento',
+    'BG': 'Bergamo',
+    'BI': 'Biella',
+    'BO': 'Bologna',
+    'BZ': 'Bolzano/Bozen',
+    'BS': 'Brescia',
+    'BR': 'Brindisi',
+    'CA': 'Cagliari',
+    'CL': 'Caltanissetta',
+    'CB': 'Campobasso',
+    'CI': 'Carbonia-Iglesias',
+    'CE': 'Caserta',
+    'CT': 'Catania',
+    'CZ': 'Catanzaro',
+    'CH': 'Chieti',
+    'CO': 'Como',
+    'CS': 'Cosenza',
+    'CR': 'Cremona',
+    'KR': 'Crotone',
+    'CN': 'Cuneo',
+    'EN': 'Enna',
+    'FM': 'Fermo',
+    'FE': 'Ferrara',
+    'FI': 'Firenze',
+    'FG': 'Foggia',
+    'FC': 'ForlÃ¬-Cesena',
+    'FR': 'Frosinone',
+    'GE': 'Genova',
+    'GO': 'Gorizia',
+    'GR': 'Grosseto',
+    'IM': 'Imperia',
+    'IS': 'Isernia',
+    'AQ': "L'Aquila",
+    'SP': 'La Spezia',
+    'LT': 'Latina',
+    'LE': 'Lecce',
+    'LC': 'Lecco',
+    'LI': 'Livorno',
+    'LO': 'Lodi',
+    'LU': 'Lucca',
+    'MC': 'Macerata',
+    'MN': 'Mantova',
+    'MS': 'Massa-Carrara',
+    'MT': 'Matera',
+    'VS': 'Medio Campidano',
+    'ME': 'Messina',
+    'MI': 'Milano',
+    'MO': 'Modena',
+    'MB': 'Monza e della Brianza',
+    'NA': 'Napoli',
+    'NO': 'Novara',
+    'NU': 'Nuoro',
+    'OG': 'Ogliastra',
+    'OT': 'Olbia-Tempio',
+    'OR': 'Oristano',
+    'PD': 'Padova',
+    'PA': 'Palermo',
+    'PR': 'Parma',
+    'PV': 'Pavia',
+    'PG': 'Perugia',
+    'PU': 'Pesaro e Urbino',
+    'PE': 'Pescara',
+    'PC': 'Piacenza',
+    'PI': 'Pisa',
+    'PT': 'Pistoia',
+    'PN': 'Pordenone',
+    'PZ': 'Potenza',
+    'PO': 'Prato',
+    'RG': 'Ragusa',
+    'RA': 'Ravenna',
+    'RC': 'Reggio di Calabria',
+    'RE': "Reggio nell'Emilia",
+    'RI': 'Rieti',
+    'RN': 'Rimini',
+    'RM': 'Roma',
+    'RO': 'Rovigo',
+    'SA': 'Salerno',
+    'SS': 'Sassari',
+    'SV': 'Savona',
+    'SI': 'Siena',
+    'SR': 'Siracusa',
+    'SO': 'Sondrio',
+    'TA': 'Taranto',
+    'TE': 'Teramo',
+    'TR': 'Terni',
+    'TO': 'Torino',
+    'TP': 'Trapani',
+    'TN': 'Trento',
+    'TV': 'Treviso',
+    'TS': 'Trieste',
+    'UD': 'Udine',
+    'AO': "Valle d'Aosta/VallÃ©e d'Aoste",
+    'VA': 'Varese',
+    'VE': 'Venezia',
+    'VB': 'Verbano-Cusio-Ossola',
+    'VC': 'Vercelli',
+    'VR': 'Verona',
+    'VV': 'Vibo Valentia',
+    'VI': 'Vicenza',
+    'VT': 'Viterbo'
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +214,7 @@ class _IscrizioneState extends State<Iscrizione> {
                           DateTimeField(
                             controller: _dateController,
                             decoration: InputDecoration(
-                              labelText: "Data Visita (8:00 - 17:30)",
+                              labelText: "Data di Nascita",
                               labelStyle: TextStyle(
                                 fontSize: 23.0,
                                 fontWeight: FontWeight.w600,
@@ -131,28 +241,14 @@ class _IscrizioneState extends State<Iscrizione> {
                               }
                             },
                             validator: (value) {
-                              int validTime;
                               if (value == null) {
                                 return "Dati Mancanti";
                               } else {
-                                final DateFormat formatter =
-                                    DateFormat('dd/MM/yyyy');
                                 final DateFormat formatters =
                                     DateFormat('dd/MM/yyyy HH:mm');
-                                for (var element in disponibility) {
-                                  if (formatter.format(value) == element[0]) {
-                                    validTime = 0;
-                                    break;
-                                  } else {
-                                    validTime = 1;
-                                  }
-                                }
-                                if (validTime != 0) {
-                                  return "Data Non Disponibile";
-                                } else {
-                                  data["giorno"] = formatters.format(value);
-                                  return null;
-                                }
+                                data["data di nascita"] =
+                                    formatters.format(value);
+                                return null;
                               }
                             },
                           ),
