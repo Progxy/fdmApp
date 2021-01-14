@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      context.read<AuthenticationService>().signIn(
+                      await context.read<AuthenticationService>().signIn(
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           );
