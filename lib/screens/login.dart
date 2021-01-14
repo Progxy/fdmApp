@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
               height: 30,
             ),
             Center(
-              child: FlatButton(
+              child: FloatingActionButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     context.read<AuthenticationService>().signIn(
@@ -115,8 +115,8 @@ class _LoginState extends State<Login> {
                           password: _passwordController.text.trim(),
                         );
                     if (firebaseUser != null) {
+                      //fetch database user name and pass it to setter
                       AccountInfo().setter(user, email);
-                      //redirect to userpage after fetching database request
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => UserPage()));
                     } else {
@@ -257,10 +257,14 @@ class _LoginState extends State<Login> {
                     }
                   }
                 },
-                child: Icon(
-                  Icons.login,
-                  size: 50.0,
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
+                backgroundColor: Colors.blueGrey,
               ),
             ),
             SizedBox(
