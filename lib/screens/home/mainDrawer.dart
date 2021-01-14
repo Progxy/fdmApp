@@ -43,7 +43,7 @@ class MainDrawer extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10, top: 10),
                   decoration: BoxDecoration(shape: BoxShape.circle),
                   child: CircleAvatar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.blueGrey,
                     child: Icon(
                       Icons.person,
                     ),
