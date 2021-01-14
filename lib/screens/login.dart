@@ -113,111 +113,188 @@ class _LoginState extends State<Login> {
               height: 30,
             ),
             Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    context.read<AuthenticationService>().signIn(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                        );
-                    if (firebaseUser != null) {
-                      FutureBuilder<DocumentSnapshot>(
-                        future: users.doc(email).get(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<DocumentSnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            if (isIOS) {
-                              showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    CupertinoAlertDialog(
-                                  title: Text(
-                                    "Errore",
-                                    style: TextStyle(
-                                      fontSize: 28,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Errore nell'ottenere i dati dell'utente!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
+              child: ButtonTheme(
+                minWidth: 150.0,
+                height: 50.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      context.read<AuthenticationService>().signIn(
+                            email: _emailController.text.trim(),
+                            password: _passwordController.text.trim(),
+                          );
+                      print(firebaseUser);
+                      if (firebaseUser != null) {
+                        print("Valid User!");
+                        FutureBuilder<DocumentSnapshot>(
+                          future: users.doc(email).get(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              print("Error");
+                              if (isIOS) {
+                                showCupertinoDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      CupertinoAlertDialog(
+                                    title: Text(
+                                      "Errore",
+                                      style: TextStyle(
+                                        fontSize: 28,
                                       ),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop('dialog');
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                    "Errore",
-                                    style: TextStyle(
-                                      fontSize: 28,
                                     ),
-                                  ),
-                                  content: Text(
-                                    "Errore nell'ottenere i dati dell'utente!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    FlatButton(
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
+                                    content: Text(
+                                      "Errore nell'ottenere i dati dell'utente!",
+                                      style: TextStyle(
+                                        fontSize: 27,
                                       ),
-                                      onPressed: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop('dialog');
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
+                                    ),
+                                    actions: [
+                                      CupertinoDialogAction(
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop('dialog');
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text(
+                                      "Errore",
+                                      style: TextStyle(
+                                        fontSize: 28,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Errore nell'ottenere i dati dell'utente!",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                      ),
+                                    ),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop('dialog');
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
+                              return null;
                             }
-                            return null;
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            Map<String, dynamic> data = snapshot.data.data();
-                            AccountInfo().setter(data["name"], email);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserPage()));
-                            return null;
-                          }
-                          return Center(
-                            child: SizedBox(
-                              height: 65,
-                              width: 65,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 6.0,
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              Map<String, dynamic> data = snapshot.data.data();
+                              print(data["name"]);
+                              AccountInfo().setter(data["name"], email);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UserPage()));
+                              return null;
+                            }
+                            return Center(
+                              child: SizedBox(
+                                height: 65,
+                                width: 65,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 6.0,
+                                ),
                               ),
+                            );
+                          },
+                        );
+                      } else {
+                        if (isIOS) {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              content: Text(
+                                "Email o Password invalida!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
                             ),
                           );
-                        },
-                      );
+                        } else {
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              content: Text(
+                                "Email o Password invalida!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                FlatButton(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      }
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
@@ -231,7 +308,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             content: Text(
-                              "Email o Password invalida!",
+                              "Email o Password mancanti!",
                               style: TextStyle(
                                 fontSize: 27,
                               ),
@@ -264,7 +341,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             content: Text(
-                              "Email o Password invalida!",
+                              "Email o Password mancanti!",
                               style: TextStyle(
                                 fontSize: 27,
                               ),
@@ -287,83 +364,20 @@ class _LoginState extends State<Login> {
                         );
                       }
                     }
-                  } else {
-                    if (isIOS) {
-                      showCupertinoDialog(
-                        context: context,
-                        builder: (BuildContext context) => CupertinoAlertDialog(
-                          title: Text(
-                            "Errore",
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                          content: Text(
-                            "Email o Password mancanti!",
-                            style: TextStyle(
-                              fontSize: 27,
-                            ),
-                          ),
-                          actions: [
-                            CupertinoDialogAction(
-                              child: Text(
-                                "OK",
-                                style: TextStyle(
-                                  fontSize: 28,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop('dialog');
-                              },
-                            )
-                          ],
-                        ),
-                      );
-                    } else {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: Text(
-                            "Errore",
-                            style: TextStyle(
-                              fontSize: 28,
-                            ),
-                          ),
-                          content: Text(
-                            "Email o Password mancanti!",
-                            style: TextStyle(
-                              fontSize: 27,
-                            ),
-                          ),
-                          actions: [
-                            FlatButton(
-                              child: Text(
-                                "OK",
-                                style: TextStyle(
-                                  fontSize: 28,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context, rootNavigator: true)
-                                    .pop('dialog');
-                              },
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                    fontSize: 50.0,
-                    fontWeight: FontWeight.w700,
+                  },
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                  ),
+                  color: Colors.blueGrey,
                 ),
-                backgroundColor: Colors.blueGrey,
               ),
             ),
             SizedBox(

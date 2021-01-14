@@ -12,16 +12,17 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Benvenuto $name"),
-        leading: FloatingActionButton(
-          onPressed: () {
-            context.read<AuthenticationService>().signOut();
-          },
-          child: Icon(
-            Icons.logout,
-            size: 40.0,
-          ),
-          backgroundColor: Colors.blueGrey,
-        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthenticationService>().signOut();
+            },
+            icon: Icon(
+              Icons.logout,
+              size: 40.0,
+            ),
+          )
+        ],
       ),
       drawer: MainDrawer(),
       body: Center(
