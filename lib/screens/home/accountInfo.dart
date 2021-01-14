@@ -5,6 +5,10 @@ class AccountInfo {
   setter(String username, String mail) {
     name = username;
     email = mail;
-    print("username : $username, email : $email");
+  }
+
+  resetCredentials() {
+    name = "Login";
+    email = "me@example.com";
   }
 }

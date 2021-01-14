@@ -4,6 +4,8 @@ import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../login.dart';
+
 class UserPage extends StatelessWidget {
   static const String routeName = "/userpage";
   final String name = AccountInfo.name;
@@ -16,6 +18,9 @@ class UserPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               context.read<AuthenticationService>().signOut();
+              AccountInfo().resetCredentials();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
             icon: Icon(
               Icons.logout,
