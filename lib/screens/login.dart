@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
@@ -141,9 +143,11 @@ class _LoginState extends State<Login> {
                             .equalTo(email)
                             .once()
                             .then((DataSnapshot snapshot) {
-                          Map<dynamic, dynamic> values = snapshot.value.toMap();
-                          print("Name value : ${values[email]}!!");
-                          AccountInfo().setter(values[email], email);
+                          LinkedHashMap<dynamic, dynamic> values =
+                              snapshot.value;
+                          Map<String, String> map = values.map(
+                              (a, b) => MapEntry(a as String, b as String));
+                          AccountInfo().setter(map[email], email);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
