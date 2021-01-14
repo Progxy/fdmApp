@@ -1,6 +1,8 @@
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,17 +13,29 @@ import 'home/mainDrawer.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = "/login";
+  Login({this.app});
+  final FirebaseApp app;
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  final referenceDatabase = FirebaseDatabase.instance;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String email;
   String user;
+  DatabaseReference _usersRef;
+
+  @override
+  void initState() {
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    _usersRef = database.reference().child("Users");
+    final Query unapproved = _usersRef.where("status", isEqualTo: "unapproved")
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +44,8 @@ class _LoginState extends State<Login> {
     if (firebaseUser != null) {
       return UserPage();
     }
+    final ref = referenceDatabase.reference();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
