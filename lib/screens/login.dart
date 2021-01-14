@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -122,7 +121,6 @@ class _LoginState extends State<Login> {
                           password: _passwordController.text.trim(),
                         );
                     if (firebaseUser != null) {
-                      //fetch database user name and pass it to setter
                       FutureBuilder<DocumentSnapshot>(
                         future: users.doc(email).get(),
                         builder: (BuildContext context,
