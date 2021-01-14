@@ -13,48 +13,50 @@ class ErrorPage extends StatelessWidget {
         title: Text("Errore"),
       ),
       drawer: MainDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20.0,
-              ),
-              child: Icon(
-                Icons.error,
-                size: 75.0,
-                color: Colors.red,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 20.0,
+                ),
+                child: Icon(
+                  Icons.error,
+                  size: 75.0,
+                  color: Colors.red,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              "Email o Password invalida!",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w800,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Email o Password invalida!",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
-          Center(
-            child: FloatingActionButton(
-              onPressed: () {
-                context.read<AuthenticationService>().signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              },
-              child: Icon(
-                Icons.arrow_back_rounded,
-                size: 50.0,
+            Center(
+              child: FloatingActionButton(
+                onPressed: () {
+                  context.read<AuthenticationService>().signOut();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  size: 50.0,
+                ),
+                backgroundColor: Colors.blueGrey,
               ),
-              backgroundColor: Colors.blueGrey,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
