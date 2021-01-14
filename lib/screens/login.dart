@@ -239,7 +239,10 @@ class _LoginState extends State<Login> {
                           },
                         );
                       } else {
-                        return ErrorPage();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ErrorPage()));
                       }
                     } else {
                       if (isIOS) {
