@@ -145,7 +145,10 @@ class _LoginState extends State<Login> {
                               snapshot.value;
                           Map<String, String> map = values.map(
                               (a, b) => MapEntry(a as String, b as String));
-                          AccountInfo().setter(map[email], email);
+                          String username = map.keys.firstWhere(
+                              (k) => map[k] == email,
+                              orElse: () => null);
+                          AccountInfo().setter(username, email);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
