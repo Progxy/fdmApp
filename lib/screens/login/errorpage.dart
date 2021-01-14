@@ -13,7 +13,9 @@ class ErrorPage extends StatelessWidget {
         title: Text("Errore"),
       ),
       drawer: MainDrawer(),
-      body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(
             Icons.error,
@@ -28,17 +30,19 @@ class ErrorPage extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          FloatingActionButton(
-            onPressed: () {
-              context.read<AuthenticationService>().signOut();
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
-            },
-            child: Icon(
-              Icons.home,
-              size: 40.0,
+          Center(
+            child: FloatingActionButton(
+              onPressed: () {
+                context.read<AuthenticationService>().signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()));
+              },
+              child: Icon(
+                Icons.arrow_back_rounded,
+                size: 40.0,
+              ),
+              backgroundColor: Colors.blueGrey,
             ),
-            backgroundColor: Colors.blueGrey,
           ),
         ],
       ),
