@@ -11,6 +11,7 @@ import 'login/errorpage.dart';
 import 'login/userpage.dart';
 
 class AuthenticationWrapper extends StatelessWidget {
+  static const String routeName = "/authentication";
   final CollectionReference users =
       FirebaseFirestore.instance.collection("users");
   @override

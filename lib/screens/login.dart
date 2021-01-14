@@ -123,7 +123,12 @@ class _LoginState extends State<Login> {
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           );
-                      return AuthenticationWrapper();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AuthenticationWrapper(),
+                        ),
+                      );
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(

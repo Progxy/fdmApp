@@ -1,6 +1,7 @@
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
+import 'package:fdmApp/screens/authenticationWrapper.dart';
 import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/eventi/InfoEvento.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           DetailedPhoto.routeName: (context) => DetailedPhoto(),
           DetailedVideo.routeName: (context) => DetailedVideo(),
           UserPage.routeName: (context) => UserPage(),
+          AuthenticationWrapper.routeName: (context) => AuthenticationWrapper(),
         },
       ),
     );
