@@ -13,7 +13,11 @@ class ErrorPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(Icons.error),
+          Icon(
+            Icons.error,
+            size: 50.0,
+            color: Colors.red,
+          ),
           Text(
             "Email o Password invalida!",
             style: TextStyle(
