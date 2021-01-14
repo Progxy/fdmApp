@@ -1,6 +1,8 @@
+import 'package:fdmApp/authentication_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import 'home/accountInfo.dart';
 import 'home/mainDrawer.dart';
@@ -105,8 +107,11 @@ class _LoginState extends State<Login> {
               child: FlatButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    context.read<AuthenticationService>().signIn(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        );
                     AccountInfo().setter(user, email);
-                    print("Dati Corretti");
                   } else {
                     if (isIOS) {
                       showCupertinoDialog(
@@ -119,7 +124,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           content: Text(
-                            "Email o Password invalida!",
+                            "Email o Password mancanti!",
                             style: TextStyle(
                               fontSize: 27,
                             ),
@@ -152,7 +157,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           content: Text(
-                            "Email o Password invalida!",
+                            "Email o Password mancanti!",
                             style: TextStyle(
                               fontSize: 27,
                             ),
