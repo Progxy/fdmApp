@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'home/accountInfo.dart';
 import 'home/mainDrawer.dart';
@@ -13,6 +15,8 @@ import 'login/errorpage.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = "/login";
+  Login({this.app});
+  final FirebaseApp app;
 
   @override
   _LoginState createState() => _LoginState();
@@ -29,6 +33,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) {
       return UserPage();
@@ -129,115 +134,21 @@ class _LoginState extends State<Login> {
                       print(firebaseAuthCheck);
                       if (firebaseAuthCheck != null) {
                         print("Valid User!");
-                        FutureBuilder<DocumentSnapshot>(
-                          future: users.doc(email).get(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<DocumentSnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              if (isIOS) {
-                                showCupertinoDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      CupertinoAlertDialog(
-                                    title: Text(
-                                      "Errore",
-                                      style: TextStyle(
-                                        fontSize: 28,
-                                      ),
-                                    ),
-                                    content: Text(
-                                      "Errore nell'ottenere i dati dell'utente!",
-                                      style: TextStyle(
-                                        fontSize: 27,
-                                      ),
-                                    ),
-                                    actions: [
-                                      CupertinoDialogAction(
-                                        child: Text(
-                                          "OK",
-                                          style: TextStyle(
-                                            fontSize: 28,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<AuthenticationService>()
-                                              .signOut();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Login()));
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: Text(
-                                      "Errore",
-                                      style: TextStyle(
-                                        fontSize: 28,
-                                      ),
-                                    ),
-                                    content: Text(
-                                      "Errore nell'ottenere i dati dell'utente!",
-                                      style: TextStyle(
-                                        fontSize: 27,
-                                      ),
-                                    ),
-                                    actions: [
-                                      FlatButton(
-                                        child: Text(
-                                          "OK",
-                                          style: TextStyle(
-                                            fontSize: 28,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<AuthenticationService>()
-                                              .signOut();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Login()));
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                              return null;
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              Map<String, dynamic> data = snapshot.data.data();
-                              print(data["name"]);
-                              AccountInfo().setter(data["name"], email);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UserPage()));
-                              return null;
-                            }
-                            return Center(
-                              child: SizedBox(
-                                height: 65,
-                                width: 65,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 6.0,
-                                ),
-                              ),
-                            );
-                          },
-                        );
+                        database
+                            .reference()
+                            .child("User")
+                            .orderByValue()
+                            .equalTo(email)
+                            .once()
+                            .then((DataSnapshot snapshot) {
+                          Map<dynamic, dynamic> values = snapshot.value.toMap();
+                          print("Name value : ${values[email]}!!");
+                          AccountInfo().setter(values[email], email);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserPage()));
+                        });
                       } else {
                         Navigator.push(
                             context,
