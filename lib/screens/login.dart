@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                           );
-                      AuthenticationWrapper;
+                      return AuthenticationWrapper();
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
