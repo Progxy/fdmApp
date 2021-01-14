@@ -1,4 +1,6 @@
 import 'package:fdmApp/authentication_service.dart';
+import 'package:fdmApp/screens/login/userpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +26,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    final firebaseUser = context.watch<User>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
@@ -111,7 +114,80 @@ class _LoginState extends State<Login> {
                           email: _emailController.text.trim(),
                           password: _passwordController.text.trim(),
                         );
-                    AccountInfo().setter(user, email);
+                    if (firebaseUser != null) {
+                      AccountInfo().setter(user, email);
+                      //redirect to userpage after fetching database request
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => UserPage()));
+                    } else {
+                      if (isIOS) {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              CupertinoAlertDialog(
+                            title: Text(
+                              "Errore",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Email o Password invalida!",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop('dialog');
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text(
+                              "Errore",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Email o Password invalida!",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              FlatButton(
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop('dialog');
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                    }
                   } else {
                     if (isIOS) {
                       showCupertinoDialog(

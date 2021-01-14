@@ -7,6 +7,7 @@ import 'package:fdmApp/screens/eventi/InfoEvento.dart';
 import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/login.dart';
+import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:fdmApp/screens/media.dart';
 import 'package:fdmApp/screens/media/detailedPhoto.dart';
 import 'package:fdmApp/screens/media/detailedVideo.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
           InfoSeCHS.routeName: (context) => InfoSeCHS(),
           DetailedPhoto.routeName: (context) => DetailedPhoto(),
           DetailedVideo.routeName: (context) => DetailedVideo(),
+          UserPage.routeName: (context) => UserPage(),
         },
       ),
     );

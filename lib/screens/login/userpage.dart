@@ -2,6 +2,8 @@ import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
+  static const String routeName = "/userpage";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
