@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,17 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Benvenuto $name"),
+        leading: FloatingActionButton(
+          onPressed: () {
+            print("Logout");
+            //Firebase logout!
+          },
+          child: Icon(
+            Icons.logout,
+            size: 40.0,
+          ),
+          backgroundColor: Colors.blueGrey,
+        ),
       ),
       drawer: MainDrawer(),
       body: Center(
