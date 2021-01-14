@@ -132,7 +132,7 @@ class _LoginState extends State<Login> {
                       final firebaseAuthCheck =
                           FirebaseAuth.instance.currentUser;
                       if (firebaseAuthCheck != null) {
-                        database
+                        await database
                             .reference()
                             .child("User")
                             .orderByValue()
