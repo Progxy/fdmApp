@@ -17,17 +17,24 @@ class ErrorPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.error,
-            size: 50.0,
-            color: Colors.blueGrey,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20.0,
+              ),
+              child: Icon(
+                Icons.error,
+                size: 75.0,
+                color: Colors.red,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
               "Email o Password invalida!",
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 32,
                 fontWeight: FontWeight.w800,
               ),
               textAlign: TextAlign.center,
@@ -42,7 +49,7 @@ class ErrorPage extends StatelessWidget {
               },
               child: Icon(
                 Icons.arrow_back_rounded,
-                size: 40.0,
+                size: 50.0,
               ),
               backgroundColor: Colors.blueGrey,
             ),
