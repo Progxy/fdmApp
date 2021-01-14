@@ -27,6 +27,9 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     final firebaseUser = context.watch<User>();
+    if (firebaseUser != null) {
+      return UserPage();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
