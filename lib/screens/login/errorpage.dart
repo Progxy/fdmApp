@@ -22,13 +22,16 @@ class ErrorPage extends StatelessWidget {
             size: 50.0,
             color: Colors.blueGrey,
           ),
-          Text(
-            "Email o Password invalida!",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "Email o Password invalida!",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           Center(
             child: FloatingActionButton(
