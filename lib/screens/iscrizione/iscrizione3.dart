@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResultIscrizione extends StatefulWidget {
+  static const String routeName = "/resultiscrizione";
+
   @override
   _ResultIscrizioneState createState() => _ResultIscrizioneState();
 }

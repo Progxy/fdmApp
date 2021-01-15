@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CambioPassword extends StatefulWidget {
+  static const String routeName = "/cambiopassword";
+
   @override
   _CambioPasswordState createState() => _CambioPasswordState();
 }

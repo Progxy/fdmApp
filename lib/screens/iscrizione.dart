@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:mailer2/mailer.dart';
 
-import 'home.dart';
 import 'home/mainDrawer.dart';
 import 'iscrizione/DatiAccount.dart';
 
@@ -846,6 +844,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                           checked &&
                                           check) {
                                         saveData(data);
+                                        //navigator.push
                                       } else {
                                         if (isIOS) {
                                           showCupertinoDialog(

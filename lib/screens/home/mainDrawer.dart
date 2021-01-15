@@ -1,4 +1,5 @@
 import 'package:fdmApp/screens/SeCHS.dart';
+import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/feedback.dart';
@@ -8,6 +9,7 @@ import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/privacy.dart';
+import 'package:fdmApp/screens/recuperoPassword.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:flutter/material.dart';
 
@@ -128,6 +130,21 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Iscrizione()));
+              }),
+          ListTile(
+              title:
+                  Text("Recupero Credenziali", style: TextStyle(fontSize: 23)),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RecuperoPassword()));
+              }),
+          ListTile(
+              title: Text("Cambio Credenziali", style: TextStyle(fontSize: 23)),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CambioPassword()));
               }),
           ListTile(
               title: Text("Feedback", style: TextStyle(fontSize: 23)),

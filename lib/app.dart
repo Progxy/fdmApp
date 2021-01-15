@@ -1,11 +1,14 @@
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
+import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/eventi/InfoEvento.dart';
 import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
+import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
+import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:fdmApp/screens/media.dart';
@@ -14,6 +17,7 @@ import 'package:fdmApp/screens/media/detailedVideo.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
 import 'package:fdmApp/screens/privacy.dart';
+import 'package:fdmApp/screens/recuperoPassword.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +64,10 @@ class MyApp extends StatelessWidget {
           DetailedPhoto.routeName: (context) => DetailedPhoto(),
           DetailedVideo.routeName: (context) => DetailedVideo(),
           UserPage.routeName: (context) => UserPage(),
+          PayIscrizione.routeName: (context) => PayIscrizione(),
+          ResultIscrizione.routeName: (context) => ResultIscrizione(),
+          RecuperoPassword.routeName: (context) => RecuperoPassword(),
+          CambioPassword.routeName: (context) => CambioPassword(),
         },
       ),
     );

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RecuperoPassword extends StatefulWidget {
+  static const String routeName = "/recuperopassword";
+
   @override
   _RecuperoPasswordState createState() => _RecuperoPasswordState();
 }

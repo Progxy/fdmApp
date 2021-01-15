@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PayIscrizione extends StatefulWidget {
+  static const String routeName = "/payiscrizione";
+
   @override
   _PayIscrizioneState createState() => _PayIscrizioneState();
 }
