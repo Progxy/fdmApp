@@ -5,6 +5,7 @@ import 'package:mailer2/mailer.dart';
 
 import 'home.dart';
 import 'home/mainDrawer.dart';
+import 'iscrizione/DatiAccount.dart';
 
 class Iscrizione extends StatefulWidget {
   static const String routeName = "/iscrizione";
@@ -285,149 +286,12 @@ class _IscrizioneState extends State<Iscrizione> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    sendData(Map datas) async {
-      var options = new GmailSmtpOptions()
-        ..username = 'ermes.express.fdm@gmail.com'
-        ..password = 'CASTELLO1967';
+    saveData(Map datas) {
+      String dataIscrizione = "";
 
-      var emailTransport = new SmtpTransport(options);
+      datas.forEach((k, v) => dataIscrizione += "$k: $v\n");
 
-      String emailBody = "";
-
-      datas.forEach((k, v) => emailBody += "$k: $v\n");
-
-      var envelope = new Envelope()
-        ..from = 'ermes.express.fdm@gmail.com'
-        ..recipients.add('eossmario@gmail.com')
-        ..subject = 'Info Iscrizione Socio'
-        ..text =
-            "Info Iscrizione Socio:\n" + emailBody + "\n\nErmes-Express FDM";
-
-      if (isIOS) {
-        showCupertinoDialog(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-            title: Text(
-              "Caricamento...",
-              style: TextStyle(
-                fontSize: 32,
-              ),
-            ),
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 6.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      } else {
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(
-              "Caricamento...",
-              style: TextStyle(
-                fontSize: 32,
-              ),
-            ),
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 6.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-
-      await emailTransport.send(envelope).then((envelope) {
-        Navigator.of(context, rootNavigator: true).pop('dialog');
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyHomePage()));
-      }).catchError((e) {
-        Navigator.of(context, rootNavigator: true).pop('dialog');
-        print(e);
-        if (isIOS) {
-          showCupertinoDialog(
-            context: context,
-            builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(
-                "Errore",
-                style: TextStyle(
-                  fontSize: 28,
-                ),
-              ),
-              content: Text(
-                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-                style: TextStyle(
-                  fontSize: 27,
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  child: Text(
-                    "OK",
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop('dialog');
-                  },
-                )
-              ],
-            ),
-          );
-        } else {
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                "Errore",
-                style: TextStyle(
-                  fontSize: 28,
-                ),
-              ),
-              content: Text(
-                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-                style: TextStyle(
-                  fontSize: 27,
-                ),
-              ),
-              actions: [
-                FlatButton(
-                  child: Text(
-                    "OK",
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop('dialog');
-                  },
-                )
-              ],
-            ),
-          );
-        }
-      });
+      DatiAccount().setter(dataIscrizione);
     }
 
     return Scaffold(
@@ -981,7 +845,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                       if (_formKey.currentState.validate() &&
                                           checked &&
                                           check) {
-                                        sendData(data);
+                                        saveData(data);
                                       } else {
                                         if (isIOS) {
                                           showCupertinoDialog(
