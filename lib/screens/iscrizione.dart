@@ -1,7 +1,6 @@
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import 'home/mainDrawer.dart';
 
@@ -17,17 +16,16 @@ class _IscrizioneState extends State<Iscrizione> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _emailController = TextEditingController();
   final _groupController = TextEditingController();
-  final _sizeController = TextEditingController();
   final _provenienceController = TextEditingController();
   final _locationController = TextEditingController();
   final _phoneController = TextEditingController();
   final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   final _responsabilePhoneController = TextEditingController();
   final _emailResponsabileController = TextEditingController();
   final _conoscenzaController = TextEditingController();
   final _preparazioneController = TextEditingController();
   final _richiesteController = TextEditingController();
-  final _dateController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -44,7 +42,6 @@ class _IscrizioneState extends State<Iscrizione> {
   String groupType;
   bool checked = false;
   String verifyResult = "";
-  final format = DateFormat("dd/MM/yyyy HH:mm");
   final Map province = {
     'AG': 'Agrigento',
     'AL': 'Alessandria',
@@ -158,6 +155,14 @@ class _IscrizioneState extends State<Iscrizione> {
     'VT': 'Viterbo'
   };
 
+  String simplePhoneValidator(value) {
+    if (value.isEmpty) {
+      return "Dati Mancanti";
+    }
+    data["telefono"] = value;
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
@@ -211,45 +216,33 @@ class _IscrizioneState extends State<Iscrizione> {
                       key: _formKey,
                       child: Stack(
                         children: [
-                          DateTimeField(
-                            controller: _dateController,
-                            decoration: InputDecoration(
-                              labelText: "Data di Nascita",
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _groupController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire il nome del gruppo",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Intestazione per Gruppi",
                               labelStyle: TextStyle(
                                 fontSize: 23.0,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black87,
                               ),
                             ),
-                            format: format,
-                            onShowPicker: (context, currentValue) async {
-                              final date = await showDatePicker(
-                                context: context,
-                                firstDate: DateTime.now(),
-                                initialDate: currentValue ?? DateTime.now(),
-                                lastDate: DateTime(2100),
-                              );
-                              if (date != null) {
-                                final time = await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.fromDateTime(
-                                      currentValue ?? DateTime.now()),
-                                );
-                                return DateTimeField.combine(date, time);
-                              } else {
-                                return currentValue;
-                              }
-                            },
                             validator: (value) {
-                              if (value == null) {
-                                return "Dati Mancanti";
-                              } else {
-                                final DateFormat formatters =
-                                    DateFormat('dd/MM/yyyy HH:mm');
-                                data["data di nascita"] =
-                                    formatters.format(value);
+                              if (value.isEmpty) {
+                                data["intestazione gruppo"] = "Nessuna";
                                 return null;
                               }
+                              data["intestazione gruppo"] = value;
+                              return null;
                             },
                           ),
                           SizedBox(
@@ -258,14 +251,14 @@ class _IscrizioneState extends State<Iscrizione> {
                           TextFormField(
                             controller: _nameController,
                             decoration: const InputDecoration(
-                              hintText: "Inserire Nome e Cognome",
+                              hintText: "Inserire il Nome",
                               hintStyle: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black87,
                               ),
                               border: OutlineInputBorder(),
-                              labelText: "Nome e Cognome",
+                              labelText: "Nome",
                               labelStyle: TextStyle(
                                 fontSize: 23.0,
                                 fontWeight: FontWeight.w600,
@@ -276,18 +269,124 @@ class _IscrizioneState extends State<Iscrizione> {
                               if (value.isEmpty) {
                                 return "Dati Mancanti";
                               }
-                              data["nome e cognome"] = value;
+                              data["nome"] = value;
                               return null;
                             },
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          SizedBox(
-                            height: 15,
+                          TextFormField(
+                            controller: _surnameController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire il Cognome",
+                              hintStyle: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Cognome",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["cognome"] = value;
+                              return null;
+                            },
                           ),
                           SizedBox(
                             height: 15,
+                          ),
+                          TextFormField(
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire l'email",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Email",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              String _emailPattern =
+                                  r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
+                              bool isValid(String pattern, String input) =>
+                                  RegExp(pattern).hasMatch(input);
+                              if (value == null) {
+                                return "Dati Mancanti";
+                              } else if (isValid(_emailPattern, value) ==
+                                  false) {
+                                return "Email Errata";
+                              }
+                              data["email"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _provenienceController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire l'indirizzo",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Indirizzo",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["provenienza"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          IntlPhoneField(
+                            controller: _phoneController,
+                            decoration: InputDecoration(
+                              hintText: "Inserire il telefono",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Telefono",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            initialCountryCode: 'IT',
+                            validator: simplePhoneValidator,
                           ),
                           SizedBox(
                             height: 15,
