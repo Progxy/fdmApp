@@ -50,11 +50,11 @@ class _MainDrawerState extends State<MainDrawer> {
               var connectivityResult =
                   await (Connectivity().checkConnectivity());
               if (connectivityResult == ConnectivityResult.none) {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              } else {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => BadConnection()));
+              } else {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()));
               }
             },
             child: Row(
