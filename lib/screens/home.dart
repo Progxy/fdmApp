@@ -1,5 +1,4 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:fdmApp/screens/ConnectionCheck.dart';
 import 'package:fdmApp/screens/home/mainBarbiana.dart';
 import 'package:fdmApp/screens/home/mainNews.dart';
 import 'package:flutter/cupertino.dart';
