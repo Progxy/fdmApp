@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class PayIscrizione extends StatefulWidget {
+class ResultIscrizione extends StatefulWidget {
   @override
-  _PayIscrizioneState createState() => _PayIscrizioneState();
+  _ResultIscrizioneState createState() => _ResultIscrizioneState();
 }
 
-class _PayIscrizioneState extends State<PayIscrizione> {
+class _ResultIscrizioneState extends State<ResultIscrizione> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Feedback"),
+        title: Text("Iscrizione Completata"),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -25,6 +25,7 @@ class _IscrizioneState extends State<Iscrizione> {
   final _surnameController = TextEditingController();
   final _capController = TextEditingController();
   final _messaggioController = TextEditingController();
+  final _usernameController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -848,6 +849,34 @@ class _IscrizioneState extends State<Iscrizione> {
                                 return "Email Errata";
                               }
                               data["email"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _usernameController,
+                            decoration: const InputDecoration(
+                              hintText: "Scegliere un username",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Username",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["username"] = value;
                               return null;
                             },
                           ),
