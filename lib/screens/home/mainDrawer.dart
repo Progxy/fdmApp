@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
@@ -13,7 +14,6 @@ import 'package:fdmApp/screens/recuperoPassword.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:flutter/material.dart';
 
-import '../ConnectionCheck.dart';
 import '../badConnection.dart';
 import '../media.dart';
 
@@ -33,8 +33,6 @@ class _MainDrawerState extends State<MainDrawer> {
 
   final String email = AccountInfo.email;
 
-  bool isConnected = ConnectionCheck().isConnected;
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -48,8 +46,10 @@ class _MainDrawerState extends State<MainDrawer> {
                 alignment: Alignment.topCenter),
           ),
           InkWell(
-            onTap: () {
-              if (isConnected) {
+            onTap: () async {
+              var connectivityResult =
+                  await (Connectivity().checkConnectivity());
+              if (connectivityResult == ConnectivityResult.none) {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Login()));
               } else {
@@ -108,8 +108,10 @@ class _MainDrawerState extends State<MainDrawer> {
           ),
           ListTile(
               title: Text("Visita Barbiana", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Visita()));
                 } else {
@@ -119,8 +121,10 @@ class _MainDrawerState extends State<MainDrawer> {
               }),
           ListTile(
               title: Text("Eventi", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Eventi()));
                 } else {
@@ -131,8 +135,10 @@ class _MainDrawerState extends State<MainDrawer> {
           ListTile(
               title: Text("Stampa e Ci Hanno Scritto",
                   style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Stampa()));
                 } else {
@@ -142,8 +148,10 @@ class _MainDrawerState extends State<MainDrawer> {
               }),
           ListTile(
               title: Text("Foto e Video", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Media()));
                 } else {
@@ -165,8 +173,10 @@ class _MainDrawerState extends State<MainDrawer> {
               }),
           ListTile(
               title: Text("Diventa Socio", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Iscrizione()));
                 } else {
@@ -177,8 +187,10 @@ class _MainDrawerState extends State<MainDrawer> {
           ListTile(
               title:
                   Text("Recupero Credenziali", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -190,8 +202,10 @@ class _MainDrawerState extends State<MainDrawer> {
               }),
           ListTile(
               title: Text("Cambio Credenziali", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -203,8 +217,10 @@ class _MainDrawerState extends State<MainDrawer> {
               }),
           ListTile(
               title: Text("Feedback", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                if (isConnected) {
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FeedBack()));
                 } else {

@@ -1,14 +1,12 @@
 import 'package:connectivity/connectivity.dart';
 
 class ConnectionCheck {
-  bool isConnected = false;
   check() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      isConnected = false;
+      return false;
     } else {
-      isConnected = true;
+      return true;
     }
-    print(isConnected);
   }
 }
