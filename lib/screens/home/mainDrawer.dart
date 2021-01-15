@@ -1,4 +1,3 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
