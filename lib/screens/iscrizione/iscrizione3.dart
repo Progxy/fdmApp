@@ -18,6 +18,8 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
     final String email = data["email"];
     final String password = data["password"];
     final String username = data["username"];
+    final String indirizzo = data["indirizzo"];
+    final String id = data["id"];
     return Scaffold(
       appBar: AppBar(
         title: Text("Iscrizione Completata"),
@@ -38,7 +40,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               height: 15,
             ),
             Text(
-              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nPrima verifica il tuo account attraverso il link che abbiamo mandato a questa email : $email.",
+              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nPrima verifica il tuo account attraverso il link che abbiamo mandato a questa email : $email. Inoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo 'Cambio indirizzo di spedizione - $id' nell'oggetto, o anche per eventuali chiarimenti.",
               textAlign: TextAlign.center,
             ),
             SizedBox(

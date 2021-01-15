@@ -2,6 +2,7 @@ import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl/intl.dart';
 
 import 'home/mainDrawer.dart';
 import 'iscrizione/DatiAccount.dart';
@@ -874,6 +875,16 @@ class _IscrizioneState extends State<Iscrizione> {
                                       if (_formKey.currentState.validate() &&
                                           checked &&
                                           check) {
+                                        String id = data["username"][0]
+                                                .toupperCase() +
+                                            data["nome"][0].toupperCase() +
+                                            data["cognome"][0].toupperCase() +
+                                            (int.parse(DateTime.now()
+                                                        .toString()) *
+                                                    35)
+                                                .toString();
+                                        data["id"] = id;
+                                        print(data["id"]);
                                         DatiAccount().setter(data);
                                         Navigator.push(
                                             context,
