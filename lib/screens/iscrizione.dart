@@ -43,231 +43,119 @@ class _IscrizioneState extends State<Iscrizione> {
     "Two",
     "Three",
   ];
-  final Map sigle = {
-    'one': 'AG',
-    'two': 'AL',
-    'three': 'AN',
-    'four': 'AR',
-    'five': 'AP',
-    'six': 'AT',
-    'seven': 'AV',
-    'eight': 'BA',
-    'nine': 'BT',
-    'ten': 'BL',
-    'eleven': 'BN',
-    'twelve': 'BG',
-    'thirteen': 'BI',
-    'fourteen': 'BO',
-    'fifteen': 'BZ',
-    'sixteen': 'BS',
-    'seventeen': 'BR',
-    'eighteen': 'CA',
-    'nineteen': 'CL',
-    'twenty': 'CB',
-    'twenty-one': 'CI',
-    'twenty-two': 'CE',
-    'twenty-three': 'CT',
-    'twenty-four': 'CZ',
-    'twenty-five': 'CH',
-    'twenty-six': 'CO',
-    'twenty-seven': 'CS',
-    'twenty-eight': 'CR',
-    'twenty-nine': 'KR',
-    'thirty': 'CN',
-    'thirty-one': 'EN',
-    'thirty-two': 'FM',
-    'thirty-three': 'FE',
-    'thirty-four': 'FI',
-    'thirty-five': 'FG',
-    'thirty-six': 'FC',
-    'thirty-seven': 'FR',
-    'thirty-eight': 'GE',
-    'thirty-nine': 'GO',
-    'forty': 'GR',
-    'forty-one': 'IM',
-    'forty-two': 'IS',
-    'forty-three': 'AQ',
-    'forty-four': 'SP',
-    'forty-five': 'LT',
-    'forty-six': 'LE',
-    'forty-seven': 'LC',
-    'forty-eight': 'LI',
-    'forty-nine': 'LO',
-    'fifty': 'LU',
-    'fifty-one': 'MC',
-    'fifty-two': 'MN',
-    'fifty-three': 'MS',
-    'fifty-four': 'MT',
-    'fifty-five': 'VS',
-    'fifty-six': 'ME',
-    'fifty-seven': 'MI',
-    'fifty-eight': 'MO',
-    'fifty-nine': 'MB',
-    'sixty': 'NA',
-    'sixty-one': 'NO',
-    'sixty-two': 'NU',
-    'sixty-three': 'OG',
-    'sixty-four': 'OT',
-    'sixty-five': 'OR',
-    'sixty-six': 'PD',
-    'sixty-seven': 'PA',
-    'sixty-eight': 'PR',
-    'sixty-nine': 'PV',
-    'seventy': 'PG',
-    'seventy-one': 'PU',
-    'seventy-two': 'PE',
-    'seventy-three': 'PC',
-    'seventy-four': 'PI',
-    'seventy-five': 'PT',
-    'seventy-six': 'PN',
-    'seventy-seven': 'PZ',
-    'seventy-eight': 'PO',
-    'seventy-nine': 'RG',
-    'eighty': 'RA',
-    'eighty-one': 'RC',
-    'eighty-two': 'RE',
-    'eighty-three': 'RI',
-    'eighty-four': 'RN',
-    'eighty-five': 'RM',
-    'eighty-six': 'RO',
-    'eighty-seven': 'SA',
-    'eighty-eight': 'SS',
-    'eighty-nine': 'SV',
-    'ninety': 'SI',
-    'ninety-one': 'SR',
-    'ninety-two': 'SO',
-    'ninety-three': 'TA',
-    'ninety-four': 'TE',
-    'ninety-five': 'TR',
-    'ninety-six': 'TO',
-    'ninety-seven': 'TP',
-    'ninety-eight': 'TN',
-    'ninety-nine': 'TV',
-    'one hundred': 'TS',
-    'one hundred one': 'UD',
-    'one hundred two': 'AO',
-    'one hundred three': 'VA',
-    'one hundred four': 'VE',
-    'one hundred five': 'VB',
-    'one hundred six': 'VC',
-    'one hundred seven': 'VR',
-    'one hundred eight': 'VV',
-    'one hundred nine': 'VI',
-    'one hundred ten': 'VT',
-  };
   final List<String> elementiSigle = [
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-    'ten',
-    'eleven',
-    'twelve',
-    'thirteen',
-    'fourteen',
-    'fifteen',
-    'sixteen',
-    'seventeen',
-    'eighteen',
-    'nineteen',
-    'twenty',
-    'twenty-one',
-    'twenty-two',
-    'twenty-three',
-    'twenty-four',
-    'twenty-five',
-    'twenty-six',
-    'twenty-seven',
-    'twenty-eight',
-    'twenty-nine',
-    'thirty',
-    'thirty-one',
-    'thirty-two',
-    'thirty-three',
-    'thirty-four',
-    'thirty-five',
-    'thirty-six',
-    'thirty-seven',
-    'thirty-eight',
-    'thirty-nine',
-    'forty',
-    'forty-one',
-    'forty-two',
-    'forty-three',
-    'forty-four',
-    'forty-five',
-    'forty-six',
-    'forty-seven',
-    'forty-eight',
-    'forty-nine',
-    'fifty',
-    'fifty-one',
-    'fifty-two',
-    'fifty-three',
-    'fifty-four',
-    'fifty-five',
-    'fifty-six',
-    'fifty-seven',
-    'fifty-eight',
-    'fifty-nine',
-    'sixty',
-    'sixty-one',
-    'sixty-two',
-    'sixty-three',
-    'sixty-four',
-    'sixty-five',
-    'sixty-six',
-    'sixty-seven',
-    'sixty-eight',
-    'sixty-nine',
-    'seventy',
-    'seventy-one',
-    'seventy-two',
-    'seventy-three',
-    'seventy-four',
-    'seventy-five',
-    'seventy-six',
-    'seventy-seven',
-    'seventy-eight',
-    'seventy-nine',
-    'eighty',
-    'eighty-one',
-    'eighty-two',
-    'eighty-three',
-    'eighty-four',
-    'eighty-five',
-    'eighty-six',
-    'eighty-seven',
-    'eighty-eight',
-    'eighty-nine',
-    'ninety',
-    'ninety-one',
-    'ninety-two',
-    'ninety-three',
-    'ninety-four',
-    'ninety-five',
-    'ninety-six',
-    'ninety-seven',
-    'ninety-eight',
-    'ninety-nine',
-    'one hundred',
-    'one hundred one',
-    'one hundred two',
-    'one hundred three',
-    'one hundred four',
-    'one hundred five',
-    'one hundred six',
-    'one hundred seven',
-    'one hundred eight',
-    'one hundred nine',
-    'one hundred ten',
+    'AG',
+    'AL',
+    'AN',
+    'AR',
+    'AP',
+    'AT',
+    'AV',
+    'BA',
+    'BT',
+    'BL',
+    'BN',
+    'BG',
+    'BI',
+    'BO',
+    'BZ',
+    'BS',
+    'BR',
+    'CA',
+    'CL',
+    'CB',
+    'CI',
+    'CE',
+    'CT',
+    'CZ',
+    'CH',
+    'CO',
+    'CS',
+    'CR',
+    'KR',
+    'CN',
+    'EN',
+    'FM',
+    'FE',
+    'FI',
+    'FG',
+    'FC',
+    'FR',
+    'GE',
+    'GO',
+    'GR',
+    'IM',
+    'IS',
+    'AQ',
+    'SP',
+    'LT',
+    'LE',
+    'LC',
+    'LI',
+    'LO',
+    'LU',
+    'MC',
+    'MN',
+    'MS',
+    'MT',
+    'VS',
+    'ME',
+    'MI',
+    'MO',
+    'MB',
+    'NA',
+    'NO',
+    'NU',
+    'OG',
+    'OT',
+    'OR',
+    'PD',
+    'PA',
+    'PR',
+    'PV',
+    'PG',
+    'PU',
+    'PE',
+    'PC',
+    'PI',
+    'PT',
+    'PN',
+    'PZ',
+    'PO',
+    'RG',
+    'RA',
+    'RC',
+    'RE',
+    'RI',
+    'RN',
+    'RM',
+    'RO',
+    'SA',
+    'SS',
+    'SV',
+    'SI',
+    'SR',
+    'SO',
+    'TA',
+    'TE',
+    'TR',
+    'TO',
+    'TP',
+    'TN',
+    'TV',
+    'TS',
+    'UD',
+    'AO',
+    'VA',
+    'VE',
+    'VB',
+    'VC',
+    'VR',
+    'VV',
+    'VI',
+    'VT',
   ];
-  String provinceValue = "One";
+  String provinceValue = "AG";
   String dropdownValue = "One";
   String groupType;
   bool checked = false;
@@ -385,7 +273,6 @@ class _IscrizioneState extends State<Iscrizione> {
     'VI': 'Vicenza',
     'VT': 'Viterbo'
   };
-  String provincia;
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -552,7 +439,6 @@ class _IscrizioneState extends State<Iscrizione> {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 25,
@@ -569,627 +455,632 @@ class _IscrizioneState extends State<Iscrizione> {
             SizedBox(
               height: 35,
             ),
-            Container(
-              width: 360,
-              height: 430,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.7),
-                    spreadRadius: 10,
-                    blurRadius: 10,
-                    offset: Offset(0, 3), // changes position of shadow
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 360,
+                  height: 430,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 10,
+                        blurRadius: 10,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: SingleChildScrollView(
-                  child: Card(
-                    child: Form(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      key: _formKey,
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _intestationController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire il nome del gruppo",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SingleChildScrollView(
+                      child: Card(
+                        child: Form(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
                               ),
-                              border: OutlineInputBorder(),
-                              labelText: "Intestazione per Gruppi",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                data["intestazione gruppo"] = "Nessuna";
-                                return null;
-                              }
-                              data["intestazione gruppo"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _nameController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire il Nome",
-                              hintStyle: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Nome",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["nome"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _surnameController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire il Cognome",
-                              hintStyle: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Cognome",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["cognome"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _provenienceController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire l'indirizzo",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Indirizzo",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["indirizzo"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _cityController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire la città",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Città",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["città"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _capController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire il CAP",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "CAP",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["CAP"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          DropdownButton<String>(
-                            isExpanded: true,
-                            isDense: true,
-                            value: provinceValue,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 40,
-                            elevation: 20,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 23,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue = newValue;
-                                String momentum = sigle[newValue];
-                                provincia = province[momentum];
-                                data["provincia"] = provincia;
-                                print(provincia);
-                              });
-                            },
-                            items: elementiSigle
-                                .map((value) => new DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(sigle[value]),
-                                    ))
-                                .toList(),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          IntlPhoneField(
-                            controller: _phoneController,
-                            decoration: InputDecoration(
-                              hintText: "Inserire il telefono",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Telefono",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            initialCountryCode: 'IT',
-                            validator: simplePhoneValidator,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire l'email",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Email",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              String _emailPattern =
-                                  r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
-                              bool isValid(String pattern, String input) =>
-                                  RegExp(pattern).hasMatch(input);
-                              if (value == null) {
-                                return "Dati Mancanti";
-                              } else if (isValid(_emailPattern, value) ==
-                                  false) {
-                                return "Email Errata";
-                              }
-                              data["email"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _usernameController,
-                            decoration: const InputDecoration(
-                              hintText: "Scegliere un username",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Username",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["username"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          DropdownButton<String>(
-                            isExpanded: true,
-                            isDense: true,
-                            value: dropdownValue,
-                            icon: Icon(Icons.arrow_downward),
-                            iconSize: 40,
-                            elevation: 20,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 23,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue = newValue;
-                                String group = lista[newValue];
-                                groupType = groupList[group];
-                                data["tipo di gruppo"] = groupType;
-                                print(groupType);
-                              });
-                            },
-                            items: elementi
-                                .map((value) => new DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(lista[value]),
-                                    ))
-                                .toList(),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _messaggioController,
-                            maxLines: 15,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire un eventuale messaggio",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Eventuale Messaggio",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                data["messaggio"] = "Nessun messaggio";
-                                return null;
-                              }
-                              data["messaggio"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: checked
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 45, bottom: 50),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (check) {
-                                                check = false;
-                                              } else {
-                                                check = true;
-                                              }
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.check_circle,
-                                            color: Colors.green,
-                                            size: 65,
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.only(
-                                          bottom: 17,
-                                          right: 5,
-                                        ),
-                                        child: MaterialButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (checked) {
-                                                checked = false;
-                                              } else {
-                                                checked = true;
-                                              }
-                                            });
-                                          },
-                                          color: Colors.red,
-                                          textColor: Colors.white,
-                                          child: Icon(
-                                            Icons.close,
-                                            size: 35,
-                                          ),
-                                          padding: EdgeInsets.all(10),
-                                          shape: CircleBorder(),
-                                        ),
-                                      ),
-                              ),
-                              Text(
-                                "I dati saranno\n utilizzati ai sensi\n dell'art.13 del D.Lgs 196/2003\n e autorizzo il trattamento.",
-                                style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "Questo è un form di raccolta dati. Controlla la nostra privacy policy per conoscere come proteggiamo e gestiamo i dati che ci fornisci.",
-                            style: TextStyle(
-                              fontSize: 27.0,
-                              fontWeight: FontWeight.w800,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: checked
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 45, bottom: 50),
-                                        child: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (checked) {
-                                                checked = false;
-                                              } else {
-                                                checked = true;
-                                              }
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.check_circle,
-                                            color: Colors.green,
-                                            size: 65,
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding: const EdgeInsets.only(
-                                          bottom: 17,
-                                          right: 5,
-                                        ),
-                                        child: MaterialButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (checked) {
-                                                checked = false;
-                                              } else {
-                                                checked = true;
-                                              }
-                                            });
-                                          },
-                                          color: Colors.red,
-                                          textColor: Colors.white,
-                                          child: Icon(
-                                            Icons.close,
-                                            size: 35,
-                                          ),
-                                          padding: EdgeInsets.all(10),
-                                          shape: CircleBorder(),
-                                        ),
-                                      ),
-                              ),
-                              Text(
-                                "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
-                                style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Center(
-                            child: ButtonTheme(
-                              minWidth: 150.0,
-                              height: 50.0,
-                              child: RaisedButton(
-                                onPressed: () {
-                                  if (_formKey.currentState.validate() &&
-                                      checked &&
-                                      check) {
-                                    sendData(data);
-                                  } else {
-                                    if (isIOS) {
-                                      showCupertinoDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            CupertinoAlertDialog(
-                                          title: Text(
-                                            "Errore",
-                                            style: TextStyle(
-                                              fontSize: 28,
-                                            ),
-                                          ),
-                                          content: Text(
-                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
-                                            style: TextStyle(
-                                              fontSize: 27,
-                                            ),
-                                          ),
-                                          actions: [
-                                            CupertinoDialogAction(
-                                              child: Text(
-                                                "OK",
-                                                style: TextStyle(
-                                                  fontSize: 28,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop('dialog');
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    } else {
-                                      showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                          title: Text(
-                                            "Errore",
-                                            style: TextStyle(
-                                              fontSize: 28,
-                                            ),
-                                          ),
-                                          content: Text(
-                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
-                                            style: TextStyle(
-                                              fontSize: 27,
-                                            ),
-                                          ),
-                                          actions: [
-                                            FlatButton(
-                                              child: Text(
-                                                "OK",
-                                                style: TextStyle(
-                                                  fontSize: 28,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context,
-                                                        rootNavigator: true)
-                                                    .pop('dialog');
-                                              },
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  }
-                                },
-                                child: Text(
-                                  "Invia i Dati e Continua",
-                                  style: TextStyle(
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
+                              TextFormField(
+                                controller: _intestationController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire il nome del gruppo",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Intestazione per Gruppi",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
                                   ),
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                ),
-                                color: Colors.blueGrey,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    data["intestazione gruppo"] = "Nessuna";
+                                    return null;
+                                  }
+                                  data["intestazione gruppo"] = value;
+                                  return null;
+                                },
                               ),
-                            ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _nameController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire il Nome",
+                                  hintStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Nome",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["nome"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _surnameController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire il Cognome",
+                                  hintStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Cognome",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["cognome"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _provenienceController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire l'indirizzo",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Indirizzo",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["indirizzo"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _cityController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire la città",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Città",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["città"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _capController,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire il CAP",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "CAP",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["CAP"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              DropdownButton(
+                                isExpanded: true,
+                                isDense: true,
+                                value: provinceValue,
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 40,
+                                elevation: 20,
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    provinceValue = newValue;
+                                    data["provincia"] = newValue;
+                                    print(data["provincia"]);
+                                  });
+                                },
+                                items: elementiSigle
+                                    .map((value) => new DropdownMenuItem(
+                                          value: value,
+                                          child: Text(province[value]),
+                                        ))
+                                    .toList(),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              IntlPhoneField(
+                                controller: _phoneController,
+                                decoration: InputDecoration(
+                                  hintText: "Inserire il telefono",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Telefono",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                initialCountryCode: 'IT',
+                                validator: simplePhoneValidator,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire l'email",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Email",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  String _emailPattern =
+                                      r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
+                                  bool isValid(String pattern, String input) =>
+                                      RegExp(pattern).hasMatch(input);
+                                  if (value == null) {
+                                    return "Dati Mancanti";
+                                  } else if (isValid(_emailPattern, value) ==
+                                      false) {
+                                    return "Email Errata";
+                                  }
+                                  data["email"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _usernameController,
+                                decoration: const InputDecoration(
+                                  hintText: "Scegliere un username",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Username",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  }
+                                  data["username"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              DropdownButton<String>(
+                                isExpanded: true,
+                                isDense: true,
+                                value: dropdownValue,
+                                icon: Icon(Icons.arrow_downward),
+                                iconSize: 40,
+                                elevation: 20,
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue;
+                                    String group = lista[newValue];
+                                    groupType = groupList[group];
+                                    data["tipo di gruppo"] = groupType;
+                                    print(groupType);
+                                  });
+                                },
+                                items: elementi
+                                    .map(
+                                        (value) => new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(lista[value]),
+                                            ))
+                                    .toList(),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _messaggioController,
+                                maxLines: 15,
+                                decoration: const InputDecoration(
+                                  hintText: "Inserire un eventuale messaggio",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Eventuale Messaggio",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    data["messaggio"] = "Nessun messaggio";
+                                    return null;
+                                  }
+                                  data["messaggio"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: checked
+                                        ? Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 45, bottom: 50),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (check) {
+                                                    check = false;
+                                                  } else {
+                                                    check = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                Icons.check_circle,
+                                                color: Colors.green,
+                                                size: 65,
+                                              ),
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 17,
+                                              right: 5,
+                                            ),
+                                            child: MaterialButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (checked) {
+                                                    checked = false;
+                                                  } else {
+                                                    checked = true;
+                                                  }
+                                                });
+                                              },
+                                              color: Colors.red,
+                                              textColor: Colors.white,
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 35,
+                                              ),
+                                              padding: EdgeInsets.all(10),
+                                              shape: CircleBorder(),
+                                            ),
+                                          ),
+                                  ),
+                                  Text(
+                                    "I dati saranno\n utilizzati ai sensi\n dell'art.13 del\n D.Lgs 196/2003\n e autorizzo\nil trattamento.",
+                                    style: TextStyle(
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "Questo è un form di raccolta dati. Controlla la nostra privacy policy per conoscere come proteggiamo e gestiamo i dati che ci fornisci.",
+                                style: TextStyle(
+                                  fontSize: 26.0,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: checked
+                                        ? Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 45, bottom: 50),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (checked) {
+                                                    checked = false;
+                                                  } else {
+                                                    checked = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                Icons.check_circle,
+                                                color: Colors.green,
+                                                size: 65,
+                                              ),
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 17,
+                                              right: 5,
+                                            ),
+                                            child: MaterialButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (checked) {
+                                                    checked = false;
+                                                  } else {
+                                                    checked = true;
+                                                  }
+                                                });
+                                              },
+                                              color: Colors.red,
+                                              textColor: Colors.white,
+                                              child: Icon(
+                                                Icons.close,
+                                                size: 35,
+                                              ),
+                                              padding: EdgeInsets.all(10),
+                                              shape: CircleBorder(),
+                                            ),
+                                          ),
+                                  ),
+                                  Text(
+                                    "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
+                                    style: TextStyle(
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Center(
+                                child: ButtonTheme(
+                                  minWidth: 150.0,
+                                  height: 50.0,
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      if (_formKey.currentState.validate() &&
+                                          checked &&
+                                          check) {
+                                        sendData(data);
+                                      } else {
+                                        if (isIOS) {
+                                          showCupertinoDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                CupertinoAlertDialog(
+                                              title: Text(
+                                                "Errore",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              content: Text(
+                                                "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                                style: TextStyle(
+                                                  fontSize: 27,
+                                                ),
+                                              ),
+                                              actions: [
+                                                CupertinoDialogAction(
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      fontSize: 28,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .pop('dialog');
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        } else {
+                                          showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              title: Text(
+                                                "Errore",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              content: Text(
+                                                "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                                style: TextStyle(
+                                                  fontSize: 27,
+                                                ),
+                                              ),
+                                              actions: [
+                                                FlatButton(
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      fontSize: 28,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .pop('dialog');
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        }
+                                      }
+                                    },
+                                    child: Text(
+                                      "Invia i Dati e Continua",
+                                      style: TextStyle(
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
             SizedBox(
               height: 30,
