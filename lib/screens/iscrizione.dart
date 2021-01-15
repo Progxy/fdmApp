@@ -993,6 +993,9 @@ class _IscrizioneState extends State<Iscrizione> {
             SizedBox(
               height: 30,
             ),
+            SizedBox(
+              height: 25,
+            ),
           ],
         ),
       ),
