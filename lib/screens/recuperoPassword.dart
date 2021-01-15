@@ -57,7 +57,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                       margin: EdgeInsets.zero,
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Text('Complex'),
+                        child: Text("1"),
                       ),
                     ),
                     startConnector: DashedLineConnector(),

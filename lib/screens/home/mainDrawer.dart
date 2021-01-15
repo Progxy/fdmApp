@@ -33,7 +33,7 @@ class _MainDrawerState extends State<MainDrawer> {
 
   final String email = AccountInfo.email;
 
-  bool isConnected;
+  bool isConnected = false;
 
   void verifyConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());

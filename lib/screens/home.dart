@@ -14,14 +14,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isConnected;
+  bool isConnected = false;
 
   void verifyConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      isConnected = false;
+      setState(() {
+        isConnected = false;
+      });
     } else {
-      isConnected = true;
+      setState(() {
+        isConnected = true;
+      });
     }
   }
 
