@@ -1145,6 +1145,9 @@ class _IscrizioneState extends State<Iscrizione> {
                                     color: Colors.white,
                                   ),
                                 ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                ),
                                 color: Colors.blueGrey,
                               ),
                             ),
