@@ -1,3 +1,4 @@
+import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,40 @@ class _PayIscrizioneState extends State<PayIscrizione> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[],
+          children: <Widget>[
+            SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Center(
+              child: ButtonTheme(
+                minWidth: 150.0,
+                height: 50.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResultIscrizione()));
+                  },
+                  child: Text(
+                    "Paga e Concludi",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0),
+                  ),
+                  color: Colors.blueGrey,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

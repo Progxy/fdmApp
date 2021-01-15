@@ -26,6 +26,7 @@ class _IscrizioneState extends State<Iscrizione> {
   final _capController = TextEditingController();
   final _messaggioController = TextEditingController();
   final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -285,13 +286,6 @@ class _IscrizioneState extends State<Iscrizione> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    saveData(Map datas) {
-      String dataIscrizione = "";
-
-      datas.forEach((k, v) => dataIscrizione += "$k: $v\n");
-
-      DatiAccount().setter(dataIscrizione);
-    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -626,8 +620,44 @@ class _IscrizioneState extends State<Iscrizione> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return "Dati Mancanti";
+                                  } else if (value.length > 25) {
+                                    return "Username troppo lungo";
+                                  } else if (value.length < 5) {
+                                    return "Username troppo corto";
                                   }
                                   data["username"] = value;
+                                  return null;
+                                },
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: _passwordController,
+                                decoration: const InputDecoration(
+                                  hintText: "Scegliere una password",
+                                  hintStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: "Password",
+                                  labelStyle: TextStyle(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Dati Mancanti";
+                                  } else if (value.length > 25) {
+                                    return "Password troppo lunga";
+                                  } else if (value.length < 5) {
+                                    return "Password troppo corta";
+                                  }
+                                  data["password"] = value;
                                   return null;
                                 },
                               ),
@@ -844,7 +874,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                       if (_formKey.currentState.validate() &&
                                           checked &&
                                           check) {
-                                        saveData(data);
+                                        DatiAccount().setter(data);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

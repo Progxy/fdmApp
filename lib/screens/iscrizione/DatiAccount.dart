@@ -1,13 +1,13 @@
 class DatiAccount {
-  static String datas;
+  static Map datiSocio;
 
-  setter(String dataIscrizione) {
-    datas = dataIscrizione;
-    print(datas);
+  setter(Map dataIscrizione) {
+    datiSocio = dataIscrizione;
+    print(datiSocio);
   }
 
   resetCredentials() {
-    datas = null;
-    print(datas);
+    datiSocio = null;
+    print(datiSocio);
   }
 }
