@@ -113,10 +113,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Visita()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => Visita()));
                 }
               }),
           ListTile(
@@ -126,10 +126,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Eventi()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => Eventi()));
                 }
               }),
           ListTile(
@@ -140,10 +140,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Stampa()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => Stampa()));
                 }
               }),
           ListTile(
@@ -153,10 +153,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Media()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => Media()));
                 }
               }),
           ListTile(
@@ -178,10 +178,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Iscrizione()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => Iscrizione()));
                 }
               }),
           ListTile(
@@ -191,13 +191,13 @@ class _MainDrawerState extends State<MainDrawer> {
                 var connectivityResult =
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                } else {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => RecuperoPassword()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
                 }
               }),
           ListTile(
@@ -206,13 +206,13 @@ class _MainDrawerState extends State<MainDrawer> {
                 var connectivityResult =
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                } else {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CambioPassword()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
                 }
               }),
           ListTile(
@@ -222,10 +222,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     await (Connectivity().checkConnectivity());
                 if (connectivityResult == ConnectivityResult.none) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FeedBack()));
+                      MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
+                      MaterialPageRoute(builder: (context) => FeedBack()));
                 }
               }),
           Divider(),
