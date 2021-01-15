@@ -15,28 +15,254 @@ class _IscrizioneState extends State<Iscrizione> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _emailController = TextEditingController();
-  final _groupController = TextEditingController();
+  final _intestationController = TextEditingController();
   final _provenienceController = TextEditingController();
-  final _locationController = TextEditingController();
+  final _cityController = TextEditingController();
   final _phoneController = TextEditingController();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
+  final _capController = TextEditingController();
   final _responsabilePhoneController = TextEditingController();
   final _emailResponsabileController = TextEditingController();
   final _conoscenzaController = TextEditingController();
   final _preparazioneController = TextEditingController();
   final _richiesteController = TextEditingController();
+  final _groupController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
-    "One": "Gruppo",
-    "Two": "Singolo",
-    "Three": "Familiare",
+    "One": "Singolo - €15/anno",
+    "Two": "Familiare - €30/anno",
+    "Three": "Gruppo - €50/anno",
   };
   List<String> elementi = [
     "One",
     "Two",
     "Three",
+  ];
+  Map sigle = {
+    'one': 'AG',
+    'two': 'AL',
+    'three': 'AN',
+    'four': 'AR',
+    'five': 'AP',
+    'six': 'AT',
+    'seven': 'AV',
+    'eight': 'BA',
+    'nine': 'BT',
+    'ten': 'BL',
+    'eleven': 'BN',
+    'twelve': 'BG',
+    'thirteen': 'BI',
+    'fourteen': 'BO',
+    'fifteen': 'BZ',
+    'sixteen': 'BS',
+    'seventeen': 'BR',
+    'eighteen': 'CA',
+    'nineteen': 'CL',
+    'twenty': 'CB',
+    'twenty-one': 'CI',
+    'twenty-two': 'CE',
+    'twenty-three': 'CT',
+    'twenty-four': 'CZ',
+    'twenty-five': 'CH',
+    'twenty-six': 'CO',
+    'twenty-seven': 'CS',
+    'twenty-eight': 'CR',
+    'twenty-nine': 'KR',
+    'thirty': 'CN',
+    'thirty-one': 'EN',
+    'thirty-two': 'FM',
+    'thirty-three': 'FE',
+    'thirty-four': 'FI',
+    'thirty-five': 'FG',
+    'thirty-six': 'FC',
+    'thirty-seven': 'FR',
+    'thirty-eight': 'GE',
+    'thirty-nine': 'GO',
+    'forty': 'GR',
+    'forty-one': 'IM',
+    'forty-two': 'IS',
+    'forty-three': 'AQ',
+    'forty-four': 'SP',
+    'forty-five': 'LT',
+    'forty-six': 'LE',
+    'forty-seven': 'LC',
+    'forty-eight': 'LI',
+    'forty-nine': 'LO',
+    'fifty': 'LU',
+    'fifty-one': 'MC',
+    'fifty-two': 'MN',
+    'fifty-three': 'MS',
+    'fifty-four': 'MT',
+    'fifty-five': 'VS',
+    'fifty-six': 'ME',
+    'fifty-seven': 'MI',
+    'fifty-eight': 'MO',
+    'fifty-nine': 'MB',
+    'sixty': 'NA',
+    'sixty-one': 'NO',
+    'sixty-two': 'NU',
+    'sixty-three': 'OG',
+    'sixty-four': 'OT',
+    'sixty-five': 'OR',
+    'sixty-six': 'PD',
+    'sixty-seven': 'PA',
+    'sixty-eight': 'PR',
+    'sixty-nine': 'PV',
+    'seventy': 'PG',
+    'seventy-one': 'PU',
+    'seventy-two': 'PE',
+    'seventy-three': 'PC',
+    'seventy-four': 'PI',
+    'seventy-five': 'PT',
+    'seventy-six': 'PN',
+    'seventy-seven': 'PZ',
+    'seventy-eight': 'PO',
+    'seventy-nine': 'RG',
+    'eighty': 'RA',
+    'eighty-one': 'RC',
+    'eighty-two': 'RE',
+    'eighty-three': 'RI',
+    'eighty-four': 'RN',
+    'eighty-five': 'RM',
+    'eighty-six': 'RO',
+    'eighty-seven': 'SA',
+    'eighty-eight': 'SS',
+    'eighty-nine': 'SV',
+    'ninety': 'SI',
+    'ninety-one': 'SR',
+    'ninety-two': 'SO',
+    'ninety-three': 'TA',
+    'ninety-four': 'TE',
+    'ninety-five': 'TR',
+    'ninety-six': 'TO',
+    'ninety-seven': 'TP',
+    'ninety-eight': 'TN',
+    'ninety-nine': 'TV',
+    'one hundred': 'TS',
+    'one hundred one': 'UD',
+    'one hundred two': 'AO',
+    'one hundred three': 'VA',
+    'one hundred four': 'VE',
+    'one hundred five': 'VB',
+    'one hundred six': 'VC',
+    'one hundred seven': 'VR',
+    'one hundred eight': 'VV',
+    'one hundred nine': 'VI',
+    'one hundred ten': 'VT',
+  };
+  List<String> elementiSigle = [
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+    'eleven',
+    'twelve',
+    'thirteen',
+    'fourteen',
+    'fifteen',
+    'sixteen',
+    'seventeen',
+    'eighteen',
+    'nineteen',
+    'twenty',
+    'twenty-one',
+    'twenty-two',
+    'twenty-three',
+    'twenty-four',
+    'twenty-five',
+    'twenty-six',
+    'twenty-seven',
+    'twenty-eight',
+    'twenty-nine',
+    'thirty',
+    'thirty-one',
+    'thirty-two',
+    'thirty-three',
+    'thirty-four',
+    'thirty-five',
+    'thirty-six',
+    'thirty-seven',
+    'thirty-eight',
+    'thirty-nine',
+    'forty',
+    'forty-one',
+    'forty-two',
+    'forty-three',
+    'forty-four',
+    'forty-five',
+    'forty-six',
+    'forty-seven',
+    'forty-eight',
+    'forty-nine',
+    'fifty',
+    'fifty-one',
+    'fifty-two',
+    'fifty-three',
+    'fifty-four',
+    'fifty-five',
+    'fifty-six',
+    'fifty-seven',
+    'fifty-eight',
+    'fifty-nine',
+    'sixty',
+    'sixty-one',
+    'sixty-two',
+    'sixty-three',
+    'sixty-four',
+    'sixty-five',
+    'sixty-six',
+    'sixty-seven',
+    'sixty-eight',
+    'sixty-nine',
+    'seventy',
+    'seventy-one',
+    'seventy-two',
+    'seventy-three',
+    'seventy-four',
+    'seventy-five',
+    'seventy-six',
+    'seventy-seven',
+    'seventy-eight',
+    'seventy-nine',
+    'eighty',
+    'eighty-one',
+    'eighty-two',
+    'eighty-three',
+    'eighty-four',
+    'eighty-five',
+    'eighty-six',
+    'eighty-seven',
+    'eighty-eight',
+    'eighty-nine',
+    'ninety',
+    'ninety-one',
+    'ninety-two',
+    'ninety-three',
+    'ninety-four',
+    'ninety-five',
+    'ninety-six',
+    'ninety-seven',
+    'ninety-eight',
+    'ninety-nine',
+    'one hundred',
+    'one hundred one',
+    'one hundred two',
+    'one hundred three',
+    'one hundred four',
+    'one hundred five',
+    'one hundred six',
+    'one hundred seven',
+    'one hundred eight',
+    'one hundred nine',
+    'one hundred ten',
   ];
   String dropdownValue = "One";
   String groupType;
@@ -220,7 +446,7 @@ class _IscrizioneState extends State<Iscrizione> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _groupController,
+                            controller: _intestationController,
                             decoration: const InputDecoration(
                               hintText: "Inserire il nome del gruppo",
                               hintStyle: TextStyle(
@@ -305,6 +531,141 @@ class _IscrizioneState extends State<Iscrizione> {
                             height: 15,
                           ),
                           TextFormField(
+                            controller: _provenienceController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire l'indirizzo",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Indirizzo",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["indirizzo"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _cityController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire la città",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Città",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["città"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: _capController,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire il CAP",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "CAP",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Dati Mancanti";
+                              }
+                              data["CAP"] = value;
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            isDense: true,
+                            value: dropdownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 40,
+                            elevation: 20,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 23,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                                groupType = lista[newValue];
+                              });
+                            },
+                            items: elementi
+                                .map((value) => new DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(lista[value]),
+                                    ))
+                                .toList(),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          IntlPhoneField(
+                            controller: _phoneController,
+                            decoration: InputDecoration(
+                              hintText: "Inserire il telefono",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Telefono",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            initialCountryCode: 'IT',
+                            validator: simplePhoneValidator,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: const InputDecoration(
@@ -336,57 +697,6 @@ class _IscrizioneState extends State<Iscrizione> {
                               data["email"] = value;
                               return null;
                             },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextFormField(
-                            controller: _provenienceController,
-                            decoration: const InputDecoration(
-                              hintText: "Inserire l'indirizzo",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Indirizzo",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return "Dati Mancanti";
-                              }
-                              data["provenienza"] = value;
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          IntlPhoneField(
-                            controller: _phoneController,
-                            decoration: InputDecoration(
-                              hintText: "Inserire il telefono",
-                              hintStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                              border: OutlineInputBorder(),
-                              labelText: "Telefono",
-                              labelStyle: TextStyle(
-                                fontSize: 23.0,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            initialCountryCode: 'IT',
-                            validator: simplePhoneValidator,
                           ),
                           SizedBox(
                             height: 15,
