@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:mailer2/mailer.dart';
 
+import 'home.dart';
 import 'home/mainDrawer.dart';
 
 class Iscrizione extends StatefulWidget {
@@ -268,6 +270,7 @@ class _IscrizioneState extends State<Iscrizione> {
   String dropdownValue = "One";
   String groupType;
   bool checked = false;
+  bool check = false;
   String verifyResult = "";
   final Map province = {
     'AG': 'Agrigento',
@@ -394,6 +397,151 @@ class _IscrizioneState extends State<Iscrizione> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    sendData(Map datas) async {
+      var options = new GmailSmtpOptions()
+        ..username = 'ermes.express.fdm@gmail.com'
+        ..password = 'CASTELLO1967';
+
+      var emailTransport = new SmtpTransport(options);
+
+      String emailBody = "";
+
+      datas.forEach((k, v) => emailBody += "$k: $v\n");
+
+      var envelope = new Envelope()
+        ..from = 'ermes.express.fdm@gmail.com'
+        ..recipients.add('eossmario@gmail.com')
+        ..subject = 'Info Iscrizione Socio'
+        ..text =
+            "Info Iscrizione Socio:\n" + emailBody + "\n\nErmes-Express FDM";
+
+      if (isIOS) {
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text(
+              "Caricamento...",
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 6.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      } else {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              "Caricamento...",
+              style: TextStyle(
+                fontSize: 32,
+              ),
+            ),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 6.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+
+      await emailTransport.send(envelope).then((envelope) {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyHomePage()));
+      }).catchError((e) {
+        Navigator.of(context, rootNavigator: true).pop('dialog');
+        print(e);
+        if (isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(
+                "Errore",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                "Errore",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                FlatButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      });
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -757,12 +905,249 @@ class _IscrizioneState extends State<Iscrizione> {
                             ),
                             validator: (value) {
                               if (value.isEmpty) {
-                                data["conoscenze"] = "Nessuna conoscenza";
+                                data["messaggio"] = "Nessun messaggio";
                                 return null;
                               }
-                              data["conoscenze"] = value;
+                              data["messaggio"] = value;
                               return null;
                             },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: checked
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 45, bottom: 50),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (check) {
+                                                check = false;
+                                              } else {
+                                                check = true;
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.check_circle,
+                                            color: Colors.green,
+                                            size: 65,
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 17,
+                                          right: 5,
+                                        ),
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (checked) {
+                                                checked = false;
+                                              } else {
+                                                checked = true;
+                                              }
+                                            });
+                                          },
+                                          color: Colors.red,
+                                          textColor: Colors.white,
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 35,
+                                          ),
+                                          padding: EdgeInsets.all(10),
+                                          shape: CircleBorder(),
+                                        ),
+                                      ),
+                              ),
+                              Text(
+                                "I dati saranno\n utilizzati ai sensi\n dell'art.13 del D.Lgs 196/2003\n e autorizzo il trattamento.",
+                                style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Questo è un form di raccolta dati. Controlla la nostra privacy policy per conoscere come proteggiamo e gestiamo i dati che ci fornisci.",
+                            style: TextStyle(
+                              fontSize: 27.0,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: checked
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 45, bottom: 50),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (checked) {
+                                                checked = false;
+                                              } else {
+                                                checked = true;
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.check_circle,
+                                            color: Colors.green,
+                                            size: 65,
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 17,
+                                          right: 5,
+                                        ),
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (checked) {
+                                                checked = false;
+                                              } else {
+                                                checked = true;
+                                              }
+                                            });
+                                          },
+                                          color: Colors.red,
+                                          textColor: Colors.white,
+                                          child: Icon(
+                                            Icons.close,
+                                            size: 35,
+                                          ),
+                                          padding: EdgeInsets.all(10),
+                                          shape: CircleBorder(),
+                                        ),
+                                      ),
+                              ),
+                              Text(
+                                "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
+                                style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: ButtonTheme(
+                              minWidth: 150.0,
+                              height: 50.0,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState.validate() &&
+                                      checked &&
+                                      check) {
+                                    sendData(data);
+                                  } else {
+                                    if (isIOS) {
+                                      showCupertinoDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            CupertinoAlertDialog(
+                                          title: Text(
+                                            "Errore",
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                            ),
+                                          ),
+                                          content: Text(
+                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                            style: TextStyle(
+                                              fontSize: 27,
+                                            ),
+                                          ),
+                                          actions: [
+                                            CupertinoDialogAction(
+                                              child: Text(
+                                                "OK",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop('dialog');
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: Text(
+                                            "Errore",
+                                            style: TextStyle(
+                                              fontSize: 28,
+                                            ),
+                                          ),
+                                          content: Text(
+                                            "I Dati Inseriti Sono Incorretti o Mancanti!",
+                                            style: TextStyle(
+                                              fontSize: 27,
+                                            ),
+                                          ),
+                                          actions: [
+                                            FlatButton(
+                                              child: Text(
+                                                "OK",
+                                                style: TextStyle(
+                                                  fontSize: 28,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context,
+                                                        rootNavigator: true)
+                                                    .pop('dialog');
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                                child: Text(
+                                  "Invia i Dati e Continua",
+                                  style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                color: Colors.blueGrey,
+                              ),
+                            ),
                           ),
                           SizedBox(
                             height: 15,

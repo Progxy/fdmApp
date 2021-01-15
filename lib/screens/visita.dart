@@ -875,7 +875,8 @@ class _VisitaState extends State<Visita> {
                               SizedBox(
                                 height: 20,
                               ),
-                              FlatButton(
+                              FloatingActionButton(
+                                backgroundColor: Colors.blueGrey,
                                 onPressed: () {
                                   if (_formKey.currentState.validate() &&
                                       checked) {
