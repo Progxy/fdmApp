@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
@@ -13,14 +14,41 @@ import 'package:fdmApp/screens/recuperoPassword.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:flutter/material.dart';
 
+import '../badConnection.dart';
 import '../media.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
+  @override
+  _MainDrawerState createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
   final int version = 0;
+
   final int subVersion = 1;
+
   final String beta = "Beta";
+
   final String name = AccountInfo.name;
+
   final String email = AccountInfo.email;
+
+  bool isConnected;
+
+  void verifyConnection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      isConnected = false;
+    } else {
+      isConnected = true;
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    verifyConnection();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +64,13 @@ class MainDrawer extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+              if (isConnected) {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()));
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BadConnection()));
+              }
             },
             child: Row(
               children: <Widget>[
@@ -157,10 +190,15 @@ class MainDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.only(left: 17),
-                  child: Text("Version $beta $version.$subVersion",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w700)))
+                padding: EdgeInsets.only(left: 17),
+                child: Text(
+                  "Version $beta $version.$subVersion",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
         ],

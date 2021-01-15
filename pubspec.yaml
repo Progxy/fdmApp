@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^0.16.0
   firebase_analytics: ^7.0.1
   timelines: ^0.0.2+1
+  connectivity: ^2.0.2
 
 dev_dependencies:
   flutter_test:
