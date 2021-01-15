@@ -124,27 +124,47 @@ class _MainDrawerState extends State<MainDrawer> {
           ListTile(
               title: Text("Visita Barbiana", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Visita()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Visita()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Eventi", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Eventi()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Eventi()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Stampa e Ci Hanno Scritto",
                   style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Stampa()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Stampa()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Foto e Video", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Media()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Media()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Contatti", style: TextStyle(fontSize: 23)),
@@ -161,29 +181,51 @@ class _MainDrawerState extends State<MainDrawer> {
           ListTile(
               title: Text("Diventa Socio", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Iscrizione()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Iscrizione()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title:
                   Text("Recupero Credenziali", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RecuperoPassword()));
+                if (isConnected) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RecuperoPassword()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Cambio Credenziali", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CambioPassword()));
+                if (isConnected) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CambioPassword()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           ListTile(
               title: Text("Feedback", style: TextStyle(fontSize: 23)),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FeedBack()));
+                if (isConnected) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FeedBack()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                }
               }),
           Divider(),
           Row(
