@@ -19,7 +19,9 @@ class _CambioPasswordState extends State<CambioPassword> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[],
+          children: <Widget>[
+            //cambia anche la password nel database Pass.
+          ],
         ),
       ),
     );
