@@ -1,3 +1,4 @@
+import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -844,7 +845,11 @@ class _IscrizioneState extends State<Iscrizione> {
                                           checked &&
                                           check) {
                                         saveData(data);
-                                        //navigator.push
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PayIscrizione()));
                                       } else {
                                         if (isIOS) {
                                           showCupertinoDialog(
