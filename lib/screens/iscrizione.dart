@@ -22,12 +22,7 @@ class _IscrizioneState extends State<Iscrizione> {
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   final _capController = TextEditingController();
-  final _responsabilePhoneController = TextEditingController();
-  final _emailResponsabileController = TextEditingController();
-  final _conoscenzaController = TextEditingController();
-  final _preparazioneController = TextEditingController();
-  final _richiesteController = TextEditingController();
-  final _groupController = TextEditingController();
+  final _messaggioController = TextEditingController();
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -35,12 +30,17 @@ class _IscrizioneState extends State<Iscrizione> {
     "Two": "Familiare - €30/anno",
     "Three": "Gruppo - €50/anno",
   };
+  Map groupList = {
+    "Singolo - €15/anno": "Singolo",
+    "Familiare - €30/anno": "Familiare",
+    "Gruppo - €50/anno": "Gruppo",
+  };
   List<String> elementi = [
     "One",
     "Two",
     "Three",
   ];
-  Map sigle = {
+  final Map sigle = {
     'one': 'AG',
     'two': 'AL',
     'three': 'AN',
@@ -152,7 +152,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'one hundred nine': 'VI',
     'one hundred ten': 'VT',
   };
-  List<String> elementiSigle = [
+  final List<String> elementiSigle = [
     'one',
     'two',
     'three',
@@ -264,6 +264,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'one hundred nine',
     'one hundred ten',
   ];
+  String provinceValue = "One";
   String dropdownValue = "One";
   String groupType;
   bool checked = false;
@@ -380,6 +381,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'VI': 'Vicenza',
     'VT': 'Viterbo'
   };
+  String provincia;
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -617,7 +619,7 @@ class _IscrizioneState extends State<Iscrizione> {
                           DropdownButton<String>(
                             isExpanded: true,
                             isDense: true,
-                            value: dropdownValue,
+                            value: provinceValue,
                             icon: Icon(Icons.arrow_downward),
                             iconSize: 40,
                             elevation: 20,
@@ -629,13 +631,16 @@ class _IscrizioneState extends State<Iscrizione> {
                             onChanged: (String newValue) {
                               setState(() {
                                 dropdownValue = newValue;
-                                groupType = lista[newValue];
+                                String momentum = sigle[newValue];
+                                provincia = province[momentum];
+                                data["provincia"] = provincia;
+                                print(provincia);
                               });
                             },
-                            items: elementi
+                            items: elementiSigle
                                 .map((value) => new DropdownMenuItem<String>(
                                       value: value,
-                                      child: Text(lista[value]),
+                                      child: Text(sigle[value]),
                                     ))
                                 .toList(),
                           ),
@@ -701,8 +706,63 @@ class _IscrizioneState extends State<Iscrizione> {
                           SizedBox(
                             height: 15,
                           ),
+                          DropdownButton<String>(
+                            isExpanded: true,
+                            isDense: true,
+                            value: dropdownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 40,
+                            elevation: 20,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 23,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropdownValue = newValue;
+                                String group = lista[newValue];
+                                groupType = groupList[group];
+                                data["tipo di gruppo"] = groupType;
+                                print(groupType);
+                              });
+                            },
+                            items: elementi
+                                .map((value) => new DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(lista[value]),
+                                    ))
+                                .toList(),
+                          ),
                           SizedBox(
                             height: 15,
+                          ),
+                          TextFormField(
+                            controller: _messaggioController,
+                            maxLines: 15,
+                            decoration: const InputDecoration(
+                              hintText: "Inserire un eventuale messaggio",
+                              hintStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                              border: OutlineInputBorder(),
+                              labelText: "Eventuale Messaggio",
+                              labelStyle: TextStyle(
+                                fontSize: 23.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                data["conoscenze"] = "Nessuna conoscenza";
+                                return null;
+                              }
+                              data["conoscenze"] = value;
+                              return null;
+                            },
                           ),
                           SizedBox(
                             height: 15,
