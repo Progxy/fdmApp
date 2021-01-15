@@ -876,6 +876,7 @@ class _VisitaState extends State<Visita> {
                                 height: 20,
                               ),
                               FloatingActionButton(
+                                heroTag: null,
                                 backgroundColor: Colors.blueGrey,
                                 onPressed: () {
                                   if (_formKey.currentState.validate() &&
