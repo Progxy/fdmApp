@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (BuildContext context) => CupertinoAlertDialog(
                   title: Icon(
                     Icons.error,
-                    size: 40.0,
+                    size: 50.0,
                     color: Colors.red,
                   ),
                   content: Text(
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (BuildContext context) => AlertDialog(
                   title: Icon(
                     Icons.error,
-                    size: 40.0,
+                    size: 50.0,
                     color: Colors.red,
                   ),
                   content: Text(

@@ -18,31 +18,41 @@ class BadConnection extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Icon(
-              Icons.error,
-              size: 50,
-              color: Colors.red,
+            Center(
+              child: Icon(
+                Icons.error,
+                size: 65,
+                color: Colors.red,
+              ),
             ),
             SizedBox(
               height: 25,
             ),
-            Text(
-              "La Connessione è Assente, per cui è stato impossile connettersi al servizio, per risolvere il problema connettersi ad Internet!",
-              textAlign: TextAlign.center,
+            Center(
+              child: Text(
+                "La Connessione è Assente, per cui è stato impossile connettersi al servizio, per risolvere il problema connettersi ad Internet!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
             ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
-              },
-              child: Icon(
-                Icons.home,
-                size: 50,
+            Center(
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
+                },
+                child: Icon(
+                  Icons.home,
+                  size: 50,
+                ),
+                backgroundColor: Colors.blueGrey,
               ),
-              backgroundColor: Colors.blueGrey,
             ),
             SizedBox(
               height: 30,
