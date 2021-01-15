@@ -14,25 +14,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isConnected = false;
-
-  void verifyConnection() async {
+  verifyConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        isConnected = false;
-      });
+      return false;
     } else {
-      setState(() {
-        isConnected = true;
-      });
+      return true;
     }
-  }
-
-  @override
-  initState() {
-    super.initState();
-    verifyConnection();
   }
 
   @override
@@ -49,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                isConnected
+                verifyConnection()
                     ? SizedBox(
                         height: 15,
                       )
