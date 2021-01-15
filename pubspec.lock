@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  dotted_line:
+    dependency: "direct main"
+    description:
+      name: dotted_line
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   fading_edge_scrollview:
     dependency: transitive
     description:
@@ -427,13 +434,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
-  timelines:
-    dependency: "direct main"
-    description:
-      name: timelines
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2+1"
   typed_data:
     dependency: transitive
     description:

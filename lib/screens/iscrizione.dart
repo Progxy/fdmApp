@@ -1,3 +1,4 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -295,10 +296,9 @@ class _IscrizioneState extends State<Iscrizione> {
       drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: 25,
+              height: 15,
             ),
             Center(
               child: Text(
@@ -310,7 +310,7 @@ class _IscrizioneState extends State<Iscrizione> {
               ),
             ),
             SizedBox(
-              height: 35,
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -318,7 +318,7 @@ class _IscrizioneState extends State<Iscrizione> {
               children: <Widget>[
                 Container(
                   width: 360,
-                  height: 430,
+                  height: 350,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -991,7 +991,112 @@ class _IscrizioneState extends State<Iscrizione> {
               ],
             ),
             SizedBox(
-              height: 30,
+              height: 20,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 5,
+                        blurRadius: 10,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "1",
+                      style: TextStyle(
+                        fontSize: 27,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                DottedLine(
+                  direction: Axis.horizontal,
+                  lineLength: 100,
+                  lineThickness: 3.0,
+                  dashLength: 6.0,
+                  dashColor: Colors.blueGrey,
+                  dashGapLength: 6.0,
+                  dashGapColor: Colors.transparent,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 5,
+                        blurRadius: 10,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "2",
+                      style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blueGrey),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                DottedLine(
+                  direction: Axis.horizontal,
+                  lineLength: 100,
+                  lineThickness: 3.0,
+                  dashLength: 6.0,
+                  dashColor: Colors.blueGrey,
+                  dashGapLength: 6.0,
+                  dashGapColor: Colors.transparent,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 5,
+                        blurRadius: 10,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "3",
+                      style: TextStyle(
+                        fontSize: 27,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 25,
