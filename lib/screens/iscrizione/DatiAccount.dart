@@ -3,9 +3,11 @@ class DatiAccount {
 
   setter(String dataIscrizione) {
     datas = dataIscrizione;
+    print(datas);
   }
 
   resetCredentials() {
     datas = null;
+    print(datas);
   }
 }
