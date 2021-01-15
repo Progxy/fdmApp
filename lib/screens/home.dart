@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/ConnectionCheck.dart';
 import 'package:fdmApp/screens/home/mainBarbiana.dart';
 import 'package:fdmApp/screens/home/mainNews.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,27 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool isConnected = false;
-
-  void verifyConnection() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
-      setState(() {
-        isConnected = false;
-      });
-    } else {
-      setState(() {
-        isConnected = true;
-      });
-    }
-    print(isConnected);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    verifyConnection();
-  }
+  bool isConnected = ConnectionCheck().isConnected;
 
   @override
   Widget build(BuildContext context) {
