@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import '../painter.dart';
+import '../paymentService.dart';
 
 class PayIscrizione extends StatefulWidget {
   static const String routeName = "/payiscrizione";
@@ -13,14 +17,168 @@ class PayIscrizione extends StatefulWidget {
 }
 
 class _PayIscrizioneState extends State<PayIscrizione> {
-  //metodo per pagamento
   //metodo per inviare dati via email alla fondazione con oggetto ex.(id-AdesioneSocio)
   //metodo per inviare i dati necessari al nuovo socio
+
+  final String _price = "1500";
+
+  //final String _price = data["prezzo"];
+
+  ScrollController _controller = ScrollController();
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  payViaNewCard(BuildContext context) async {
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Please wait...');
+    await dialog.show();
+    var response =
+        await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
+    await dialog.hide();
+    if (response.message == "Transaction successful") {
+      Platform.isIOS
+          ? showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con successo!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultIscrizione()));
+                    },
+                  )
+                ],
+              ),
+            )
+          : showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con successo!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultIscrizione()));
+                    },
+                  )
+                ],
+              ),
+            );
+    } else {
+      Platform.isIOS
+          ? showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con esito negativo!\n${response.message}",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            )
+          : showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con esito negativo!\n${response.message}",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            );
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    StripeService.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Feedback"),
+        title: Text("Pagamento Adesione Socio"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -31,32 +189,31 @@ class _PayIscrizioneState extends State<PayIscrizione> {
               height: 15,
             ),
             SizedBox(
-              height: 25,
-            ),
-            Center(
-              child: ButtonTheme(
-                minWidth: 150.0,
-                height: 50.0,
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ResultIscrizione()));
-                  },
-                  child: Text(
-                    "Paga e Concludi",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w700,
+              height: 90,
+              width: 380,
+              child: ListView(
+                shrinkWrap: true,
+                controller: _controller,
+                padding: const EdgeInsets.all(20),
+                children: <Widget>[
+                  ButtonTheme(
+                    height: 57,
+                    child: RaisedButton(
+                      child: Text(
+                        "Paga e Continua",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      color: Colors.blueGrey,
+                      onPressed: () {
+                        payViaNewCard(context);
+                      },
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  color: Colors.blueGrey,
-                ),
+                ],
               ),
             ),
             SizedBox(
@@ -82,12 +239,15 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "1",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        "1",
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -117,12 +277,15 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "2",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        "2",
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -154,12 +317,15 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "3",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.blueGrey,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Text(
+                        "3",
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blueGrey,
+                        ),
                       ),
                     ),
                   ),

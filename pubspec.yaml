@@ -46,7 +46,7 @@ dependencies:
   dotted_line: ^2.0.2
   connectivity: ^2.0.2
   stripe_payment: ^1.0.9
-  flutter_brand_icons: ^1.1.0
+  progress_dialog: ^1.2.4
 
 dev_dependencies:
   flutter_test:

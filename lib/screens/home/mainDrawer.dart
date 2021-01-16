@@ -7,11 +7,11 @@ import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
+import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/privacy.dart';
 import 'package:fdmApp/screens/recuperoPassword.dart';
-import 'package:fdmApp/screens/tryStripe.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:flutter/material.dart';
 
@@ -230,7 +230,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 }
               }),
           ListTile(
-              title: Text("Striper", style: TextStyle(fontSize: 23)),
+              title: Text("PassaPorta", style: TextStyle(fontSize: 23)),
               onTap: () async {
                 var connectivityResult =
                     await (Connectivity().checkConnectivity());
@@ -239,7 +239,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       MaterialPageRoute(builder: (context) => BadConnection()));
                 } else {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TryStripe()));
+                      MaterialPageRoute(builder: (context) => PayIscrizione()));
                 }
               }),
           Divider(),

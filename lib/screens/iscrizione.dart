@@ -40,6 +40,11 @@ class _IscrizioneState extends State<Iscrizione> {
     "Familiare - €30/anno": "Familiare",
     "Gruppo - €50/anno": "Gruppo",
   };
+  Map prezzi = {
+    "Singolo": "1500",
+    "Familiare": "3000",
+    "Gruppo": "5000",
+  };
   List<String> elementi = [
     "One",
     "Two",
@@ -874,6 +879,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                       if (_formKey.currentState.validate() &&
                                           checked &&
                                           check) {
+                                        data["prezzo"] = prezzi[groupType];
                                         String id = data["username"][0]
                                                 .toupperCase() +
                                             data["nome"][0].toupperCase() +
