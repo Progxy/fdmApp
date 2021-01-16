@@ -11,6 +11,7 @@ import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/privacy.dart';
 import 'package:fdmApp/screens/recuperoPassword.dart';
+import 'package:fdmApp/screens/tryStripe.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:flutter/material.dart';
 
@@ -226,6 +227,19 @@ class _MainDrawerState extends State<MainDrawer> {
                 } else {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FeedBack()));
+                }
+              }),
+          ListTile(
+              title: Text("Striper", style: TextStyle(fontSize: 23)),
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TryStripe()));
                 }
               }),
           Divider(),

@@ -19,6 +19,7 @@ import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
 import 'package:fdmApp/screens/privacy.dart';
 import 'package:fdmApp/screens/recuperoPassword.dart';
+import 'package:fdmApp/screens/tryStripe.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
           RecuperoPassword.routeName: (context) => RecuperoPassword(),
           CambioPassword.routeName: (context) => CambioPassword(),
           BadConnection.routeName: (context) => BadConnection(),
+          TryStripe.routeName: (context) => TryStripe(),
         },
       ),
     );
