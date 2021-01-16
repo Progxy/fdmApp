@@ -13,6 +13,9 @@ class PayIscrizione extends StatefulWidget {
 }
 
 class _PayIscrizioneState extends State<PayIscrizione> {
+  //metodo per pagamento
+  //metodo per inviare dati via email alla fondazione con oggetto ex.(id-AdesioneSocio)
+  //metodo per inviare i dati necessari al nuovo socio
   @override
   Widget build(BuildContext context) {
     return Scaffold(
