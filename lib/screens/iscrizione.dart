@@ -879,7 +879,9 @@ class _IscrizioneState extends State<Iscrizione> {
                                             data["nome"][0].toupperCase() +
                                             data["cognome"][0].toupperCase() +
                                             (int.parse(DateTime.now()
-                                                        .toString()) *
+                                                        .toString()
+                                                        .replaceAll("-", "")
+                                                        .replaceAll("/", "")) *
                                                     35)
                                                 .toString();
                                         data["id"] = id;
