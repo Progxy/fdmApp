@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'FdmApp',
         theme: ThemeData(
+          fontFamily: "PlayfairDisplay",
           primarySwatch: Colors.blueGrey,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
