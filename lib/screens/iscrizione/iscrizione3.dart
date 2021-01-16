@@ -17,11 +17,16 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
 
   @override
   Widget build(BuildContext context) {
-    final String email = data["email"];
-    final String password = data["password"];
-    final String username = data["username"];
-    final String indirizzo = data["indirizzo"];
-    final String id = data["id"];
+    // final String email = data["email"];
+    // final String password = data["password"];
+    // final String username = data["username"];
+    // final String indirizzo = data["indirizzo"];
+    // final String id = data["id"];
+    final String email = "ciccio@gmail.com";
+    final String password = "Semonide12";
+    final String username = "Akiller";
+    final String indirizzo = "via aprocida";
+    final String id = "NFN14114";
     return Scaffold(
       appBar: AppBar(
         title: Text("Iscrizione Completata"),
@@ -35,13 +40,32 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
             Text(
               "Congratulazioni sei diventato un Socio della Fondazione Don Milani!",
               textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(
               height: 15,
             ),
             Text(
-              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nPrima verifica il tuo account attraverso il link che abbiamo mandato a questa email : $email. Inoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo 'Cambio indirizzo di spedizione - $id' nell'oggetto, o anche per eventuali chiarimenti.",
+              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nPrima verifica il tuo account attraverso il link che abbiamo mandato a questa email : $email. Inoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo '$id - Cambio indirizzo di spedizione' nell'oggetto, o anche per eventuali chiarimenti.",
               textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "La Fondazione Don Milani.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             SizedBox(
               height: 15,
