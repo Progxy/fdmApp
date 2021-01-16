@@ -81,6 +81,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               ),
               backgroundColor: Colors.blueGrey,
             ),
+            //aggiungi un raised button che porta a Login!
             SizedBox(
               height: 25,
             ),

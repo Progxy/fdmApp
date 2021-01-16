@@ -19,7 +19,8 @@ class PayIscrizione extends StatefulWidget {
 class _PayIscrizioneState extends State<PayIscrizione> {
   //metodo per inviare dati via email alla fondazione con oggetto ex.(id-AdesioneSocio)
   //metodo per inviare i dati necessari al nuovo socio
-
+  //metodo per aggiungere il socio in firebase
+  //metodo per aggiungere i dati del socio nel database firebase
   final String _price = "1500";
 
   //final String _price = data["prezzo"];
