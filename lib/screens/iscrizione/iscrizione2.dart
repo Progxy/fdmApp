@@ -226,12 +226,28 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
   //metodo per aggiungere il socio in firebase e aggiungere i dati del socio nel database firebase
 
-  addAccount(Map datas) async {
-    //write code here
+  addAccount(Map datas, FirebaseDatabase database) async {
     await context.read<AuthenticationService>().signUp(
           email: datas["email"].trim(),
           password: datas["password"].trim(),
         );
+
+    final String id = datas["id"];
+    final String date = DateTime.now().toString(); //!format to ("dd-MM-yyyy")!
+    final String email = datas["email"];
+    final String password = datas["password"];
+    final String username = datas["username"];
+
+    var databaseReference = database.reference();
+
+    await databaseReference.child("Id").set({'name': id, 'value': email});
+    await databaseReference.child("Date").set({'name': date, 'value': email});
+    await databaseReference
+        .child("Pass")
+        .set({'name': password, 'value': email});
+    await databaseReference
+        .child("User")
+        .set({'name': username, 'value': email});
   }
 
   final Map data = DatiAccount.datiSocio;
