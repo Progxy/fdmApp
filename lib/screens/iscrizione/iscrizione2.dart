@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dotted_line/dotted_line.dart';
+import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mailer2/mailer.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../painter.dart';
@@ -17,10 +19,220 @@ class PayIscrizione extends StatefulWidget {
 }
 
 class _PayIscrizioneState extends State<PayIscrizione> {
-  //metodo per inviare dati via email alla fondazione con oggetto ex.(id-AdesioneSocio)
+  //metodo per inviare dati via email alla fondazione
+  sendDataToFdm(Map datas) async {
+    var options = new GmailSmtpOptions()
+      ..username = 'ermes.express.fdm@gmail.com'
+      ..password = 'CASTELLO1967';
+
+    var emailTransport = new SmtpTransport(options);
+
+    String emailBody = "";
+
+    final String id = datas["id"];
+
+    final String email = datas["email"];
+
+    datas.forEach((k, v) => emailBody += "$k: $v\n");
+
+    var envelope = new Envelope()
+      ..from = 'ermes.express.fdm@gmail.com'
+      ..recipients.add("eossmario@gmail.com")
+      ..subject = '$id - AdesioneSocio'
+      ..text =
+          "Dati per Adesione a Socio:\n" + emailBody + "\n\nErmes-Express FDM";
+
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Caricamento...');
+    await dialog.show();
+
+    await emailTransport.send(envelope).then((envelope) async {
+      await dialog.hide();
+    }).catchError((e) async {
+      await dialog.hide();
+      print(e);
+      if (Platform.isIOS) {
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text(
+              "Errore",
+              style: TextStyle(
+                fontSize: 28,
+              ),
+            ),
+            content: Text(
+              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+              style: TextStyle(
+                fontSize: 27,
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              )
+            ],
+          ),
+        );
+      } else {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              "Errore",
+              style: TextStyle(
+                fontSize: 28,
+              ),
+            ),
+            content: Text(
+              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+              style: TextStyle(
+                fontSize: 27,
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              )
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   //metodo per inviare i dati necessari al nuovo socio
+
+  sendDataToSocio(Map datas) async {
+    var options = new GmailSmtpOptions()
+      ..username = 'ermes.express.fdm@gmail.com'
+      ..password = 'CASTELLO1967';
+
+    var emailTransport = new SmtpTransport(options);
+
+    final String username = datas["username"];
+
+    final String password = datas["password"];
+
+    final String id = datas["id"];
+
+    final String email = datas["email"];
+
+    var envelope = new Envelope()
+      ..from = 'ermes.express.fdm@gmail.com'
+      ..recipients.add(email)
+      ..subject = '$id - AdesioneSocio'
+      ..text = "Dati per Adesione a Socio:\n" +
+          "Username : $username,\nEmail : $email,\nPassword : $password,\nId : $id." +
+          "\n\nErmes-Express FDM";
+
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Caricamento...');
+    await dialog.show();
+
+    await emailTransport.send(envelope).then((envelope) async {
+      await dialog.hide();
+    }).catchError((e) async {
+      await dialog.hide();
+      print(e);
+      if (Platform.isIOS) {
+        showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text(
+              "Errore",
+              style: TextStyle(
+                fontSize: 28,
+              ),
+            ),
+            content: Text(
+              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+              style: TextStyle(
+                fontSize: 27,
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              )
+            ],
+          ),
+        );
+      } else {
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              "Errore",
+              style: TextStyle(
+                fontSize: 28,
+              ),
+            ),
+            content: Text(
+              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+              style: TextStyle(
+                fontSize: 27,
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop('dialog');
+                },
+              )
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   //metodo per aggiungere il socio in firebase
+
+  addAccount(Map datas) {
+    //write code here
+  }
+
   //metodo per aggiungere i dati del socio nel database firebase
+
+  addAccountInfo(Map datas) {
+    //write code here
+  }
+
+  final Map data = DatiAccount.datiSocio;
+
   final String _price = "1500";
 
   //final String _price = data["prezzo"];
@@ -31,7 +243,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
   payViaNewCard(BuildContext context) async {
     ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(message: 'Please wait...');
+    dialog.style(message: 'Caricamento...');
     await dialog.show();
     var response =
         await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
