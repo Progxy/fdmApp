@@ -1,4 +1,5 @@
 import 'package:fdmApp/authentication_service.dart';
+import 'package:fdmApp/screens/IscrizioneScaduta.dart';
 import 'package:fdmApp/screens/SeCHS.dart';
 import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
 import 'package:fdmApp/screens/badConnection.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
           RecuperoPassword.routeName: (context) => RecuperoPassword(),
           CambioPassword.routeName: (context) => CambioPassword(),
           BadConnection.routeName: (context) => BadConnection(),
+          IscrizioneScaduta.routeName: (context) => IscrizioneScaduta(),
         },
       ),
     );

@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:fdmApp/authentication_service.dart';
+import 'package:fdmApp/screens/IscrizioneScaduta.dart';
+import 'package:fdmApp/screens/VerifyExpiration.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -131,32 +133,40 @@ class _LoginState extends State<Login> {
                           );
                       final firebaseAuthCheck =
                           FirebaseAuth.instance.currentUser;
-                      if (firebaseAuthCheck != null) {
-                        await database
-                            .reference()
-                            .child("User")
-                            .orderByValue()
-                            .equalTo(email)
-                            .once()
-                            .then((DataSnapshot snapshot) {
-                          LinkedHashMap<dynamic, dynamic> values =
-                              snapshot.value;
-                          Map<String, String> map = values.map(
-                              (a, b) => MapEntry(a as String, b as String));
-                          String username = map.keys.firstWhere(
-                              (k) => map[k] == email,
-                              orElse: () => null);
-                          AccountInfo().setter(username, email);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserPage()));
-                        });
-                      } else {
+                      if (VerifyExpiration().verify(email, database)) {
+                        context.read<AuthenticationService>().signOut();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ErrorPage()));
+                                builder: (context) => IscrizioneScaduta()));
+                      } else {
+                        if (firebaseAuthCheck != null) {
+                          await database
+                              .reference()
+                              .child("User")
+                              .orderByValue()
+                              .equalTo(email)
+                              .once()
+                              .then((DataSnapshot snapshot) {
+                            LinkedHashMap<dynamic, dynamic> values =
+                                snapshot.value;
+                            Map<String, String> map = values.map(
+                                (a, b) => MapEntry(a as String, b as String));
+                            String username = map.keys.firstWhere(
+                                (k) => map[k] == email,
+                                orElse: () => null);
+                            AccountInfo().setter(username, email);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UserPage()));
+                          });
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ErrorPage()));
+                        }
                       }
                     } else {
                       if (isIOS) {

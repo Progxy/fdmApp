@@ -230,21 +230,18 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     final String id = datas["id"];
     final DateTime now = DateTime.now();
-    final String date = formatter.format(now).toString();
+    final DateTime expDate = new DateTime(now.year + 1, now.month, now.day);
+    final String date = formatter.format(expDate).toString();
     final String email = datas["email"];
     final String password = datas["password"];
     final String username = datas["username"];
 
     var databaseReference = database.reference();
 
-    await databaseReference.child("Id").set({'name': id, 'value': email});
-    await databaseReference.child("Date").set({'name': date, 'value': email});
-    await databaseReference
-        .child("Pass")
-        .set({'name': password, 'value': email});
-    await databaseReference
-        .child("User")
-        .set({'name': username, 'value': email});
+    databaseReference.child("Id").set({id: email});
+    databaseReference.child("Date").set({date: email});
+    databaseReference.child("Pass").set({password: email});
+    databaseReference.child("User").set({username: email});
   }
 
   final Map data = DatiAccount.datiSocio;
