@@ -254,15 +254,12 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
   final Map data = DatiAccount.datiSocio;
 
-  final String _price = "1500";
-
-  //final String _price = data["prezzo"];
-
   ScrollController _controller = ScrollController();
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   payViaNewCard(BuildContext context) async {
+    final String _price = data["prezzo"];
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();

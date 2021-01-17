@@ -1,5 +1,6 @@
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
+import 'package:fdmApp/screens/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +18,11 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
 
   @override
   Widget build(BuildContext context) {
-    // final String email = data["email"];
-    // final String password = data["password"];
-    // final String username = data["username"];
-    // final String indirizzo = data["indirizzo"];
-    // final String id = data["id"];
-    final String email = "ciccio@gmail.com";
-    final String password = "Semonide12";
-    final String username = "Akiller";
-    final String indirizzo = "via aprocida";
-    final String id = "NFN14114";
+    final String email = data["email"];
+    final String password = data["password"];
+    final String username = data["username"];
+    final String indirizzo = data["indirizzo"];
+    final String id = data["id"];
     return Scaffold(
       appBar: AppBar(
         title: Text("Iscrizione Completata"),
@@ -70,16 +66,50 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
             SizedBox(
               height: 15,
             ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
-              },
-              child: Icon(
-                Icons.home,
-                size: 50.0,
-              ),
-              backgroundColor: Colors.blueGrey,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                  child: Icon(
+                    Icons.home,
+                    size: 50.0,
+                  ),
+                  backgroundColor: Colors.blueGrey,
+                ),
+                Text(
+                  "OPPURE",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                ButtonTheme(
+                  height: 55,
+                  minWidth: 175,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                    },
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 32,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
             //aggiungi un raised button che porta a Login!
             SizedBox(
