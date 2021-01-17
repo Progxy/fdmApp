@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../../authentication_service.dart';
 import '../painter.dart';
@@ -231,9 +232,10 @@ class _PayIscrizioneState extends State<PayIscrizione> {
           email: datas["email"].trim(),
           password: datas["password"].trim(),
         );
-
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
     final String id = datas["id"];
-    final String date = DateTime.now().toString(); //!format to ("dd-MM-yyyy")!
+    final DateTime now = DateTime.now();
+    final String date = formatter.format(now).toString();
     final String email = datas["email"];
     final String password = datas["password"];
     final String username = datas["username"];
@@ -250,8 +252,6 @@ class _PayIscrizioneState extends State<PayIscrizione> {
         .set({'name': username, 'value': email});
   }
 
-  //consulta la pagina per l'implementazione di funzione realtime database ed aggiungi un programma per verificare la scadenza del socio!
-  //verifica eventuali errori in addAccount!!!
   final Map data = DatiAccount.datiSocio;
 
   final String _price = "1500";
