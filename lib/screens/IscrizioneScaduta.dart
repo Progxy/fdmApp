@@ -39,6 +39,7 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
               height: 30,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
                   onPressed: () {
@@ -78,8 +79,14 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
                 )
               ],
             ),
+            SizedBox(
+              height: 25,
+            ),
             Image(
               image: AssetImage("assets/images/don_milani.png"),
+            ),
+            SizedBox(
+              height: 25,
             ),
           ],
         ),
