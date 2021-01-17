@@ -31,8 +31,6 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
     final String id = datas["id"];
 
-    final String email = datas["email"];
-
     datas.forEach((k, v) => emailBody += "$k: $v\n");
 
     var envelope = new Envelope()
