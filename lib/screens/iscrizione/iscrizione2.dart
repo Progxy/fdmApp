@@ -20,6 +20,7 @@ class PayIscrizione extends StatefulWidget {
 
 class _PayIscrizioneState extends State<PayIscrizione> {
   //metodo per inviare dati via email alla fondazione
+
   sendDataToFdm(Map datas) async {
     var options = new GmailSmtpOptions()
       ..username = 'ermes.express.fdm@gmail.com'
