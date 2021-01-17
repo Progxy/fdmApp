@@ -48,14 +48,9 @@ class _PayIscrizioneState extends State<PayIscrizione> {
       ..text =
           "Dati per Adesione a Socio:\n" + emailBody + "\n\nErmes-Express FDM";
 
-    ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(message: 'Caricamento...');
-    await dialog.show();
-
     await emailTransport.send(envelope).then((envelope) async {
-      await dialog.hide();
+      print("Success!");
     }).catchError((e) async {
-      await dialog.hide();
       print(e);
       if (Platform.isIOS) {
         showCupertinoDialog(
@@ -145,9 +140,9 @@ class _PayIscrizioneState extends State<PayIscrizione> {
       ..from = 'ermes.express.fdm@gmail.com'
       ..recipients.add(email)
       ..subject = '$id - AdesioneSocio'
-      ..text = "Dati per Adesione a Socio:\n" +
+      ..text =
           "Username : $username,\nEmail : $email,\nPassword : $password,\nId : $id." +
-          "\n\nErmes-Express FDM";
+              "\n\nErmes-Express FDM";
 
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
