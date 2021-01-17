@@ -3,16 +3,22 @@ import 'dart:io';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 
+import '../../authentication_service.dart';
 import '../painter.dart';
 import '../paymentService.dart';
 
 class PayIscrizione extends StatefulWidget {
   static const String routeName = "/payiscrizione";
+  PayIscrizione({this.app});
+  final FirebaseApp app;
 
   @override
   _PayIscrizioneState createState() => _PayIscrizioneState();
@@ -218,16 +224,14 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     });
   }
 
-  //metodo per aggiungere il socio in firebase
+  //metodo per aggiungere il socio in firebase e aggiungere i dati del socio nel database firebase
 
-  addAccount(Map datas) {
+  addAccount(Map datas) async {
     //write code here
-  }
-
-  //metodo per aggiungere i dati del socio nel database firebase
-
-  addAccountInfo(Map datas) {
-    //write code here
+    await context.read<AuthenticationService>().signUp(
+          email: datas["email"].trim(),
+          password: datas["password"].trim(),
+        );
   }
 
   final Map data = DatiAccount.datiSocio;
@@ -387,6 +391,8 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
