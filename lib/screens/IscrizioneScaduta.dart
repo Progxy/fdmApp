@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:flutter/material.dart';
