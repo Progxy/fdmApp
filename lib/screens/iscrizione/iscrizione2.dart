@@ -250,6 +250,8 @@ class _PayIscrizioneState extends State<PayIscrizione> {
         .set({'name': username, 'value': email});
   }
 
+  //consulta la pagina per l'implementazione di funzione realtime database ed aggiungi un programma per verificare la scadenza del socio!
+
   final Map data = DatiAccount.datiSocio;
 
   final String _price = "1500";
