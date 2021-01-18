@@ -201,7 +201,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 }
               }),
           ListTile(
-              title: Text("Cambio Credenziali", style: TextStyle(fontSize: 23)),
+              title: Text("Cambio Password", style: TextStyle(fontSize: 23)),
               onTap: () async {
                 var connectivityResult =
                     await (Connectivity().checkConnectivity());
