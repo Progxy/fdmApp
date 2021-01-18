@@ -885,7 +885,6 @@ class _IscrizioneState extends State<Iscrizione> {
                                           groupType = groupList[group];
                                           data["prezzo"] = prezzi[groupType];
                                         }
-                                        print(data["prezzo"]);
                                         final DateFormat formatter =
                                             DateFormat('dd/MM/yyyy');
                                         String id = data["username"][0] +
@@ -898,7 +897,6 @@ class _IscrizioneState extends State<Iscrizione> {
                                                     35)
                                                 .toString();
                                         data["id"] = id;
-                                        print(data["id"]);
                                         DatiAccount().setter(data);
                                         Navigator.push(
                                             context,
