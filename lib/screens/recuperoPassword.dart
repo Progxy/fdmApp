@@ -231,11 +231,10 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                 ),
                 actions: [
                   FlatButton(
-                    child: Text(
-                      "OK",
-                      style: TextStyle(
-                        fontSize: 28,
-                      ),
+                    child: Icon(
+                      Icons.home,
+                      size: 50,
+                      color: Colors.blueGrey,
                     ),
                     onPressed: () {
                       Navigator.push(
