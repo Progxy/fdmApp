@@ -3,9 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 
 class VerifyExpiration {
-  DateTime dateExp;
-
-  retriveData(String email, FirebaseDatabase database) async {
+  verify(String email, FirebaseDatabase database) async {
+    DateTime dateExp;
+    final DateTime now = DateTime.now();
     await database
         .reference()
         .child("Date")
@@ -18,17 +18,14 @@ class VerifyExpiration {
           values.map((a, b) => MapEntry(a as String, b as String));
       String expDate =
           map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
-      final DateTime dates = DateTime.parse(expDate);
-      final DateFormat formatter = DateFormat('yyyy-MM-dd');
-      final String dateS = formatter.format(dates);
-      final DateTime date = DateTime.parse(dateS);
+      // final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      // final DateTime date = formatter.parse(expDate);
+      DateFormat inputDateFormat = new DateFormat("dd-MM-yyyy");
+      DateFormat outputDateFormat = new DateFormat("yyyy-MM-dd");
+      String dates = outputDateFormat.format(inputDateFormat.parse(expDate));
+      final DateTime date = DateTime.parse(dates);
       dateExp = date;
     });
-  }
-
-  verify(String email, FirebaseDatabase database) async {
-    final DateTime now = DateTime.now();
-    await retriveData(email, database);
     final databaseReference = database.reference();
     if (dateExp.isBefore(now)) {
       databaseReference.child("Id").remove();

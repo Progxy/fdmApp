@@ -883,6 +883,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                         if (data["prezzo"] == null) {
                                           String group = lista[dropdownValue];
                                           groupType = groupList[group];
+                                          data["tipo di gruppo"] = groupType;
                                           data["prezzo"] = prezzi[groupType];
                                         }
                                         final DateFormat formatter =
