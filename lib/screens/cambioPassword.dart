@@ -26,11 +26,15 @@ class CambioPassword extends StatefulWidget {
 
 class _CambioPasswordState extends State<CambioPassword> {
   changePassword(String emails, String password, String oldpassword,
-      FirebaseDatabase database, bool isLogged) async {
+      FirebaseDatabase database) async {
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
-    if (!isLogged) {
+    bool isLogged;
+    final log = FirebaseAuth.instance.currentUser;
+    log != null ? isLogged = true : isLogged = false;
+    print(isLogged);
+    if (isLogged == false) {
       await context.read<AuthenticationService>().signIn(
             email: emails.trim(),
             password: oldpassword.trim(),
@@ -46,75 +50,142 @@ class _CambioPasswordState extends State<CambioPassword> {
     }
 
     final user = FirebaseAuth.instance.currentUser;
-
-    user.updatePassword(password).then((_) async {
-      database.reference().child("Pass").update({password: email});
-      await dialog.hide();
-      if (Platform.isIOS) {
-        showCupertinoDialog(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-            title: Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-              size: 50,
-            ),
-            content: Text(
-              "Password cambiata con successo!",
-              style: TextStyle(
-                fontSize: 27,
+    if (user != null) {
+      user.updatePassword(password).then((_) async {
+        database.reference().child("Pass").set({password: email});
+        await dialog.hide();
+        context.read<AuthenticationService>().signOut();
+        if (Platform.isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 50,
               ),
-            ),
-            actions: [
-              CupertinoDialogAction(
-                child: Icon(
-                  Icons.home,
-                  color: Colors.blueGrey,
-                  size: 50,
+              content: Text(
+                "Password cambiata con successo!",
+                style: TextStyle(
+                  fontSize: 27,
                 ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-              )
-            ],
-          ),
-        );
-      } else {
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-              size: 50,
-            ),
-            content: Text(
-              "Password cambiata con successo!",
-              style: TextStyle(
-                fontSize: 27,
               ),
+              actions: [
+                CupertinoDialogAction(
+                  child: Icon(
+                    Icons.home,
+                    color: Colors.blueGrey,
+                    size: 50,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                )
+              ],
             ),
-            actions: [
-              FlatButton(
-                child: Icon(
-                  Icons.home,
-                  color: Colors.blueGrey,
-                  size: 50,
+          );
+        } else {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 50,
+              ),
+              content: Text(
+                "Password cambiata con successo!",
+                style: TextStyle(
+                  fontSize: 27,
                 ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-              )
-            ],
-          ),
-        );
-      }
-    }).catchError((error) async {
+              ),
+              actions: [
+                FlatButton(
+                  child: Icon(
+                    Icons.home,
+                    color: Colors.blueGrey,
+                    size: 50,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      }).catchError((error) async {
+        await dialog.hide();
+        context.read<AuthenticationService>().signOut();
+        print(error);
+        if (Platform.isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 50,
+              ),
+              content: Text(
+                "Non è stato possibile cambiare la password!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 50,
+              ),
+              content: Text(
+                "Non è stato possibile cambiare la password!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                FlatButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      });
+    } else {
       await dialog.hide();
-      print(error);
       if (Platform.isIOS) {
         showCupertinoDialog(
           context: context,
@@ -125,7 +196,7 @@ class _CambioPasswordState extends State<CambioPassword> {
               size: 50,
             ),
             content: Text(
-              "Non è stato possibile cambiare la password!",
+              "Non è stato trovato nessun account con le credenziali fornite!",
               style: TextStyle(
                 fontSize: 27,
               ),
@@ -156,7 +227,7 @@ class _CambioPasswordState extends State<CambioPassword> {
               size: 50,
             ),
             content: Text(
-              "Non è stato possibile cambiare la password!",
+              "Non è stato trovato nessun account con le credenziali fornite!",
               style: TextStyle(
                 fontSize: 27,
               ),
@@ -177,7 +248,7 @@ class _CambioPasswordState extends State<CambioPassword> {
           ),
         );
       }
-    });
+    }
   }
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -194,14 +265,6 @@ class _CambioPasswordState extends State<CambioPassword> {
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-    final firebaseUser = context.watch<User>();
-    bool isLogged;
-    if (firebaseUser == null) {
-      isLogged = false;
-    }
-    {
-      isLogged = true;
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -355,8 +418,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      changePassword(
-                          email, password, oldPassword, database, isLogged);
+                      changePassword(email, password, oldPassword, database);
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
