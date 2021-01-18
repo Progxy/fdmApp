@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
 
 class VerifyExpiration {
   DateTime dateExp;
@@ -17,7 +18,10 @@ class VerifyExpiration {
           values.map((a, b) => MapEntry(a as String, b as String));
       String expDate =
           map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
-      final DateTime date = DateTime.parse(expDate);
+      final DateTime dates = DateTime.parse(expDate);
+      final DateFormat formatter = DateFormat('yyyy-MM-dd');
+      final String dateS = formatter.format(dates);
+      final DateTime date = DateTime.parse(dateS);
       dateExp = date;
     });
   }

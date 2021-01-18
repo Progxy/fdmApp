@@ -688,7 +688,6 @@ class _IscrizioneState extends State<Iscrizione> {
                                     String group = lista[newValue];
                                     groupType = groupList[group];
                                     data["tipo di gruppo"] = groupType;
-                                    print(groupType);
                                   });
                                 },
                                 items: elementi
@@ -881,6 +880,11 @@ class _IscrizioneState extends State<Iscrizione> {
                                           checked &&
                                           check) {
                                         data["prezzo"] = prezzi[groupType];
+                                        if (data["prezzo"] == null) {
+                                          String group = lista[dropdownValue];
+                                          groupType = groupList[group];
+                                          data["prezzo"] = prezzi[groupType];
+                                        }
                                         print(data["prezzo"]);
                                         final DateFormat formatter =
                                             DateFormat('dd/MM/yyyy');

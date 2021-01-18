@@ -23,6 +23,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
     final String username = data["username"];
     final String indirizzo = data["indirizzo"];
     final String id = data["id"];
+    final String citta = data["città"];
     return Scaffold(
       appBar: AppBar(
         title: Text("Iscrizione Completata"),
@@ -45,7 +46,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               height: 15,
             ),
             Text(
-              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nInoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo '$id - Cambio indirizzo di spedizione' nell'oggetto, o anche per eventuali chiarimenti.",
+              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nInoltre la tessera sarà consegnata al seguente indirizzo :\n$indirizzo,\n$citta,\nse volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo :\n''$id - Cambio indirizzo di spedizione''\nnell'oggetto,\nper eventuali chiarimenti si prega di contattarci alla stessa email.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 23,
@@ -64,7 +65,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 25,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -7,7 +7,6 @@ import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
-import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/privacy.dart';
@@ -229,20 +228,10 @@ class _MainDrawerState extends State<MainDrawer> {
                       MaterialPageRoute(builder: (context) => FeedBack()));
                 }
               }),
-          ListTile(
-              title: Text("PassaPorta", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PayIscrizione()));
-                }
-              }),
-          Divider(),
+          Divider(
+            thickness: 1,
+            color: Colors.blueGrey,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -251,12 +240,15 @@ class _MainDrawerState extends State<MainDrawer> {
                 child: Text(
                   "Version $beta $version.$subVersion",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 23,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),
