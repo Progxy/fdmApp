@@ -3,6 +3,7 @@ import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl/intl.dart';
 
 import 'home/mainDrawer.dart';
 import 'iscrizione/DatiAccount.dart';
@@ -735,7 +736,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    child: checked
+                                    child: check
                                         ? Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 45, bottom: 50),
@@ -764,10 +765,10 @@ class _IscrizioneState extends State<Iscrizione> {
                                             child: MaterialButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  if (checked) {
-                                                    checked = false;
+                                                  if (check) {
+                                                    check = false;
                                                   } else {
-                                                    checked = true;
+                                                    check = true;
                                                   }
                                                 });
                                               },
@@ -880,12 +881,14 @@ class _IscrizioneState extends State<Iscrizione> {
                                           checked &&
                                           check) {
                                         data["prezzo"] = prezzi[groupType];
-                                        String id = data["username"][0]
-                                                .toupperCase() +
-                                            data["nome"][0].toupperCase() +
-                                            data["cognome"][0].toupperCase() +
-                                            (int.parse(DateTime.now()
-                                                        .toString()
+                                        print(data["prezzo"]);
+                                        final DateFormat formatter =
+                                            DateFormat('dd/MM/yyyy');
+                                        String id = data["username"][0] +
+                                            data["nome"][0] +
+                                            data["cognome"][0] +
+                                            (int.parse(formatter
+                                                        .format(DateTime.now())
                                                         .replaceAll("-", "")
                                                         .replaceAll("/", "")) *
                                                     35)
@@ -899,6 +902,8 @@ class _IscrizioneState extends State<Iscrizione> {
                                                 builder: (context) =>
                                                     PayIscrizione()));
                                       } else {
+                                        print(check);
+                                        print(checked);
                                         if (isIOS) {
                                           showCupertinoDialog(
                                             context: context,

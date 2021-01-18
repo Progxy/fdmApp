@@ -250,15 +250,19 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  payViaNewCard(BuildContext context) async {
+  payViaNewCard(
+      BuildContext context, Map datas, FirebaseDatabase database) async {
     final String _price = data["prezzo"];
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
     var response =
         await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
-    await dialog.hide();
     if (response.message == "Transaction successful") {
+      await addAccount(datas, database);
+      await sendDataToFdm(datas);
+      await sendDataToSocio(datas);
+      await dialog.hide();
       Platform.isIOS
           ? showCupertinoDialog(
               context: context,
@@ -434,7 +438,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                       ),
                       color: Colors.blueGrey,
                       onPressed: () {
-                        payViaNewCard(context);
+                        payViaNewCard(context, data, database);
                       },
                     ),
                   ),

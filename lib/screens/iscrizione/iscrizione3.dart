@@ -45,7 +45,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               height: 15,
             ),
             Text(
-              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nPrima verifica il tuo account attraverso il link che abbiamo mandato a questa email : $email. Inoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo '$id - Cambio indirizzo di spedizione' nell'oggetto, o anche per eventuali chiarimenti.",
+              "Questi sono i dati per eseguire l'accesso nel tuo account:\nEmail : $email,\n Password : $password,\nUsername : $username.\nInoltre la tessera sarà consegnata al seguente indirizzo : $indirizzo, se volesse cambiarlo ci scriva a contatti@donmilani.com, scrivendo '$id - Cambio indirizzo di spedizione' nell'oggetto, o anche per eventuali chiarimenti.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 23,
@@ -66,7 +66,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
             SizedBox(
               height: 15,
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FloatingActionButton(
@@ -80,12 +80,18 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                   ),
                   backgroundColor: Colors.blueGrey,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   "OPPURE",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 ButtonTheme(
                   height: 55,
