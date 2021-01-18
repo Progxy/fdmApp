@@ -144,14 +144,9 @@ class _PayIscrizioneState extends State<PayIscrizione> {
           "Username : $username,\nEmail : $email,\nPassword : $password,\nId : $id." +
               "\n\nErmes-Express FDM";
 
-    ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(message: 'Caricamento...');
-    await dialog.show();
-
     await emailTransport.send(envelope).then((envelope) async {
-      await dialog.hide();
+      print("Success!");
     }).catchError((e) async {
-      await dialog.hide();
       print(e);
       if (Platform.isIOS) {
         showCupertinoDialog(
