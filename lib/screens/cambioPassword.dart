@@ -26,12 +26,11 @@ class CambioPassword extends StatefulWidget {
 
 class _CambioPasswordState extends State<CambioPassword> {
   changePassword(String emails, String password, String oldpassword,
-      FirebaseDatabase database) async {
+      FirebaseDatabase database, bool isLogged) async {
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
-    final firebaseUser = context.watch<User>();
-    if (firebaseUser == null) {
+    if (!isLogged) {
       await context.read<AuthenticationService>().signIn(
             email: emails.trim(),
             password: oldpassword.trim(),
@@ -195,6 +194,14 @@ class _CambioPasswordState extends State<CambioPassword> {
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    final firebaseUser = context.watch<User>();
+    bool isLogged;
+    if (firebaseUser == null) {
+      isLogged = false;
+    }
+    {
+      isLogged = true;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -295,8 +302,14 @@ class _CambioPasswordState extends State<CambioPassword> {
               validator: (value) {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
-                } else if (confirmPassword != password) {
+                } else if (value != _confirmpasswordController.text.trim()) {
                   return "Le Password Sono Diverse";
+                } else if (value == _oldpasswordController.text.trim()) {
+                  return "La Password è Uguale a Quella Precedente";
+                } else if (value.length > 25) {
+                  return "Password troppo lunga";
+                } else if (value.length < 5) {
+                  return "Password troppo corta";
                 }
                 password = value;
                 return null;
@@ -325,7 +338,7 @@ class _CambioPasswordState extends State<CambioPassword> {
               validator: (value) {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
-                } else if (confirmPassword != password) {
+                } else if (value != _passwordController.text.trim()) {
                   return "Le Password Sono Diverse";
                 }
                 confirmPassword = value;
@@ -342,7 +355,8 @@ class _CambioPasswordState extends State<CambioPassword> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      changePassword(email, password, oldPassword, database);
+                      changePassword(
+                          email, password, oldPassword, database, isLogged);
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
