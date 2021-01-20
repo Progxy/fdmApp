@@ -1,9 +1,6 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:fdmApp/screens/databaseManager.dart';
 import 'package:fdmApp/screens/home/mainBarbiana.dart';
 import 'package:fdmApp/screens/home/mainNews.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +8,6 @@ import 'home/mainDrawer.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String routeName = "/home";
-  MyHomePage({this.app});
-  final FirebaseApp app;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -93,8 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
-    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Fondazione Don Milani App"),
@@ -125,12 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     return SizedBox(
                       height: 15,
                     );
-                  },
-                ),
-                FutureBuilder<dynamic>(
-                  future: DatabaseManager().contentHomePage(database),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    return SizedBox();
                   },
                 ),
               ],

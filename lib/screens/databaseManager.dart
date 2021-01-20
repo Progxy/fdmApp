@@ -10,14 +10,15 @@ class DatabaseManager {
         .then((DataSnapshot snapshot) {
       Map map = new Map.from(snapshot.value);
       final String verifyEvent = "Evento";
-      Map eventi = {};
-      Map info = {};
+      List eventi = [];
+      List info = [];
       List general = [];
       map.forEach((name, valueList) => name.startsWith(verifyEvent)
-          ? eventi[name] = valueList.values
-          : info[name] = valueList.values);
-      print(eventi);
-      print(info);
+          ? eventi.add("{$name : ${valueList.values}}")
+          : info.add("{$name : ${valueList.values}}"));
+      general.add(eventi);
+      general.add(info);
+      return general;
     });
   }
 }
