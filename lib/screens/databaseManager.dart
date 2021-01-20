@@ -35,7 +35,7 @@ class DatabaseManager {
         tempor.add(eventoData[r + 2]);
         tempor.add(eventoData[r + 3]);
         generalEventi.add(tempor);
-        r += 2;
+        r += 4;
       }
       for (var i in info) {
         List tempor = [];
@@ -45,7 +45,7 @@ class DatabaseManager {
         tempor.add(infoData[index + 2]);
         tempor.add(infoData[index + 3]);
         generalInfo.add(tempor);
-        index += 2;
+        index += 4;
       }
       general.add(generalEventi);
       general.add(generalInfo);
