@@ -298,13 +298,12 @@ class _VisitaState extends State<Visita> {
 
     bool _predicate(DateTime day) {
       int validTimes;
-      final DateFormat format = DateFormat('dd-MM-yyyy');
       for (var elements in datas) {
-        if (format.format(day) != elements[0]) {
-          validTimes = 1;
-        } else {
+        if (day.compareTo(elements[0]) == 0) {
           validTimes = 0;
           break;
+        } else {
+          validTimes = 1;
         }
       }
       if (validTimes != 0) {
@@ -390,12 +389,29 @@ class _VisitaState extends State<Visita> {
                                 format: format,
                                 onShowPicker: (context, currentValue) async {
                                   await getData(database);
+                                  int ind = 0;
+                                  for (var elem in datas) {
+                                    DateFormat inputDateFormat =
+                                        new DateFormat("dd-MM-yyyy");
+                                    DateFormat outputDateFormat =
+                                        new DateFormat("yyyy-MM-dd");
+                                    String dates = outputDateFormat
+                                        .format(inputDateFormat.parse(elem[0]));
+                                    var date = DateTime.parse(dates);
+                                    datas[ind][0] = date;
+                                    ind++;
+                                  }
+                                  datas.sort((a, b) {
+                                    var adate = a[0];
+                                    var bdate = b[0];
+                                    return -adate.compareTo(bdate);
+                                  });
                                   final date = await showDatePicker(
                                       context: context,
                                       selectableDayPredicate: _predicate,
-                                      firstDate: DateTime.now(),
+                                      firstDate: datas.last[0],
                                       initialDate:
-                                          currentValue ?? DateTime.now(),
+                                          datas.last[0] ?? DateTime.now(),
                                       lastDate: DateTime(2100),
                                       builder: (context, child) {
                                         return Theme(
@@ -433,7 +449,7 @@ class _VisitaState extends State<Visita> {
                                         DateFormat('dd/MM/yyyy HH:mm');
                                     for (var element in datas) {
                                       if (formatter.format(value) ==
-                                          element[0]) {
+                                          formatter.format(element[0])) {
                                         validTime = 0;
                                         break;
                                       } else {

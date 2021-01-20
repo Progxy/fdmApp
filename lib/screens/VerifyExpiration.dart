@@ -18,8 +18,6 @@ class VerifyExpiration {
           values.map((a, b) => MapEntry(a as String, b as String));
       String expDate =
           map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
-      // final DateFormat formatter = DateFormat('yyyy-MM-dd');
-      // final DateTime date = formatter.parse(expDate);
       DateFormat inputDateFormat = new DateFormat("dd-MM-yyyy");
       DateFormat outputDateFormat = new DateFormat("yyyy-MM-dd");
       String dates = outputDateFormat.format(inputDateFormat.parse(expDate));
