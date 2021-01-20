@@ -1,16 +1,22 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:intl/intl.dart';
 
+import 'databaseManager.dart';
 import 'home.dart';
 import 'home/mainDrawer.dart';
 import 'visita/disponibilità.dart';
 
 class Visita extends StatefulWidget {
   static const String routeName = "/visita";
+
+  Visita({this.app});
+  final FirebaseApp app;
 
   @override
   _VisitaState createState() => _VisitaState();
@@ -46,11 +52,6 @@ class _VisitaState extends State<Visita> {
   bool checked = false;
   String verifyResult = "";
   final format = DateFormat("dd/MM/yyyy HH:mm");
-  final List<List> disponibility = [
-    ["12/01/2021", "Burberi Agostino"],
-    ["21/10/2021", "Emanuele Burberi"],
-    ["12/11/2021", "Burberi Agostino e \nBurberi Emanuele"]
-  ];
 
   String simplePhoneValidator(value) {
     if (value.isEmpty) {
@@ -81,6 +82,12 @@ class _VisitaState extends State<Visita> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    List datas = [];
+    getData(FirebaseDatabase database) async {
+      datas = await DatabaseManager().getDisponibilita(database);
+    }
+
     sendData(Map datas) async {
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'
@@ -289,6 +296,24 @@ class _VisitaState extends State<Visita> {
       });
     }
 
+    bool _predicate(DateTime day) {
+      int validTimes;
+      final DateFormat format = DateFormat('dd-MM-yyyy');
+      for (var elements in datas) {
+        if (format.format(day) != elements[0]) {
+          validTimes = 1;
+        } else {
+          validTimes = 0;
+          break;
+        }
+      }
+      if (validTimes != 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -306,8 +331,10 @@ class _VisitaState extends State<Visita> {
                   padding: EdgeInsets.only(top: 15),
                   child: FloatingActionButton.extended(
                     onPressed: () {
-                      Navigator.pushNamed(context, Disponibilita.routeName,
-                          arguments: disponibility);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Disponibilita()));
                     },
                     label: Text(
                       "Verifica Disponibilità",
@@ -362,12 +389,28 @@ class _VisitaState extends State<Visita> {
                                 ),
                                 format: format,
                                 onShowPicker: (context, currentValue) async {
+                                  await getData(database);
                                   final date = await showDatePicker(
-                                    context: context,
-                                    firstDate: DateTime.now(),
-                                    initialDate: currentValue ?? DateTime.now(),
-                                    lastDate: DateTime(2100),
-                                  );
+                                      context: context,
+                                      selectableDayPredicate: _predicate,
+                                      firstDate: DateTime.now(),
+                                      initialDate:
+                                          currentValue ?? DateTime.now(),
+                                      lastDate: DateTime(2100),
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: ThemeData(
+                                              primaryColor: Colors.blueGrey,
+                                              disabledColor: Colors.grey,
+                                              textTheme: TextTheme(
+                                                headline1: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              accentColor: Colors.blueGrey),
+                                          child: child,
+                                        );
+                                      });
+
                                   if (date != null) {
                                     final time = await showTimePicker(
                                       context: context,
@@ -388,7 +431,7 @@ class _VisitaState extends State<Visita> {
                                         DateFormat('dd/MM/yyyy');
                                     final DateFormat formatters =
                                         DateFormat('dd/MM/yyyy HH:mm');
-                                    for (var element in disponibility) {
+                                    for (var element in datas) {
                                       if (formatter.format(value) ==
                                           element[0]) {
                                         validTime = 0;

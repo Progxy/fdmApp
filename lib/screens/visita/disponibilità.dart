@@ -22,7 +22,6 @@ class _DisponibilitaState extends State<Disponibilita> {
     List data = [];
     getData(FirebaseDatabase database) async {
       data = await DatabaseManager().getDisponibilita(database);
-      print(data);
     }
 
     return Scaffold(
