@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 class DatabaseManager {
   List resultInfos = [];
   List resultDisponibilita = [];
+  List resultMedia = [];
   contentHomePage(FirebaseDatabase database) async {
     await database
         .reference()
@@ -88,5 +89,39 @@ class DatabaseManager {
   getDisponibilita(FirebaseDatabase database) async {
     await contentDisponibilita(database);
     return resultDisponibilita;
+  }
+
+  contentMedia(FirebaseDatabase database) async {
+    await database
+        .reference()
+        .child("Media")
+        .orderByValue()
+        .once()
+        .then((DataSnapshot snapshot) {
+      Map map = new Map.from(snapshot.value);
+      List generalTitle = [];
+      List generalData = [];
+      List general = [];
+      map.forEach((name, valueList) => generalTitle.add(name));
+      map.forEach((name, valueList) => valueList.forEach(
+          (k, val) => (val.forEach((key, value) => (generalData.add(value))))));
+      int index = 0;
+      for (var i in generalTitle) {
+        List tempor = [];
+        tempor.add(i);
+        tempor.add(generalData[index]);
+        tempor.add(generalData[index + 1]);
+        tempor.add(generalData[index + 2]);
+        general.add(tempor);
+        index += 3;
+      }
+      resultMedia = general;
+    });
+  }
+
+  getMedia(FirebaseDatabase database) async {
+    await contentMedia(database);
+    print(resultMedia);
+    return resultMedia;
   }
 }
