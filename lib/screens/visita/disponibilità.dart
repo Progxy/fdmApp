@@ -1,13 +1,30 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fdmApp/screens/databaseManager.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class Disponibilita extends StatelessWidget {
+class Disponibilita extends StatefulWidget {
   static const String routeName = "/disponibilità";
+
+  Disponibilita({this.app});
+  final FirebaseApp app;
+
+  @override
+  _DisponibilitaState createState() => _DisponibilitaState();
+}
+
+class _DisponibilitaState extends State<Disponibilita> {
   @override
   Widget build(BuildContext context) {
-    final List disponibility =
-        ModalRoute.of(context).settings.arguments as List;
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    List data = [];
+    getData(FirebaseDatabase database) async {
+      data = await DatabaseManager().getDisponibilita(database);
+      print(data);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Calendario Disponibilità"),
@@ -33,64 +50,79 @@ class Disponibilita extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 30),
-          ),
-          CarouselSlider(
-            items: disponibility
-                .map((i) => new Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          offset: Offset(0, 3),
+          FutureBuilder(
+            future: getData(database),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              return CarouselSlider(
+                items: data
+                    .map((i) => new Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/barbiana.jpg"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ],
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/barbiana.jpg"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 75),
-                            child: BorderedText(
-                              strokeWidth: 4.0,
-                              strokeColor: Colors.black,
-                              child: Text(
-                                "Il giorno " +
-                                    i[0] +
-                                    "\nci saranno i volontari : \n" +
-                                    i[1],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            height: 225,
+                            width: 380,
+                            child: ListView(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 275,
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 13.0,
+                                            top: 13.0,
+                                          ),
+                                          child: BorderedText(
+                                            strokeWidth: 4.0,
+                                            strokeColor: Colors.black,
+                                            child: Text(
+                                              "Il giorno " +
+                                                  i[0] +
+                                                  "\nci saranno i volontari : \n" +
+                                                  i[1],
+                                              style: TextStyle(
+                                                fontSize: 28,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    )))
-                .toList(),
-            options: CarouselOptions(
-                enlargeCenterPage: true,
-                height: 350.0,
-                aspectRatio: 4 / 3,
-                enableInfiniteScroll: true,
-                viewportFraction: 0.8),
-          )
-          //Carousel_slider with date and volounteer and barbiana as background image
+                        )))
+                    .toList(),
+                options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    height: 350.0,
+                    aspectRatio: 4 / 3,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 0.8),
+              );
+            },
+          ),
         ],
       ),
     );
