@@ -40,8 +40,10 @@ class InfoEvento extends StatelessWidget {
               image,
               errorBuilder: (BuildContext context, Object exception,
                   StackTrace stackTrace) {
-                return Image(
-                  image: AssetImage("assets/images/error_image.png"),
+                return Center(
+                  child: Image(
+                    image: AssetImage("assets/images/error_image.png"),
+                  ),
                 );
               },
             ),
