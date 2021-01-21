@@ -122,7 +122,6 @@ class _DetailedVideoState extends State<DetailedVideo> {
                 onReady: () {
                   _isPlayerReady = true;
                   _controller.load(details[2]);
-                  _controller.pause();
                 },
               ),
               builder: (context, player) => Container(
