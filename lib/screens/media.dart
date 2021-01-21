@@ -21,68 +21,45 @@ class Media extends StatefulWidget {
 }
 
 class _MediaState extends State<Media> {
-  final List<List> mediaPhoto = [
-    [
-      "title",
-      "date",
-      "https://www.donlorenzomilani.it/wp-content/uploads/2017/03/23-marzo-relatori-800x445.jpg",
-      "infos_arcticle",
-    ],
-    [
-      "title1",
-      "date1",
-      "https://www.donlorenzomilani.it/wp-content/uploads/2017/06/papabarbiana7853-800x445.jpg",
-      "infos_arcticle1",
-    ],
-  ];
-
-  final List<List> mediaVideo = [
-    [
-      "title2",
-      "date2",
-      "fzoF_KhJO8c",
-      "infos_arcticle2",
-      0,
-    ],
-    [
-      "title3",
-      "date3",
-      "OCLl6dGK11Q",
-      "infos_arcticle3",
-      1,
-    ],
-  ];
-
   List<YoutubePlayerController> _controllers = [];
   List<TextEditingController> _idControllers = [];
   List<TextEditingController> _seekToControllers = [];
   List<YoutubeMetaData> _videoMetaDatas = [];
   List<PlayerState> _playerStates = [];
   bool _isPlayerReady = false;
+  final FirebaseDatabase database = FirebaseDatabase(app: Media().app);
+  List dataVideo = [];
+  List dataFoto = [];
 
   @override
   void initState() {
     super.initState();
-    int index = 0;
-    for (var element in mediaVideo) {
-      _controllers.add(YoutubePlayerController(
-        initialVideoId: element[2],
-        flags: const YoutubePlayerFlags(
-          mute: false,
-          autoPlay: false,
-          disableDragSeek: false,
-          loop: true,
-          isLive: false,
-          forceHD: false,
-          enableCaption: true,
-        ),
-      )..addListener(listener(index)));
-      index++;
-      _idControllers.add(TextEditingController());
-      _seekToControllers.add(TextEditingController());
-      _videoMetaDatas.add(const YoutubeMetaData());
-      _playerStates.add(PlayerState.unknown);
-    }
+    DatabaseManager().getMedia(database).then((arr) {
+      dataVideo = arr[0];
+      dataFoto = arr[1];
+      print(dataVideo);
+      print(dataFoto);
+      int index = 0;
+      for (var elements in dataVideo) {
+        _controllers.add(YoutubePlayerController(
+          initialVideoId: elements[2],
+          flags: const YoutubePlayerFlags(
+            mute: false,
+            autoPlay: false,
+            disableDragSeek: false,
+            loop: true,
+            isLive: false,
+            forceHD: false,
+            enableCaption: true,
+          ),
+        )..addListener(listener(index)));
+        index++;
+        _idControllers.add(TextEditingController());
+        _seekToControllers.add(TextEditingController());
+        _videoMetaDatas.add(const YoutubeMetaData());
+        _playerStates.add(PlayerState.unknown);
+      }
+    });
   }
 
   listener(int number) {
@@ -118,13 +95,6 @@ class _MediaState extends State<Media> {
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-    List data = [];
-    getData(FirebaseDatabase database) async {
-      List general = await DatabaseManager().getMedia(database);
-      data = general[1].toList();
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Foto e Video"),
@@ -139,7 +109,7 @@ class _MediaState extends State<Media> {
               height: 15,
             ),
             CarouselSlider(
-              items: mediaVideo
+              items: dataVideo
                   .map(
                     (infos) => new Container(
                       decoration: BoxDecoration(
@@ -269,7 +239,7 @@ class _MediaState extends State<Media> {
               height: 35,
             ),
             CarouselSlider(
-              items: mediaPhoto
+              items: dataFoto
                   .map(
                     (infos) => new Container(
                       decoration: BoxDecoration(

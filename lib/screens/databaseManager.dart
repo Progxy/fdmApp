@@ -99,22 +99,43 @@ class DatabaseManager {
         .once()
         .then((DataSnapshot snapshot) {
       Map map = new Map.from(snapshot.value);
-      List generalTitle = [];
-      List generalData = [];
+      final String video = "Video";
+      List videoTitle = [];
+      List videoData = [];
+      List fotoTitle = [];
+      List fotoData = [];
+      List generalVideo = [];
+      List generalFoto = [];
       List general = [];
-      map.forEach((name, valueList) => generalTitle.add(name));
-      map.forEach((name, valueList) => valueList.forEach(
-          (k, val) => (val.forEach((key, value) => (generalData.add(value))))));
+      map.forEach((name, valueList) =>
+          name.startsWith(video) ? videoTitle.add(name) : fotoTitle.add(name));
+      map.forEach((name, valueList) => name.startsWith(video)
+          ? valueList.forEach(
+              (k, val) => (val.forEach((key, value) => (videoData.add(value)))))
+          : valueList.forEach((k, val) =>
+              (val.forEach((key, value) => (fotoData.add(value))))));
       int index = 0;
-      for (var i in generalTitle) {
+      for (var i in videoTitle) {
         List tempor = [];
         tempor.add(i);
-        tempor.add(generalData[index]);
-        tempor.add(generalData[index + 1]);
-        tempor.add(generalData[index + 2]);
-        general.add(tempor);
+        tempor.add(videoData[index]);
+        tempor.add(videoData[index + 1]);
+        tempor.add(videoData[index + 2]);
+        generalVideo.add(tempor);
         index += 3;
       }
+      index = 0;
+      for (var i in fotoTitle) {
+        List tempor = [];
+        tempor.add(i);
+        tempor.add(fotoData[index]);
+        tempor.add(fotoData[index + 1]);
+        tempor.add(fotoData[index + 2]);
+        generalFoto.add(tempor);
+        index += 3;
+      }
+      general.add(generalVideo);
+      general.add(generalFoto);
       resultMedia = general;
     });
   }
