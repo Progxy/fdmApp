@@ -273,6 +273,14 @@ class _MediaState extends State<Media> {
                                       padding: const EdgeInsets.all(20.0),
                                       child: Image.network(
                                         infos[2].replaceAll('"', ''),
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace stackTrace) {
+                                          return Image(
+                                            image: AssetImage(
+                                                "assets/images/error_image.png"),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ],

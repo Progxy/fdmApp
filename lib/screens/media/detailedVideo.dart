@@ -66,8 +66,6 @@ class _DetailedVideoState extends State<DetailedVideo> {
     final List details = ModalRoute.of(context).settings.arguments as List;
     final videoTitle = details[0];
     final videoText = details[3];
-    _controller.load(details[2]);
-    print(details[2]);
     return Scaffold(
       appBar: AppBar(
         title: Text(videoTitle),
@@ -123,6 +121,8 @@ class _DetailedVideoState extends State<DetailedVideo> {
                 ],
                 onReady: () {
                   _isPlayerReady = true;
+                  _controller.load(details[2]);
+                  _controller.pause();
                 },
               ),
               builder: (context, player) => Container(

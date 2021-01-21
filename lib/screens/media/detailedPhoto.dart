@@ -43,6 +43,14 @@ class DetailedPhoto extends StatelessWidget {
             ),
             Image.network(
               details[2].replaceAll('"', ''),
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace stackTrace) {
+                return Center(
+                  child: Image(
+                    image: AssetImage("assets/images/error_image.png"),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 25,
