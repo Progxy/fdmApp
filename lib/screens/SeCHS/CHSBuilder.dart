@@ -22,6 +22,7 @@ class _CHSBuilderState extends State<CHSBuilder> {
     getData(FirebaseDatabase database) async {
       List general = await DatabaseManager().getSeCHS(database);
       data = general[1].toList();
+      print(data);
     }
 
     return FutureBuilder(

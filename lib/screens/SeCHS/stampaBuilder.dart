@@ -22,6 +22,7 @@ class _StampaBuilderState extends State<StampaBuilder> {
     getData(FirebaseDatabase database) async {
       List general = await DatabaseManager().getSeCHS(database);
       data = general[0].toList();
+      print(data);
     }
 
     return FutureBuilder(
