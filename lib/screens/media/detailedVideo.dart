@@ -67,68 +67,73 @@ class _DetailedVideoState extends State<DetailedVideo> {
     final videoTitle = details[0];
     final videoText = details[3];
     _controller.load(details[2]);
+    print(details[2]);
     return Scaffold(
       appBar: AppBar(
         title: Text(videoTitle),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            videoTitle,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            videoText,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          YoutubePlayerBuilder(
-            onExitFullScreen: () {
-              SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-            },
-            player: YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.blueAccent,
-              topActions: <Widget>[
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: Text(
-                    _controller.metadata.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                videoTitle.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
                 ),
-              ],
-              onReady: () {
-                _isPlayerReady = true;
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              videoText,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            YoutubePlayerBuilder(
+              onExitFullScreen: () {
+                SystemChrome.setPreferredOrientations(DeviceOrientation.values);
               },
+              player: YoutubePlayer(
+                controller: _controller,
+                showVideoProgressIndicator: true,
+                progressIndicatorColor: Colors.blueAccent,
+                topActions: <Widget>[
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Text(
+                      _controller.metadata.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+                onReady: () {
+                  _isPlayerReady = true;
+                },
+              ),
+              builder: (context, player) => Container(
+                child: player,
+              ),
             ),
-            builder: (context, player) => Container(
-              child: player,
+            SizedBox(
+              height: 25,
             ),
-          ),
-          SizedBox(
-            height: 25,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

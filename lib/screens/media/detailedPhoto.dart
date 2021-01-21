@@ -11,37 +11,44 @@ class DetailedPhoto extends StatelessWidget {
       appBar: AppBar(
         title: Text(titlePhoto),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            titlePhoto,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 15,
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            textPhoto,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
+            Center(
+              child: Text(
+                titlePhoto.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Image.network(
-            details[2],
-          ),
-          SizedBox(
-            height: 25,
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              textPhoto,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Image.network(
+              details[2].replaceAll('"', ''),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
       ),
     );
   }
