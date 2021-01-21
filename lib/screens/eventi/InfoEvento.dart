@@ -36,9 +36,14 @@ class InfoEvento extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Image(
-              image: NetworkImage(image),
-              fit: BoxFit.fitWidth,
+            Image.network(
+              image,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace stackTrace) {
+                return Image(
+                  image: AssetImage("assets/images/error_image.png"),
+                );
+              },
             ),
             SizedBox(
               height: 25,
