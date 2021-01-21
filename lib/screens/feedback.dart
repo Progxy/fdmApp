@@ -193,11 +193,13 @@ class _FeedBackState extends State<FeedBack> {
                   padding: const EdgeInsets.only(
                     top: 10,
                   ),
-                  child: Text(
-                    "Come Valuti l'Applicazione: ",
-                    style: TextStyle(
-                      fontSize: 27,
-                      fontWeight: FontWeight.w600,
+                  child: Center(
+                    child: Text(
+                      "Come Valuti l'Applicazione: ",
+                      style: TextStyle(
+                        fontSize: 27,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

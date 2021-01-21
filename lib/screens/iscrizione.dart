@@ -860,7 +860,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                   Text(
                                     "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
                                     style: TextStyle(
-                                      fontSize: 25.5,
+                                      fontSize: 24.5,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black87,
                                     ),
