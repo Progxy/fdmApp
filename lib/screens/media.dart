@@ -100,17 +100,11 @@ class _MediaState extends State<Media> {
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
-        child: dataVideo == null || dataFoto == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ],
-              )
-            : Column(
+        child: FutureBuilder(
+          future: DatabaseManager().getContentHomePage(database),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData) {
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -347,7 +341,13 @@ class _MediaState extends State<Media> {
                     height: 25,
                   ),
                 ],
-              ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }
