@@ -4,6 +4,7 @@ class DatabaseManager {
   List resultInfos = [];
   List resultDisponibilita = [];
   List resultMedia = [];
+  List resultSeCHS = [];
   contentHomePage(FirebaseDatabase database) async {
     await database
         .reference()
@@ -143,5 +144,59 @@ class DatabaseManager {
   getMedia(FirebaseDatabase database) async {
     await contentMedia(database);
     return resultMedia;
+  }
+
+  contentSeCHS(FirebaseDatabase database) async {
+    await database
+        .reference()
+        .child("SeCHS")
+        .orderByValue()
+        .once()
+        .then((DataSnapshot snapshot) {
+      Map map = new Map.from(snapshot.value);
+      final String stampa = "Stampa";
+      List stampaTitle = [];
+      List stampaData = [];
+      List chsTitle = [];
+      List chsData = [];
+      List generalStampa = [];
+      List generalCHS = [];
+      List general = [];
+      map.forEach((name, valueList) =>
+          name.startsWith(stampa) ? stampaTitle.add(name) : chsTitle.add(name));
+      map.forEach((name, valueList) => name.startsWith(stampa)
+          ? valueList.forEach((k, val) =>
+              (val.forEach((key, value) => (stampaData.add(value)))))
+          : valueList.forEach(
+              (k, val) => (val.forEach((key, value) => (chsData.add(value))))));
+      int index = 0;
+      for (var i in stampaTitle) {
+        List tempor = [];
+        tempor.add(i);
+        tempor.add(stampaData[index]);
+        tempor.add(stampaData[index + 1]);
+        tempor.add(stampaData[index + 2]);
+        generalStampa.add(tempor);
+        index += 3;
+      }
+      index = 0;
+      for (var i in chsTitle) {
+        List tempor = [];
+        tempor.add(i);
+        tempor.add(chsData[index]);
+        tempor.add(chsData[index + 1]);
+        tempor.add(chsData[index + 2]);
+        generalCHS.add(tempor);
+        index += 3;
+      }
+      general.add(generalStampa);
+      general.add(generalCHS);
+      resultSeCHS = general;
+    });
+  }
+
+  getSeCHS(FirebaseDatabase database) async {
+    await contentMedia(database);
+    return resultSeCHS;
   }
 }

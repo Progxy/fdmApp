@@ -5,59 +5,50 @@ class InfoSeCHS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List eventi = ModalRoute.of(context).settings.arguments as List;
-    final String image = eventi[2];
-    final List<String> evento = eventi[3];
+    final String image = eventi[3];
+    final String testo = eventi[2];
+    final String title = eventi[0];
     return Scaffold(
       appBar: AppBar(
-        title: Text(eventi[0]),
+        title: Text(title),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 15,
+            ),
             Text(
-              evento[0].toUpperCase(),
+              title.toUpperCase(),
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
               ),
             ),
+            SizedBox(
+              height: 15,
+            ),
             Text(
-              evento[1],
+              testo,
               style: TextStyle(
                 fontSize: 23,
               ),
             ),
-            Text(
-              evento[2].toUpperCase(),
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-              ),
+            SizedBox(
+              height: 25,
             ),
-            Text(
-              evento[3],
-              style: TextStyle(
-                fontSize: 23,
-              ),
-            ),
-            Text(
-              evento[4].toUpperCase(),
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              evento[5],
-              style: TextStyle(
-                fontSize: 23,
-              ),
-            ),
-            Image(
-              image: AssetImage(image),
-              fit: BoxFit.fitWidth,
+            Image.network(
+              image.replaceAll('"', ''),
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace stackTrace) {
+                return Center(
+                  child: Image(
+                    image: AssetImage("assets/images/error_image.png"),
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 25,

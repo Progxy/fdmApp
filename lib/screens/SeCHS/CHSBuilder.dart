@@ -20,7 +20,7 @@ class _CHSBuilderState extends State<CHSBuilder> {
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
     List data = [];
     getData(FirebaseDatabase database) async {
-      List general = await DatabaseManager().getContentHomePage(database);
+      List general = await DatabaseManager().getSeCHS(database);
       data = general[1].toList();
     }
 
@@ -83,7 +83,7 @@ class _CHSBuilderState extends State<CHSBuilder> {
                                 strokeWidth: 3.0,
                                 strokeColor: Colors.black,
                                 child: Text(
-                                  infos[2],
+                                  infos[1],
                                   style: TextStyle(
                                     fontSize: 35,
                                     fontWeight: FontWeight.w600,
