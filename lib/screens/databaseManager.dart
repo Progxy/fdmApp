@@ -196,7 +196,7 @@ class DatabaseManager {
   }
 
   getSeCHS(FirebaseDatabase database) async {
-    await contentMedia(database);
+    await contentSeCHS(database);
     return resultSeCHS;
   }
 }

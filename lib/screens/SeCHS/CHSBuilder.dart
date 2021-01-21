@@ -22,7 +22,6 @@ class _CHSBuilderState extends State<CHSBuilder> {
     getData(FirebaseDatabase database) async {
       List general = await DatabaseManager().getSeCHS(database);
       data = general[1].toList();
-      print(data);
     }
 
     return FutureBuilder(
@@ -37,7 +36,7 @@ class _CHSBuilderState extends State<CHSBuilder> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          infos[3].replaceAll('"', ''),
+                          infos[2].replaceAll('"', ''),
                         ),
                         fit: BoxFit.cover,
                       ),

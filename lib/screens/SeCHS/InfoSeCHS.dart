@@ -5,8 +5,8 @@ class InfoSeCHS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List eventi = ModalRoute.of(context).settings.arguments as List;
-    final String image = eventi[3];
-    final String testo = eventi[2];
+    final String image = eventi[2];
+    final String testo = eventi[3];
     final String title = eventi[0];
     return Scaffold(
       appBar: AppBar(
