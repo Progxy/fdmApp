@@ -142,7 +142,6 @@ class DatabaseManager {
 
   getMedia(FirebaseDatabase database) async {
     await contentMedia(database);
-    print(resultMedia);
     return resultMedia;
   }
 }
