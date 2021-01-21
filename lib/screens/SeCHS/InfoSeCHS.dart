@@ -20,11 +20,13 @@ class InfoSeCHS extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Text(
-              title.toUpperCase(),
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
+            Center(
+              child: Text(
+                title.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             SizedBox(
