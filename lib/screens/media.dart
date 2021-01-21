@@ -1,15 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fdmApp/screens/media/detailedPhoto.dart';
 import 'package:fdmApp/screens/media/detailedVideo.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marquee/marquee.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'databaseManager.dart';
 import 'home/mainDrawer.dart';
 
 class Media extends StatefulWidget {
   static const String routeName = "/media";
+  Media({this.app});
+  final FirebaseApp app;
 
   @override
   _MediaState createState() => _MediaState();
@@ -91,7 +96,6 @@ class _MediaState extends State<Media> {
 
   @override
   void deactivate() {
-    // Pauses video while navigating to next page.
     for (var _controller in _controllers) {
       _controller.pause();
       super.deactivate();
@@ -114,6 +118,13 @@ class _MediaState extends State<Media> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    List data = [];
+    getData(FirebaseDatabase database) async {
+      List general = await DatabaseManager().getMedia(database);
+      data = general[1].toList();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Foto e Video"),
