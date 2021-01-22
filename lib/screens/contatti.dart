@@ -386,15 +386,18 @@ class Contatti extends StatelessWidget {
                                       onTap: () {
                                         launch(info[2]);
                                       },
-                                      child: BorderedText(
-                                        strokeWidth: 4.0,
-                                        strokeColor: Colors.blue,
-                                        child: Text(
-                                          info[1],
-                                          style: TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
+                                      child: Container(
+                                        width: 225,
+                                        child: BorderedText(
+                                          strokeWidth: 4.0,
+                                          strokeColor: Colors.blue,
+                                          child: Text(
+                                            info[1],
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),

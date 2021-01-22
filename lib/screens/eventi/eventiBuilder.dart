@@ -130,7 +130,7 @@ class _EventiBuilderState extends State<EventiBuilder> {
                 .toList(),
             options: CarouselOptions(
                 enlargeCenterPage: true,
-                height: 200.0,
+                height: 250.0,
                 aspectRatio: 4 / 3,
                 enableInfiniteScroll: true,
                 viewportFraction: 0.8),

@@ -70,81 +70,90 @@ class Percorsi extends StatelessWidget {
                             width: 380,
                             height: 175,
                             child: Card(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 10,
-                                      offset: Offset(0, 3),
+                              child: ListView(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 10,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                      image: DecorationImage(
+                                        image: AssetImage(i[1]),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                  ],
-                                  image: DecorationImage(
-                                    image: AssetImage(i[1]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Stack(
                                       children: <Widget>[
-                                        BorderedText(
-                                          strokeWidth: 3.0,
-                                          strokeColor: Colors.black,
-                                          child: Text(
-                                            i[0],
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 250,
+                                              child: BorderedText(
+                                                strokeWidth: 3.0,
+                                                strokeColor: Colors.black,
+                                                child: Text(
+                                                  i[0],
+                                                  style: TextStyle(
+                                                    fontSize: 25,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 30),
+                                          child: BorderedText(
+                                            strokeWidth: 3.0,
+                                            strokeColor: Colors.black,
+                                            child: Text(
+                                              i[2],
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 30),
-                                      child: BorderedText(
-                                        strokeWidth: 3.0,
-                                        strokeColor: Colors.black,
-                                        child: Text(
-                                          i[2],
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 110, right: 1),
-                                          child: FloatingActionButton(
-                                            heroTag: i,
-                                            onPressed: () {
-                                              Navigator.pushNamed(context,
-                                                  InfoPercorso.routeName,
-                                                  arguments: i[0]);
-                                            },
-                                            child: Icon(Icons.double_arrow),
-                                            backgroundColor: Colors.blueGrey,
-                                          ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 110, right: 1),
+                                              child: FloatingActionButton(
+                                                heroTag: null,
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context,
+                                                      InfoPercorso.routeName,
+                                                      arguments: i[0]);
+                                                },
+                                                child: Icon(Icons.double_arrow),
+                                                backgroundColor:
+                                                    Colors.blueGrey,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ))))
                     .toList())));

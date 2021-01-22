@@ -189,7 +189,7 @@ class _MediaState extends State<Media> {
                                         top: 110,
                                       ),
                                       child: SizedBox(
-                                        height: 30,
+                                        height: 50,
                                         child: Marquee(
                                           text: infos[0] + " - " + infos[1],
                                           style: TextStyle(
@@ -289,7 +289,7 @@ class _MediaState extends State<Media> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     SizedBox(
-                                      height: 30,
+                                      height: 50,
                                       child: Marquee(
                                         text: infos[0] + " - " + infos[1],
                                         style: TextStyle(

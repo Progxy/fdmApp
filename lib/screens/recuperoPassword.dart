@@ -453,7 +453,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                     "Recupera Credenziali",
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 30.0,
+                      fontSize: 28.0,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
