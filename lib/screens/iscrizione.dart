@@ -782,12 +782,15 @@ class _IscrizioneState extends State<Iscrizione> {
                                             ),
                                           ),
                                   ),
-                                  Text(
-                                    "I dati saranno\n utilizzati ai sensi\n dell'art.13 del\n D.Lgs 196/2003\n e autorizzo\nil trattamento.",
-                                    style: TextStyle(
-                                      fontSize: 26.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black87,
+                                  Container(
+                                    width: 200,
+                                    child: Text(
+                                      "I dati saranno\n utilizzati ai sensi\n dell'art.13 del\n D.Lgs 196/2003\n e autorizzo\nil trattamento.",
+                                      style: TextStyle(
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -858,7 +861,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                           ),
                                   ),
                                   Container(
-                                    width: 150,
+                                    width: 200,
                                     child: Text(
                                       "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
                                       style: TextStyle(

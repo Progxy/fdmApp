@@ -922,7 +922,7 @@ class _VisitaState extends State<Visita> {
                                           ),
                                   ),
                                   Container(
-                                    width: 150,
+                                    width: 200,
                                     child: Text(
                                       "Utilizzando questo\n form, acconsenti\n al salvataggio\n ed alla gestione\n dei tuoi dati su\n questa applicazione.",
                                       style: TextStyle(
