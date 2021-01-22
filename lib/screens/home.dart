@@ -128,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 FutureBuilder(
                   future: LoadUsername().getUser(context, database),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<Future<dynamic>> snapshot) {
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     return SizedBox(
                       height: 15,
                     );
