@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,11 +115,13 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     String username;
     String id;
     String expDate;
+    final firebaseAuthCheck = FirebaseAuth.instance.currentUser;
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
     await database
         .reference()
+        .child(firebaseAuthCheck.uid)
         .child("Pass")
         .orderByValue()
         .equalTo(email)
@@ -135,6 +138,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     });
     await database
         .reference()
+        .child(firebaseAuthCheck.uid)
         .child("User")
         .orderByValue()
         .equalTo(email)
@@ -146,11 +150,11 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
       LinkedHashMap<dynamic, dynamic> values = snapshot.value;
       Map<String, String> map =
           values.map((a, b) => MapEntry(a as String, b as String));
-      username =
-          map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
+      map.forEach((k, val) => {username = k});
     });
     await database
         .reference()
+        .child(firebaseAuthCheck.uid)
         .child("Id")
         .orderByValue()
         .equalTo(email)
@@ -162,10 +166,11 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
       LinkedHashMap<dynamic, dynamic> values = snapshot.value;
       Map<String, String> map =
           values.map((a, b) => MapEntry(a as String, b as String));
-      id = map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
+      map.forEach((k, val) => {id = k});
     });
     await database
         .reference()
+        .child(firebaseAuthCheck.uid)
         .child("Date")
         .orderByValue()
         .equalTo(email)
@@ -177,7 +182,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
       LinkedHashMap<dynamic, dynamic> values = snapshot.value;
       Map<String, String> map =
           values.map((a, b) => MapEntry(a as String, b as String));
-      expDate = map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
+      map.forEach((k, val) => {expDate = k});
     });
     if (password != null && id != null && username != null && expDate != null) {
       await sendCredentials(email, password, username, id);

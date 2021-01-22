@@ -152,11 +152,10 @@ class _LoginState extends State<Login> {
                               .then((DataSnapshot snapshot) {
                             LinkedHashMap<dynamic, dynamic> values =
                                 snapshot.value;
+                            String username;
                             Map<String, String> map = values.map(
                                 (a, b) => MapEntry(a as String, b as String));
-                            String username = map.keys.firstWhere(
-                                (k) => map[k] == email,
-                                orElse: () => null);
+                            map.forEach((k, value) => {username = k});
                             AccountInfo().setter(username, email);
                             Navigator.push(
                                 context,

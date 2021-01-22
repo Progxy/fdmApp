@@ -27,10 +27,12 @@ class LoadUsername {
             .once()
             .then((DataSnapshot snapshot) {
           LinkedHashMap<dynamic, dynamic> values = snapshot.value;
-          List keys = values.keys;
-          final String username = keys[0];
-          List value = values.keys;
-          final String email = value[0];
+          String username;
+          String email;
+          Map<String, String> map =
+              values.map((a, b) => MapEntry(a as String, b as String));
+          map.forEach((k, value) => {username = k});
+          map.forEach((k, value) => {email = value});
           AccountInfo().setter(username, email);
         });
       }

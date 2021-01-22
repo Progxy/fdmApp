@@ -16,8 +16,10 @@ class VerifyExpiration {
         .once()
         .then((DataSnapshot snapshot) {
       LinkedHashMap<dynamic, dynamic> values = snapshot.value;
-      List keys = values.keys;
-      final String expDate = keys[0];
+      String expDate;
+      Map<String, String> map =
+          values.map((a, b) => MapEntry(a as String, b as String));
+      map.forEach((k, value) => {expDate = k});
       DateFormat inputDateFormat = new DateFormat("dd-MM-yyyy");
       DateFormat outputDateFormat = new DateFormat("yyyy-MM-dd");
       String dates = outputDateFormat.format(inputDateFormat.parse(expDate));
