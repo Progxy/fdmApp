@@ -52,7 +52,11 @@ class _CambioPasswordState extends State<CambioPassword> {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       user.updatePassword(password).then((_) async {
-        database.reference().child("Pass").set({password: email});
+        database
+            .reference()
+            .child(user.uid)
+            .child("Pass")
+            .set({password: email});
         await dialog.hide();
         context.read<AuthenticationService>().signOut();
         if (Platform.isIOS) {
