@@ -42,7 +42,6 @@ dependencies:
   provider: ^4.3.2+4
   firebase_database: ^6.0.0
   cloud_firestore: ^0.16.0
-  firebase_analytics: ^7.0.1
   dotted_line: ^2.0.2
   connectivity: ^2.0.2
   stripe_payment: ^1.0.9
