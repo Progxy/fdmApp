@@ -145,9 +145,9 @@ class _LoginState extends State<Login> {
                         if (firebaseAuthCheck != null) {
                           await database
                               .reference()
+                              .child(firebaseAuthCheck.uid)
                               .child("User")
                               .orderByValue()
-                              .equalTo(email)
                               .once()
                               .then((DataSnapshot snapshot) {
                             LinkedHashMap<dynamic, dynamic> values =
