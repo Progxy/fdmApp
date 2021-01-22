@@ -26,22 +26,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione Don\nMilani di Gioiosa Jonica.',
+      'Associazione Don Milani di Gioiosa Jonica.',
       'http://www.donmilanigioiosa.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione Guide e\nScout Cattolici Italiani',
+      'Associazione Guide e Scout Cattolici Italiani',
       'http://www.agesci.org/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Associazione PRO\nCONSUMA',
+      'Associazione PRO CONSUMA',
       'http://www.proconsuma.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di MANDELLO\nLARIO',
+      'Comune di MANDELLO LARIO',
       'http://www.mandellolario.it/'
     ],
     [
@@ -51,27 +51,27 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di SAN\nGIORGIO IN BOSCO -PD-',
+      'Comune di SAN GIORGIO IN BOSCO -PD-',
       'http://www.comune.sangiorgioinbosco.pd.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di SAN\nVITTORE OLONA',
+      'Comune di SAN VITTORE OLONA',
       'http://www.sanvittoreolona.org/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Cooperativa Sociale\nIL FIORE per un\ncommercio equo\ne solidale',
+      'Cooperativa Sociale IL FIORE per un commercio equo e solidale',
       'http://ilfioreequo.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Coro Drammatico ”\nRENATO CONDOLEO”\nDirettore Paolo Bussagli',
+      'Coro Drammatico ”RENATO CONDOLEO” Direttore Paolo Bussagli',
       'http://www.cdrc.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'DALLA RETE ALLA\nCITTA’ DELL’UOMO\nReti in Opera Salento',
+      'DALLA RETE ALLA CITTA’ DELL’UOMO Reti in Opera Salento',
       'http://www.retinoperasalento.it/'
     ],
     [
@@ -86,12 +86,12 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'GRUPPO EREMOS\nGli amici della scala\ndi Giacobbe',
+      'GRUPPO EREMOS Gli amici della scala di Giacobbe',
       'http://www.eremos.it/index.php?page=infoblog'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'IL TREBBO\nCentro di resistenza\nculturale: Teatro,\nDidattica, Scuola',
+      'IL TREBBO Centro di resistenza culturale: Teatro, Didattica, Scuola',
       'http://il%20trebbo/'
     ],
     [
@@ -101,7 +101,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'LIBRERIA EDITRICE\nFIORENTINA -LEF-',
+      'LIBRERIA EDITRICE FIORENTINA -LEF-',
       'http://www.lef.firenze.it/'
     ],
     [
@@ -111,27 +111,27 @@ class Contatti extends StatelessWidget {
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Oratorio Parrocchiale\ndi NOVELLARA',
+      'Oratorio Parrocchiale di NOVELLARA',
       'http://www.novellara.net/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Parrocchia di San\nMartino a Vergaio\n-PO- MISSIONE\nDI PREGHIERA',
+      'Parrocchia di San Martino a Vergaio -PO- MISSIONE DI PREGHIERA',
       'http://www.missionedipreghiera.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'POIEIN – Cultura,\nsolidarieta’ e varia\numanita’',
+      'POIEIN – Cultura, solidarieta’ e varia umanita’',
       'http://www.poiein.it/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Ricordando\nDon Carlo Zaccaro',
+      'Ricordando Don Carlo Zaccaro',
       'http://doncarlozaccaro.blogspot.com/'
     ],
     [
       'AMICI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Scuola Primaria\n“Don Milani di NAVE\n-BS-',
+      'Scuola Primaria “Don Milani di NAVE -BS-',
       'http://rsb.provincia.brescia.it/ddnave/uversion/Scuola_Primaria_Don_Milani.html'
     ],
     [
@@ -141,17 +141,17 @@ class Contatti extends StatelessWidget {
     ],
     [
       'CHIESA CATTOLICA',
-      'Azione Cattolica\nDiocesi di Gaeta',
+      'Azione Cattolica Diocesi di Gaeta',
       'http://www.azionecattolicagaeta.it/'
     ],
     [
       'CHIESA CATTOLICA',
-      'Centri Missionari dei\nFrati Cappuccini\ndell’Emilia-Romagna',
+      'Centri Missionari dei Frati Cappuccini dell’Emilia-Romagna',
       'http://www.centromissionario.com/'
     ],
     [
       'CHIESA CATTOLICA',
-      'DIOCESI di FAENZA-\nMODIGLIANA',
+      'DIOCESI di FAENZA - MODIGLIANA',
       'http://www.faenza.chiesacattolica.it/'
     ],
     [
@@ -171,22 +171,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'CHIESA CATTOLICA',
-      'Diocesi di TRIVENTO\n(Chieti)',
+      'Diocesi di TRIVENTO (Chieti)',
       'http://www.diocesitrivento.it/'
     ],
     [
       'LE “BARBIANA” NEL\nMONDO DI OGGI',
-      'Associazione AMAN\nIMAN NIGER',
+      'Associazione AMAN IMAN NIGER',
       'http://www.brownsea.it/harambee/niger/'
     ],
     [
       'LE “BARBIANA” NEL\nMONDO DI OGGI',
-      'Associazione D.U.MA\nonlus',
+      'Associazione D.U.MA onlus',
       'http://www.dumaonlus.it/'
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'ARCICONFRATERNITA’\nDELLA MISERICORDIA\nDI FIRENZE',
+      'ARCICONFRATERNITA’ DELLA MISERICORDIA DI FIRENZE',
       'http://www.misericordia.firenze.it/'
     ],
     [
@@ -196,22 +196,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'Giovani e Missione:\nPAULO FREIRE',
+      'Giovani e Missione: PAULO FREIRE',
       'http://www.giovaniemissione.it/testimoni/paulofreire.htm'
     ],
     [
       'ORGANIZZAZIONI\nUMANITARIE',
-      'Progetto AGATA\nSMERALDA per l’\nadozione a distanza',
+      'Progetto AGATA SMERALDA per l’adozione a distanza',
       'http://www.agatasmeralda.org/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Istituto di Istruzione\nSuperiore SACRA\nFAMIGLIA di Soncino\n-CR-',
+      'Istituto di Istruzione Superiore SACRA FAMIGLIA di Soncino -CR-',
       'http://www.sacrafamigliasoncino.it/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Liceo “ALDO MORO”\ndi Reggio Emilia',
+      'Liceo “ALDO MORO” di Reggio Emilia',
       'http://www.liceomoro.it/'
     ],
     [
@@ -221,12 +221,12 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Pontificia Facolta’\ndi Scienze dell’\nEducazione “AUXILIUM”',
+      'Pontificia Facolta’ di Scienze dell’ Educazione “AUXILIUM”',
       'http://www.pfse-auxilium.org/'
     ],
     [
       'SCUOLE ED\nUNIVERSITA’',
-      'Scuola Secondaria di\n1^ grado “Don Lorenzo\nMilani” di TELVE in\nValsugana -TN',
+      'Scuola Secondaria di 1^ grado “Don Lorenzo Milani” di TELVE in Valsugana -TN',
       'http://www.vecchicompagnidiscuola.it/'
     ],
     [
@@ -241,7 +241,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SINDACATI',
-      'FIM-CISL -Federazione\nItaliana Metalmeccanici\n– CISL',
+      'FIM-CISL -Federazione Italiana Metalmeccanici – CISL',
       'http://www.fim.cisl.it/'
     ],
     [
@@ -251,7 +251,7 @@ class Contatti extends StatelessWidget {
     ],
     [
       'SOSTENITORI DELLA\nFONDAZIONE DON\nLORENZO MILANI',
-      'Comune di Vicchio\ndel Mugello',
+      'Comune di Vicchio del Mugello',
       'http://www.comune.vicchio.fi.it/'
     ],
     [
@@ -271,22 +271,22 @@ class Contatti extends StatelessWidget {
     ],
     [
       'VARIE',
-      'CENTRO DI\nORIENTAMENTO\nSIACIALE fondato\nda Aldo Capitini\nnel 1944',
+      'CENTRO DI ORIENTAMENTO SIACIALE fondato da Aldo Capitini nel 1944',
       'http://www.cosinrete.it/'
     ],
     [
       'VARIE',
-      'LA MARCIA DI\nBARBIANA',
+      'LA MARCIA DI BARBIANA',
       'http://www.marciadibarbiana.it/',
     ],
     [
       'VARIE',
-      'Libreria HERDER –\nROMA',
+      'Libreria HERDER – ROMA',
       'http://www.herder.it/',
     ],
     [
       'VARIE',
-      'URSEA; Unione\nrocciatori,scalatori\ne affini',
+      'URSEA; Unione rocciatori,scalatori e affini',
       'http://www.ursea.it/'
     ],
   ];
@@ -345,25 +345,43 @@ class Contatti extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: ListView(
                         children: [
-                          Stack(
+                          Column(
                             children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 10,
-                                      top: 15,
-                                    ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              BorderedText(
+                                strokeWidth: 4.0,
+                                strokeColor: Colors.black,
+                                child: Text(
+                                  info[0],
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  launch(info[2]);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 25.0,
+                                  ),
+                                  child: Container(
+                                    width: 300,
                                     child: BorderedText(
                                       strokeWidth: 4.0,
-                                      strokeColor: Colors.black,
+                                      strokeColor: Colors.blue,
                                       child: Text(
-                                        info[0],
+                                        info[1],
                                         style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.w600,
@@ -372,38 +390,7 @@ class Contatti extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      bottom: 25,
-                                      left: 10,
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        launch(info[2]);
-                                      },
-                                      child: Container(
-                                        width: 225,
-                                        child: BorderedText(
-                                          strokeWidth: 4.0,
-                                          strokeColor: Colors.blue,
-                                          child: Text(
-                                            info[1],
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
