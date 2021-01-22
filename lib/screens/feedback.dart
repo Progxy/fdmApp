@@ -185,22 +185,14 @@ class _FeedBackState extends State<FeedBack> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 10,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Come Valuti l'Applicazione: ",
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                child: Text(
+                  "Come Valuti l'Applicazione: ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 27,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
