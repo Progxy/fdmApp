@@ -49,6 +49,9 @@ class _DisponibilitaState extends State<Disponibilita> {
               ),
             ],
           ),
+          SizedBox(
+            height: 25,
+          ),
           FutureBuilder(
             future: getData(database),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -74,7 +77,7 @@ class _DisponibilitaState extends State<Disponibilita> {
                         child: ListView(
                           children: [
                             Container(
-                              height: 350,
+                              height: 450,
                               width: 380,
                               child: ListView(
                                 children: [
@@ -117,7 +120,7 @@ class _DisponibilitaState extends State<Disponibilita> {
                     .toList(),
                 options: CarouselOptions(
                     enlargeCenterPage: true,
-                    height: 350.0,
+                    height: 450.0,
                     aspectRatio: 4 / 3,
                     enableInfiniteScroll: true,
                     viewportFraction: 0.8),
