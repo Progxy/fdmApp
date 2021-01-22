@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Fondazione Don Milani App"),
+        title: Text("Fondazione Don Milani"),
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
