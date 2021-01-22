@@ -39,7 +39,7 @@ class _CambioPasswordState extends State<CambioPassword> {
             email: emails.trim(),
             password: oldpassword.trim(),
           );
-      final bool isExpired = await VerifyExpiration().verify(emails, database);
+      final bool isExpired = await VerifyExpiration().verify(database);
       if (isExpired) {
         context.read<AuthenticationService>().signOut();
         await dialog.hide();

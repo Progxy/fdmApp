@@ -134,7 +134,7 @@ class _LoginState extends State<Login> {
                       final firebaseAuthCheck =
                           FirebaseAuth.instance.currentUser;
                       final bool isExpired =
-                          await VerifyExpiration().verify(email, database);
+                          await VerifyExpiration().verify(database);
                       if (isExpired) {
                         context.read<AuthenticationService>().signOut();
                         Navigator.push(

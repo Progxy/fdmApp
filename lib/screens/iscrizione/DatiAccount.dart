@@ -3,11 +3,9 @@ class DatiAccount {
 
   setter(Map dataIscrizione) {
     datiSocio = dataIscrizione;
-    print(datiSocio);
   }
 
   resetCredentials() {
     datiSocio = null;
-    print(datiSocio);
   }
 }

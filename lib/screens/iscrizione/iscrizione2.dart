@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -222,6 +223,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
           email: datas["email"].trim(),
           password: datas["password"].trim(),
         );
+    final firebaseAuthCheck = FirebaseAuth.instance.currentUser.uid;
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     final String id = datas["id"];
     final DateTime now = DateTime.now();
@@ -231,7 +233,9 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     final String password = datas["password"];
     final String username = datas["username"];
 
-    var databaseReference = database.reference();
+    var databaseReference = firebaseAuthCheck != null
+        ? database.reference().child(firebaseAuthCheck)
+        : database.reference();
 
     databaseReference.child("Id").set({id: email});
     databaseReference.child("Date").set({date: email});

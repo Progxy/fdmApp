@@ -1,23 +1,23 @@
 import 'dart:collection';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 
 class VerifyExpiration {
-  verify(String email, FirebaseDatabase database) async {
+  verify(FirebaseDatabase database) async {
     DateTime dateExp;
+    final firebaseAuthCheck = FirebaseAuth.instance.currentUser;
     final DateTime now = DateTime.now();
     await database
         .reference()
+        .child(firebaseAuthCheck.uid)
         .child("Date")
         .orderByValue()
-        .equalTo(email)
         .once()
         .then((DataSnapshot snapshot) {
       LinkedHashMap<dynamic, dynamic> values = snapshot.value;
-      Map<String, String> map =
-          values.map((a, b) => MapEntry(a as String, b as String));
-      String expDate =
-          map.keys.firstWhere((k) => map[k] == email, orElse: () => null);
+      List keys = values.keys;
+      final String expDate = keys[0];
       DateFormat inputDateFormat = new DateFormat("dd-MM-yyyy");
       DateFormat outputDateFormat = new DateFormat("yyyy-MM-dd");
       String dates = outputDateFormat.format(inputDateFormat.parse(expDate));
@@ -26,10 +26,7 @@ class VerifyExpiration {
     });
     final databaseReference = database.reference();
     if (dateExp.isBefore(now)) {
-      databaseReference.child("Id").remove();
-      databaseReference.child("Date").remove();
-      databaseReference.child("Pass").remove();
-      databaseReference.child("User").remove();
+      databaseReference.child(firebaseAuthCheck.uid).remove();
       return true;
     } else {
       return false;
