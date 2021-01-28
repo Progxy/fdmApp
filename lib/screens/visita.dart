@@ -110,7 +110,7 @@ class _VisitaState extends State<Visita> {
 
       var mail = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
-        ..recipients.add(email) //utilizza account per visite
+        ..recipients.add(email)
         ..subject = 'Conferma Visita'
         ..text =
             "Le Confermiamo la prenotazione della sua visita: prevista per il giorno $giorno.\n\nErmes-Express FDM";

@@ -35,222 +35,241 @@ class _MainDrawerState extends State<MainDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          Container(
-            child: Image(
-                image: AssetImage("assets/images/don_milani.png"),
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter),
-          ),
-          InkWell(
-            onTap: () async {
-              var connectivityResult =
-                  await (Connectivity().checkConnectivity());
-              if (connectivityResult == ConnectivityResult.none) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BadConnection()));
-              } else {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
-              }
-            },
-            child: Row(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(left: 10, top: 10),
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                    child: Icon(
-                      Icons.person,
+    return Container(
+      width: 200,
+      child: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              child: Image(
+                  image: AssetImage("assets/images/don_milani.png"),
+                  fit: BoxFit.fitWidth,
+                  alignment: Alignment.topCenter),
+            ),
+            InkWell(
+              onTap: () async {
+                var connectivityResult =
+                    await (Connectivity().checkConnectivity());
+                if (connectivityResult == ConnectivityResult.none) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BadConnection()));
+                } else {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                }
+              },
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 10, top: 10),
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blueGrey,
+                      child: Icon(
+                        Icons.person,
+                      ),
                     ),
                   ),
-                ),
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 8, top: 3),
-                      child: Text(
-                        "$name",
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.w500),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 8, top: 3),
+                        child: Text(
+                          "$name",
+                          style: TextStyle(
+                              fontSize: 23, fontWeight: FontWeight.w500),
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 30, left: 8),
-                      child: Text(
-                        "$email",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w300),
+                      Container(
+                        padding: EdgeInsets.only(top: 30, left: 8),
+                        child: Text(
+                          "$email",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w300),
+                        ),
                       ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Text("HomePage", style: TextStyle(fontSize: 23)),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()));
+              },
+            ),
+            ListTile(
+              title: Text("Percorsi", style: TextStyle(fontSize: 23)),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Percorsi()));
+              },
+            ),
+            ListTile(
+                title: Text("Visita Barbiana", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Visita()));
+                  }
+                }),
+            ListTile(
+                title: Text("Eventi", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Eventi()));
+                  }
+                }),
+            ListTile(
+                title: Text("Stampa e Ci Hanno Scritto",
+                    style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Stampa()));
+                  }
+                }),
+            ListTile(
+                title: Text("Foto e Video", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Media()));
+                  }
+                }),
+            ListTile(
+                title: Text("Contatti", style: TextStyle(fontSize: 23)),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Contatti()));
+                }),
+            ListTile(
+                title: Text("Privacy", style: TextStyle(fontSize: 23)),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Privacy()));
+                }),
+            ListTile(
+                title: Text("Diventa Socio", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Iscrizione()));
+                  }
+                }),
+            ListTile(
+                title: Text("Recupero Credenziali",
+                    style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecuperoPassword()));
+                  }
+                }),
+            ListTile(
+                title: Text("Cambio Password", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CambioPassword()));
+                  }
+                }),
+            ListTile(
+                title: Text("Feedback", style: TextStyle(fontSize: 23)),
+                onTap: () async {
+                  var connectivityResult =
+                      await (Connectivity().checkConnectivity());
+                  if (connectivityResult == ConnectivityResult.none) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BadConnection()));
+                  } else {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FeedBack()));
+                  }
+                }),
+            Divider(
+              thickness: 1,
+              color: Colors.blueGrey,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 17),
+                  child: Text(
+                    "Version $beta $version.$subVersion",
+                    style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-          ListTile(
-            title: Text("HomePage", style: TextStyle(fontSize: 23)),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()));
-            },
-          ),
-          ListTile(
-            title: Text("Percorsi", style: TextStyle(fontSize: 23)),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Percorsi()));
-            },
-          ),
-          ListTile(
-              title: Text("Visita Barbiana", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Visita()));
-                }
-              }),
-          ListTile(
-              title: Text("Eventi", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Eventi()));
-                }
-              }),
-          ListTile(
-              title: Text("Stampa e Ci Hanno Scritto",
-                  style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Stampa()));
-                }
-              }),
-          ListTile(
-              title: Text("Foto e Video", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Media()));
-                }
-              }),
-          ListTile(
-              title: Text("Contatti", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Contatti()));
-              }),
-          ListTile(
-              title: Text("Privacy", style: TextStyle(fontSize: 23)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Privacy()));
-              }),
-          ListTile(
-              title: Text("Diventa Socio", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Iscrizione()));
-                }
-              }),
-          ListTile(
-              title:
-                  Text("Recupero Credenziali", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RecuperoPassword()));
-                }
-              }),
-          ListTile(
-              title: Text("Cambio Password", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CambioPassword()));
-                }
-              }),
-          ListTile(
-              title: Text("Feedback", style: TextStyle(fontSize: 23)),
-              onTap: () async {
-                var connectivityResult =
-                    await (Connectivity().checkConnectivity());
-                if (connectivityResult == ConnectivityResult.none) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BadConnection()));
-                } else {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FeedBack()));
-                }
-              }),
-          Divider(
-            thickness: 1,
-            color: Colors.blueGrey,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 17),
-                child: Text(
-                  "Version $beta $version.$subVersion",
-                  style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-        ],
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }
