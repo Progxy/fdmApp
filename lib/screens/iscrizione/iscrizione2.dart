@@ -44,7 +44,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
 
     var envelope = new Envelope()
       ..from = 'ermes.express.fdm@gmail.com'
-      ..recipients.add("eossmario@gmail.com")
+      ..recipients.add("eossmario@gmail.com") //utilizza mail per iscrizioni
       ..subject = '$id - AdesioneSocio'
       ..text =
           "Dati per Adesione a Socio:\n" + emailBody + "\n\nErmes-Express FDM";

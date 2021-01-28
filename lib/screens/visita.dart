@@ -101,7 +101,7 @@ class _VisitaState extends State<Visita> {
 
       var envelope = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
-        ..recipients.add('eossmario@gmail.com')
+        ..recipients.add('eossmario@gmail.com') //utilizza account per visite
         ..subject = 'Info Visita'
         ..text = "Info Visita:\n" + emailBody + "\n\nErmes-Express FDM";
 
@@ -165,7 +165,7 @@ class _VisitaState extends State<Visita> {
             context: context,
             builder: (BuildContext context) => CupertinoAlertDialog(
               title: Text(
-                "Grazie per la Recensione!",
+                "Grazie per la Prenotazione!",
                 style: TextStyle(
                   fontSize: 28,
                 ),

@@ -317,7 +317,7 @@ class Contatti extends StatelessWidget {
               ),
             ),
             Text(
-              "\nSede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it",
+              "\nSede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it\n\nE-mail per Problemi : theprogxy@gmail.com",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w600,
