@@ -97,6 +97,9 @@ class _VisitaState extends State<Visita> {
 
       String emailBody = "";
 
+      String email = datas["email"];
+      String giorno = datas["giorno"];
+
       datas.forEach((k, v) => emailBody += "$k: $v\n");
 
       var envelope = new Envelope()
@@ -104,6 +107,13 @@ class _VisitaState extends State<Visita> {
         ..recipients.add('eossmario@gmail.com') //utilizza account per visite
         ..subject = 'Info Visita'
         ..text = "Info Visita:\n" + emailBody + "\n\nErmes-Express FDM";
+
+      var mail = new Envelope()
+        ..from = 'ermes.express.fdm@gmail.com'
+        ..recipients.add(email) //utilizza account per visite
+        ..subject = 'Conferma Visita'
+        ..text =
+            "Le Confermiamo la prenotazione della sua visita: prevista per il giorno $giorno.\n\nErmes-Express FDM";
 
       if (isIOS) {
         showCupertinoDialog(
@@ -158,74 +168,147 @@ class _VisitaState extends State<Visita> {
         );
       }
 
-      await emailTransport.send(envelope).then((envelope) {
-        Navigator.of(context, rootNavigator: true).pop('dialog');
-        if (isIOS) {
-          showCupertinoDialog(
-            context: context,
-            builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(
-                "Grazie per la Prenotazione!",
-                style: TextStyle(
-                  fontSize: 28,
-                ),
-              ),
-              content: Text(
-                "Provvederemo a prendere in esame la prenotazione.\nLa Fondazione Don Milani.",
-                style: TextStyle(
-                  fontSize: 27,
-                ),
-              ),
-              actions: [
-                CupertinoDialogAction(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  child: Text(
-                    "Vai alla HomePage",
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
+      await emailTransport.send(envelope).then((envelope) async {
+        await emailTransport.send(envelope).then((envelope) {
+          Navigator.of(context, rootNavigator: true).pop('dialog');
+          if (isIOS) {
+            showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Text(
+                  "Grazie per la Prenotazione!",
+                  style: TextStyle(
+                    fontSize: 28,
                   ),
-                )
-              ],
-            ),
-          );
-        } else {
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                "Grazie per la Prenotazione!",
-                style: TextStyle(
-                  fontSize: 28,
                 ),
-              ),
-              content: Text(
-                "Provvederemo a prendere in esame la prenotazione.\nLa Fondazione Don Milani.",
-                style: TextStyle(
-                  fontSize: 27,
-                ),
-              ),
-              actions: [
-                FlatButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  child: Text(
-                    "Vai alla HomePage",
-                    style: TextStyle(
-                      fontSize: 28,
-                    ),
+                content: Text(
+                  "Provvederemo a prendere in esame la prenotazione.\nLa Fondazione Don Milani.",
+                  style: TextStyle(
+                    fontSize: 27,
                   ),
-                )
-              ],
-            ),
-          );
-        }
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
+                    },
+                    child: Text(
+                      "Vai alla HomePage",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          } else {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text(
+                  "Grazie per la Prenotazione!",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                content: Text(
+                  "Provvederemo a prendere in esame la prenotazione.\nLa Fondazione Don Milani.",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
+                    },
+                    child: Text(
+                      "Vai alla HomePage",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        }).catchError((e) {
+          Navigator.of(context, rootNavigator: true).pop('dialog');
+          print(e);
+          if (isIOS) {
+            showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Text(
+                  "Errore",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                content: Text(
+                  "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            );
+          } else {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text(
+                  "Errore",
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
+                ),
+                content: Text(
+                  "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            );
+          }
+        });
       }).catchError((e) {
         Navigator.of(context, rootNavigator: true).pop('dialog');
         print(e);
