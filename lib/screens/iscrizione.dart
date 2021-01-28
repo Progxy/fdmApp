@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../authentication_service.dart';
 import 'home/mainDrawer.dart';
 import 'iscrizione/DatiAccount.dart';
 
@@ -205,7 +207,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'FE': 'Ferrara',
     'FI': 'Firenze',
     'FG': 'Foggia',
-    'FC': 'ForlÃ¬-Cesena',
+    'FC': 'Forlì-Cesena',
     'FR': 'Frosinone',
     'GE': 'Genova',
     'GO': 'Gorizia',
@@ -228,7 +230,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'ME': 'Messina',
     'MI': 'Milano',
     'MO': 'Modena',
-    'MB': 'Monza e della Brianza',
+    'MB': 'Monza-Brianza',
     'NA': 'Napoli',
     'NO': 'Novara',
     'NU': 'Nuoro',
@@ -240,7 +242,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'PR': 'Parma',
     'PV': 'Pavia',
     'PG': 'Perugia',
-    'PU': 'Pesaro e Urbino',
+    'PU': 'Pesaro-Urbino',
     'PE': 'Pescara',
     'PC': 'Piacenza',
     'PI': 'Pisa',
@@ -250,8 +252,8 @@ class _IscrizioneState extends State<Iscrizione> {
     'PO': 'Prato',
     'RG': 'Ragusa',
     'RA': 'Ravenna',
-    'RC': 'Reggio di Calabria',
-    'RE': "Reggio nell'Emilia",
+    'RC': 'Reggio Calabria',
+    'RE': "Reggio Emilia",
     'RI': 'Rieti',
     'RN': 'Rimini',
     'RM': 'Roma',
@@ -271,7 +273,7 @@ class _IscrizioneState extends State<Iscrizione> {
     'TV': 'Treviso',
     'TS': 'Trieste',
     'UD': 'Udine',
-    'AO': "Valle d'Aosta/VallÃ©e d'Aoste",
+    'AO': "Aosta",
     'VA': 'Varese',
     'VE': 'Venezia',
     'VB': 'Verbano-Cusio-Ossola',
@@ -288,6 +290,19 @@ class _IscrizioneState extends State<Iscrizione> {
     }
     data["telefono"] = value;
     return null;
+  }
+
+  Future<bool> isEmailExisting(String email) async {
+    try {
+      await context.read<AuthenticationService>().signIn(
+            email: email.trim(),
+            password: "invalida",
+          );
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 
   @override
@@ -879,10 +894,14 @@ class _IscrizioneState extends State<Iscrizione> {
                                 minWidth: 150.0,
                                 height: 50.0,
                                 child: RaisedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    String email = data["email"];
+                                    bool emailExist =
+                                        await isEmailExisting(email);
                                     if (_formKey.currentState.validate() &&
                                         checked &&
-                                        check) {
+                                        check &&
+                                        !emailExist) {
                                       data["prezzo"] = prezzi[groupType];
                                       if (data["prezzo"] == null) {
                                         String group = lista[dropdownValue];
