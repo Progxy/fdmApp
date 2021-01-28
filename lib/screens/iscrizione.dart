@@ -521,6 +521,7 @@ class _IscrizioneState extends State<Iscrizione> {
                             ),
                             TextFormField(
                               controller: _capController,
+                              keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 hintText: "Inserire il CAP",
                                 hintStyle: TextStyle(
@@ -731,6 +732,7 @@ class _IscrizioneState extends State<Iscrizione> {
                             ),
                             TextFormField(
                               controller: _messaggioController,
+                              keyboardType: TextInputType.multiline,
                               maxLines: 15,
                               decoration: const InputDecoration(
                                 hintText: "Inserire un eventuale messaggio",
