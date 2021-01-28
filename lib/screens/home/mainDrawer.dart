@@ -36,7 +36,7 @@ class _MainDrawerState extends State<MainDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: 300,
       child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
