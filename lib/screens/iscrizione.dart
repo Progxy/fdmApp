@@ -296,26 +296,22 @@ class _IscrizioneState extends State<Iscrizione> {
   }
 
   Future<bool> isEmailExisting(String email) async {
-    try {
-      await context.read<AuthenticationService>().signIn(
-            email: email.trim(),
-            password: "invalida",
-          );
-      return false;
-    } catch (e) {
-      if (Platform.isAndroid) {
-        if (e.message ==
-            'The password is invalid or the user does not have a password.') {
-          return true;
-        } else {
-          return false;
-        }
+    var result = await context.read<AuthenticationService>().signIn(
+          email: email.trim(),
+          password: "invalida",
+        );
+    if (Platform.isAndroid) {
+      if (result ==
+          'The password is invalid or the user does not have a password.') {
+        return true;
       } else {
-        if (e.code == 'Error 17009') {
-          return true;
-        } else {
-          return false;
-        }
+        return false;
+      }
+    } else {
+      if (result == 'Error 17009') {
+        return true;
+      } else {
+        return false;
       }
     }
   }
@@ -944,9 +940,78 @@ class _IscrizioneState extends State<Iscrizione> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   PayIscrizione()));
+                                    } else if (emailExist) {
+                                      if (isIOS) {
+                                        showCupertinoDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              CupertinoAlertDialog(
+                                            title: Text(
+                                              "Errore",
+                                              style: TextStyle(
+                                                fontSize: 28,
+                                              ),
+                                            ),
+                                            content: Text(
+                                              "Email già in uso!",
+                                              style: TextStyle(
+                                                fontSize: 27,
+                                              ),
+                                            ),
+                                            actions: [
+                                              CupertinoDialogAction(
+                                                child: Text(
+                                                  "OK",
+                                                  style: TextStyle(
+                                                    fontSize: 28,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop('dialog');
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      } else {
+                                        showDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              AlertDialog(
+                                            title: Text(
+                                              "Errore",
+                                              style: TextStyle(
+                                                fontSize: 28,
+                                              ),
+                                            ),
+                                            content: Text(
+                                              "Email già in uso!!",
+                                              style: TextStyle(
+                                                fontSize: 27,
+                                              ),
+                                            ),
+                                            actions: [
+                                              FlatButton(
+                                                child: Text(
+                                                  "OK",
+                                                  style: TextStyle(
+                                                    fontSize: 28,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop('dialog');
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }
                                     } else {
-                                      print(check);
-                                      print(checked);
                                       if (isIOS) {
                                         showCupertinoDialog(
                                           context: context,

@@ -130,7 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   future: LoadUsername().getUser(context, database),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    print("Done ScemateScemi");
                     return SizedBox(
                       height: 15,
                     );
