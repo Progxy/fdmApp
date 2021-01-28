@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -293,15 +294,14 @@ class _IscrizioneState extends State<Iscrizione> {
   }
 
   Future<bool> isEmailExisting(String email) async {
-    try {
-      await context.read<AuthenticationService>().signIn(
-            email: email.trim(),
-            password: "invalida",
-          );
-      return true;
-    } catch (e) {
-      print(e);
+    await context.read<AuthenticationService>().signIn(
+          email: email.trim(),
+          password: "invalida",
+        );
+    if (FirebaseAuth.instance.currentUser == null) {
       return false;
+    } else {
+      return true;
     }
   }
 
