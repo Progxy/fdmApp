@@ -31,7 +31,7 @@ class _FeedBackState extends State<FeedBack> {
 
       var envelope = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
-        ..recipients.add('theprogxy@gmail.com')
+        ..recipients.add('theprogxy@gmail.com') //utilizza mail apposita
         ..subject = 'FeedBack'
         ..text = "FeedBack:\n" +
             feedBack +
