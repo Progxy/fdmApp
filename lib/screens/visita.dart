@@ -169,7 +169,7 @@ class _VisitaState extends State<Visita> {
       }
 
       await emailTransport.send(envelope).then((envelope) async {
-        await emailTransport.send(envelope).then((envelope) {
+        await emailTransport.send(mail).then((mail) {
           Navigator.of(context, rootNavigator: true).pop('dialog');
           if (isIOS) {
             showCupertinoDialog(
