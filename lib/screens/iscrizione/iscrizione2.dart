@@ -406,7 +406,29 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Pagamento Adesione Socio"),
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 192, 192, 192),
+        ),
+        title: Text(
+          "Pagamento Adesione Socio",
+          style: TextStyle(
+            color: Color.fromARGB(255, 192, 192, 192),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.help,
+              size: 30,
+            ),
+            onPressed: () {
+              print("ciò");
+            },
+          ),
+        ],
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
