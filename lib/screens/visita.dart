@@ -443,9 +443,11 @@ class _VisitaState extends State<Visita> {
                     label: Text(
                       "Verifica Disponibilità",
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 20,
                       ),
                     ),
+                    backgroundColor: Color.fromARGB(255, 24, 37, 102),
                   ),
                 ),
               ],
@@ -1040,7 +1042,7 @@ class _VisitaState extends State<Visita> {
                             ),
                             FloatingActionButton(
                               heroTag: null,
-                              backgroundColor: Colors.blueGrey,
+                              backgroundColor: Color.fromARGB(255, 24, 37, 102),
                               onPressed: () {
                                 if (_formKey.currentState.validate() &&
                                     checked) {
@@ -1122,6 +1124,7 @@ class _VisitaState extends State<Visita> {
                               child: Icon(
                                 Icons.send,
                                 size: 40.0,
+                                color: Colors.white,
                               ),
                             ),
                             SizedBox(

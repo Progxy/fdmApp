@@ -487,7 +487,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0),
                   ),
-                  color: Colors.blueGrey,
+                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),

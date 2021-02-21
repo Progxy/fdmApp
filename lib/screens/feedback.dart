@@ -293,12 +293,12 @@ class _FeedBackState extends State<FeedBack> {
                     height: 43.0,
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(10.0),
                         side: BorderSide(
-                          color: Colors.blueGrey,
+                          color: Color.fromARGB(255, 24, 37, 102),
                         ),
                       ),
-                      color: Colors.blueGrey,
+                      color: Color.fromARGB(255, 24, 37, 102),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           sendFeedBack(feedBack, ratingValue);

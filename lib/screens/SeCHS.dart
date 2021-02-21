@@ -34,18 +34,20 @@ class Stampa extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: MainDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 35,
-          ),
-          StampaBuilder(),
-          SizedBox(
-            height: 35,
-          ),
-          CHSBuilder(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 35,
+            ),
+            StampaBuilder(),
+            SizedBox(
+              height: 35,
+            ),
+            CHSBuilder(),
+          ],
+        ),
       ),
     );
   }

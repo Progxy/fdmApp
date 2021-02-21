@@ -115,7 +115,8 @@ class _CHSBuilderState extends State<CHSBuilder> {
                                       Icons.double_arrow,
                                       size: 45,
                                     ),
-                                    backgroundColor: Colors.blueGrey,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 24, 37, 102),
                                   ),
                                 ),
                               ],

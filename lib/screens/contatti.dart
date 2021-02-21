@@ -401,7 +401,8 @@ class Contatti extends StatelessWidget {
                                     width: 300,
                                     child: BorderedText(
                                       strokeWidth: 4.0,
-                                      strokeColor: Colors.blue,
+                                      strokeColor:
+                                          Color.fromARGB(255, 24, 37, 102),
                                       child: Text(
                                         info[1],
                                         style: TextStyle(

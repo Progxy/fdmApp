@@ -116,7 +116,8 @@ class _InfoBuilderState extends State<InfoBuilder> {
                                       Icons.double_arrow,
                                       size: 45,
                                     ),
-                                    backgroundColor: Colors.blueGrey,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 24, 37, 102),
                                   ),
                                 ),
                               ],

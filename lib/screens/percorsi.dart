@@ -173,8 +173,12 @@ class Percorsi extends StatelessWidget {
                                             context, InfoPercorso.routeName,
                                             arguments: i[0]);
                                       },
-                                      child: Icon(Icons.double_arrow),
-                                      backgroundColor: Colors.blueGrey,
+                                      child: Icon(
+                                        Icons.double_arrow,
+                                        color: Colors.white,
+                                      ),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 24, 37, 102),
                                     ),
                                   ),
                                 ],

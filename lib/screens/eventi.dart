@@ -35,18 +35,23 @@ class Eventi extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: MainDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 35,
-          ),
-          EventiBuilder(),
-          SizedBox(
-            height: 35,
-          ),
-          InfoBuilder(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 35,
+            ),
+            EventiBuilder(),
+            SizedBox(
+              height: 35,
+            ),
+            InfoBuilder(),
+            SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
       ),
     );
   }

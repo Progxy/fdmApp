@@ -526,7 +526,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0),
                   ),
-                  color: Colors.blueGrey,
+                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),
