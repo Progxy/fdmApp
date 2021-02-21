@@ -95,7 +95,7 @@ class _MainDrawerState extends State<MainDrawer> {
               ),
             ),
             ListTile(
-              title: Text("HomePage", style: TextStyle(fontSize: 23)),
+              title: Text("Home", style: TextStyle(fontSize: 23)),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyHomePage()));
