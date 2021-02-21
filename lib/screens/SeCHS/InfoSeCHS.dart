@@ -10,7 +10,29 @@ class InfoSeCHS extends StatelessWidget {
     final String title = eventi[0];
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 192, 192, 192),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Color.fromARGB(255, 192, 192, 192),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.help,
+              size: 30,
+            ),
+            onPressed: () {
+              print("ciò");
+            },
+          ),
+        ],
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

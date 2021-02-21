@@ -272,7 +272,29 @@ class _CambioPasswordState extends State<CambioPassword> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cambio Password"),
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 192, 192, 192),
+        ),
+        title: Text(
+          "Cambio Password",
+          style: TextStyle(
+            color: Color.fromARGB(255, 192, 192, 192),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.help,
+              size: 30,
+            ),
+            onPressed: () {
+              print("ciò");
+            },
+          ),
+        ],
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        centerTitle: true,
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(

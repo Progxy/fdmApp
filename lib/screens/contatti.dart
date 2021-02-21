@@ -294,7 +294,29 @@ class Contatti extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contatti"),
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 192, 192, 192),
+        ),
+        title: Text(
+          "Contatti",
+          style: TextStyle(
+            color: Color.fromARGB(255, 192, 192, 192),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.help,
+              size: 30,
+            ),
+            onPressed: () {
+              print("ciò");
+            },
+          ),
+        ],
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        centerTitle: true,
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
@@ -317,7 +339,7 @@ class Contatti extends StatelessWidget {
               ),
             ),
             Text(
-              "\nSede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it\n\nE-mail per Problemi : theprogxy@gmail.com",
+              "\nSede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it\n\nE-mail in caso di malfunzionamenti: theprogxy@gmail.com",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w600,

@@ -328,7 +328,29 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recupero Credenziali"),
+        iconTheme: IconThemeData(
+          color: Color.fromARGB(255, 192, 192, 192),
+        ),
+        title: Text(
+          "Recupero Credenziali",
+          style: TextStyle(
+            color: Color.fromARGB(255, 192, 192, 192),
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.help,
+              size: 30,
+            ),
+            onPressed: () {
+              print("ciò");
+            },
+          ),
+        ],
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        centerTitle: true,
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
