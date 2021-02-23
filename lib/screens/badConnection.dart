@@ -1,4 +1,5 @@
 import 'package:fdmApp/screens/home.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,8 @@ class BadConnection extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

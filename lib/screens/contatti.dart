@@ -1,5 +1,6 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -311,7 +312,8 @@ class Contatti extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

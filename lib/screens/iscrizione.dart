@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -340,7 +341,8 @@ class _IscrizioneState extends State<Iscrizione> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

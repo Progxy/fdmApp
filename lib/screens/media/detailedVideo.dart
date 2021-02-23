@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../utilizzo.dart';
+
 class DetailedVideo extends StatefulWidget {
   static const String routeName = "/detailedvideo";
 
@@ -85,7 +87,8 @@ class _DetailedVideoState extends State<DetailedVideo> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 
 import 'home/mainDrawer.dart';
@@ -74,7 +75,8 @@ class Percorsi extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

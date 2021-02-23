@@ -4,6 +4,7 @@ import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/IscrizioneScaduta.dart';
 import 'package:fdmApp/screens/VerifyExpiration.dart';
 import 'package:fdmApp/screens/home.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -289,7 +290,8 @@ class _CambioPasswordState extends State<CambioPassword> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

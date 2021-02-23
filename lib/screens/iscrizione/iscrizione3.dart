@@ -1,6 +1,7 @@
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/login.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,8 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

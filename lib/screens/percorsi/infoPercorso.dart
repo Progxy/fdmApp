@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilizzo.dart';
+
 class InfoPercorso extends StatelessWidget {
   static const String routeName = "/infopercorso";
   final Map info = {
@@ -101,7 +103,8 @@ class InfoPercorso extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

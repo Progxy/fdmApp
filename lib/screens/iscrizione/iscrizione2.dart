@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -423,7 +424,8 @@ class _PayIscrizioneState extends State<PayIscrizione> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

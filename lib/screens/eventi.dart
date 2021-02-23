@@ -1,4 +1,5 @@
 import 'package:fdmApp/screens/eventi/eventiBuilder.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 
 import 'eventi/infoBuilder.dart';
@@ -27,7 +28,8 @@ class Eventi extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

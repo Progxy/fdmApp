@@ -1,5 +1,6 @@
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 
 class IscrizioneScaduta extends StatefulWidget {
@@ -31,7 +32,8 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

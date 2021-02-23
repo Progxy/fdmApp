@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -345,7 +346,8 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 
 import 'home/mainDrawer.dart';
@@ -27,7 +28,8 @@ class Privacy extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilizzo.dart';
+
 class DetailedPhoto extends StatelessWidget {
   static const String routeName = "/detailedphoto";
   @override
@@ -26,7 +28,8 @@ class DetailedPhoto extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

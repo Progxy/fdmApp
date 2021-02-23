@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilizzo.dart';
+
 class InfoEvento extends StatelessWidget {
   static const String routeName = "/infoevento";
   @override
@@ -9,7 +11,7 @@ class InfoEvento extends StatelessWidget {
     final String text = eventi[4];
     final String title = eventi[0];
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         iconTheme: IconThemeData(
           color: Color.fromARGB(255, 192, 192, 192),
         ),
@@ -27,14 +29,14 @@ class InfoEvento extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
       ),
-      
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

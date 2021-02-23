@@ -1,4 +1,5 @@
 import 'package:fdmApp/screens/SeCHS/stampaBuilder.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 import 'SeCHS/CHSBuilder.dart';
 import 'home/mainDrawer.dart';
@@ -26,7 +27,8 @@ class Stampa extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

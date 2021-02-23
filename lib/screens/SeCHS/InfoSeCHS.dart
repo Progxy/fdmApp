@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utilizzo.dart';
+
 class InfoSeCHS extends StatelessWidget {
   static const String routeName = "/infosechs";
   @override
@@ -27,7 +29,8 @@ class InfoSeCHS extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

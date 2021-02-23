@@ -2,6 +2,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/home/mainBarbiana.dart';
 import 'package:fdmApp/screens/home/mainNews.dart';
 import 'package:fdmApp/screens/loadUsername.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -113,7 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

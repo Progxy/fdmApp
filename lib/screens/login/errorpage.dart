@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../login.dart';
+import '../utilizzo.dart';
 
 class ErrorPage extends StatelessWidget {
   @override
@@ -27,7 +28,8 @@ class ErrorPage extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],

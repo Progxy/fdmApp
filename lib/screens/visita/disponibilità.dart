@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+import '../utilizzo.dart';
+
 class Disponibilita extends StatefulWidget {
   static const String routeName = "/disponibilità";
 
@@ -43,7 +45,8 @@ class _DisponibilitaState extends State<Disponibilita> {
               size: 30,
             ),
             onPressed: () {
-              print("ciò");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
             },
           ),
         ],
