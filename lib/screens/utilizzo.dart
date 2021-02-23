@@ -11,7 +11,7 @@ class Utilizzo extends StatelessWidget {
           color: Color.fromARGB(255, 192, 192, 192),
         ),
         title: Text(
-          "Guida all'utilizzo dell'applicazione",
+          "Guida all'Utilizzo",
           style: TextStyle(
             color: Color.fromARGB(255, 192, 192, 192),
             fontWeight: FontWeight.w700,
@@ -27,20 +27,33 @@ class Utilizzo extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Text(
-              "Benvenuto nella pagina di utilizzo !",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w800,
+            Center(
+              child: Text(
+                "Benvenuto nella pagina di\nGuida all'utilizzo !",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
             SizedBox(
               height: 15,
             ),
             Text(
-              "In questa pagina saranno mostrate tutte le funzionalità della FdmApp attraverso semplici passaggi !",
+              "In questa pagina saranno mostrate tutte le funzionalità dell'applicazione attraverso semplici passaggi, illustrati con immagini!",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 21,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Percorsi : ",
+              style: TextStyle(
+                fontSize: 21,
                 fontWeight: FontWeight.w600,
               ),
             ),
