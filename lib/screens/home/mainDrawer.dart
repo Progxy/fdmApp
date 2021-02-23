@@ -25,7 +25,7 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   final int version = 0;
 
-  final int subVersion = 1;
+  final int subVersion = 2;
 
   final String beta = "Beta";
 
@@ -65,9 +65,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     padding: EdgeInsets.only(left: 10, top: 10),
                     decoration: BoxDecoration(shape: BoxShape.circle),
                     child: CircleAvatar(
-                      backgroundColor: Colors.blueGrey,
+                      backgroundColor: Color.fromARGB(255, 24, 37, 102),
                       child: Icon(
                         Icons.person,
+                        color: Color.fromARGB(255, 192, 192, 192),
                       ),
                     ),
                   ),
@@ -256,7 +257,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 Container(
                   padding: EdgeInsets.only(left: 17),
                   child: Text(
-                    "Version $beta $version.$subVersion",
+                    "Versione $beta $version.$subVersion",
                     style: TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.w700,
