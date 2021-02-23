@@ -48,13 +48,14 @@ class Utilizzo extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Text(
-              "Percorsi : ",
+              "PERCORSI",
               style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w600,
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
               ),
             ),
           ],
