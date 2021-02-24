@@ -1,11 +1,17 @@
+import 'dart:io';
+
+import 'package:fdmApp/screens/paymentService.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:firebase_database/firebase_database.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'home/mainDrawer.dart';
+import 'iscrizione/iscrizione3.dart';
 
 class Rinnova extends StatefulWidget {
   static const String routeName = "/rinnova";
@@ -20,9 +26,154 @@ class _RinnovaState extends State<Rinnova> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _idController = TextEditingController();
-  final _messaggioController = TextEditingController();
   String email;
   String id;
+
+  resetAccount(Map datas, FirebaseDatabase database) async {
+    //retrieve account by id and then update expiration Date and add it to Rinnovi as he could say who as updated the subscription
+  }
+
+  payViaNewCard(
+      BuildContext context, Map datas, FirebaseDatabase database) async {
+    final String _price = "1500"; //get the type of ticket
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Caricamento...');
+    await dialog.show();
+    var response =
+        await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
+    if (response.message == "Transaction successful") {
+      await resetAccount(datas, database);
+      await dialog.hide();
+      Platform.isIOS
+          ? showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con successo!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultIscrizione()));
+                    },
+                  )
+                ],
+              ),
+            )
+          : showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con successo!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResultIscrizione()));
+                    },
+                  )
+                ],
+              ),
+            );
+    } else {
+      Platform.isIOS
+          ? showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con esito negativo!\n${response.message}",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            )
+          : showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Transazione effetuata con esito negativo!\n${response.message}",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            );
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
