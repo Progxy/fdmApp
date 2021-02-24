@@ -35,6 +35,10 @@ class _IscrizioneState extends State<Iscrizione> {
   final _messaggioController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  //check if the date is close to the end of the year and if true -->
+  //report an alert that validity of the tickets will be so short
+
   Map data = {};
   String emailResponsabile;
   Map lista = {
