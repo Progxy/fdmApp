@@ -1,5 +1,5 @@
 import 'package:fdmApp/screens/home.dart';
-import 'package:fdmApp/screens/iscrizione.dart';
+import 'package:fdmApp/screens/rinnova.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 
@@ -82,13 +82,11 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
                   minWidth: 200,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Iscrizione()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Rinnova()));
                     },
                     child: Text(
-                      "Ripristina",
+                      "Rinnova",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
