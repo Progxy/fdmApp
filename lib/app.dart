@@ -5,6 +5,7 @@ import 'package:fdmApp/screens/SeCHS/InfoSeCHS.dart';
 import 'package:fdmApp/screens/badConnection.dart';
 import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
+import 'package:fdmApp/screens/disdici.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/eventi/InfoEvento.dart';
 import 'package:fdmApp/screens/feedback.dart';
@@ -20,6 +21,7 @@ import 'package:fdmApp/screens/percorsi.dart';
 import 'package:fdmApp/screens/percorsi/infoPercorso.dart';
 import 'package:fdmApp/screens/privacy.dart';
 import 'package:fdmApp/screens/recuperoPassword.dart';
+import 'package:fdmApp/screens/rinnova.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:fdmApp/screens/visita.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -75,6 +77,8 @@ class MyApp extends StatelessWidget {
           BadConnection.routeName: (context) => BadConnection(),
           IscrizioneScaduta.routeName: (context) => IscrizioneScaduta(),
           Utilizzo.routeName: (context) => Utilizzo(),
+          Disdici.routeName: (context) => Disdici(),
+          Rinnova.routeName: (context) => Rinnova(),
         },
       ),
     );
