@@ -28,6 +28,8 @@ class _RinnovaState extends State<Rinnova> {
   String email;
   String id;
 
+  //verify that the account is expired
+
   resetAccount(Map datas, FirebaseDatabase database) async {
     //retrieve account by id and then update expiration Date and add it to Rinnovi as he could say who as updated the subscription
   }
