@@ -28,7 +28,7 @@ class VerifyExpiration {
     });
     final databaseReference = database.reference();
     if (dateExp.isBefore(now)) {
-      databaseReference.child(firebaseAuthCheck.uid).remove();
+      //cahnge scaduto to true!
       return true;
     } else {
       return false;
