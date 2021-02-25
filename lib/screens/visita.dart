@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:intl/intl.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'databaseManager.dart';
 import 'home.dart';
@@ -116,6 +117,9 @@ class _VisitaState extends State<Visita> {
     }
 
     sendData(Map datas) async {
+      ProgressDialog dialog = new ProgressDialog(context);
+      dialog.style(message: 'Caricamento...');
+      await dialog.show();
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'
         ..password = 'CASTELLO1967';
@@ -136,6 +140,7 @@ class _VisitaState extends State<Visita> {
       bool response = await addDataPrenotazione(id, email, datas);
 
       if (!response) {
+        await dialog.hide();
         if (isIOS) {
           showCupertinoDialog(
             context: context,
@@ -208,10 +213,10 @@ class _VisitaState extends State<Visita> {
         ..recipients.add(email)
         ..subject = 'Conferma Visita'
         ..text =
-            "Le confermiamo che è stata presa in carico la verifica della sua richiesta di visita.<br>Per eventuali richieste si prega di rispondere a eossmario@gmail.com !<br>Inoltre in caso di disdetta recarsi nella finestra disdici, e utilizzare questo id : $id.<br><br>La Fondazione Don Milani.<br><br><br>Ermes Express Fdm";
+            "Le confermiamo che è stata presa in carico la verifica della sua richiesta di visita.\nPer eventuali richieste si prega di rispondere a eossmario@gmail.com !\nInoltre in caso di disdetta recarsi nella finestra disdici, e utilizzare questo id : $id.\n\nLa Fondazione Don Milani.\n\n\nErmes Express Fdm";
 
-      await emailTransport.send(mail).then((mail) {
-        Navigator.of(context, rootNavigator: true).pop('dialog');
+      await emailTransport.send(mail).then((mail) async {
+        await dialog.hide();
         if (isIOS) {
           showCupertinoDialog(
             context: context,
@@ -278,9 +283,9 @@ class _VisitaState extends State<Visita> {
             ),
           );
         }
-      }).catchError((e) {
-        Navigator.of(context, rootNavigator: true).pop('dialog');
+      }).catchError((e) async {
         print(e);
+        await dialog.show();
         if (isIOS) {
           showCupertinoDialog(
             context: context,
@@ -533,8 +538,7 @@ class _VisitaState extends State<Visita> {
                                       String dateTime = day + " " + hour;
                                       DateTime date =
                                           formatters.parse(dateTime);
-                                      print(date);
-                                      if (value == date) {
+                                      if (value.compareTo(date) == 0) {
                                         validTime = 0;
                                         break;
                                       } else {
