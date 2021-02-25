@@ -56,6 +56,9 @@ class _VisitaState extends State<Visita> {
   bool checked = false;
   String verifyResult = "";
   final format = DateFormat("dd/MM/yyyy HH:mm");
+  DateTime lastDate;
+  DateTime lastValueCheck;
+  bool isAlreadyChecked = false;
 
   String simplePhoneValidator(value) {
     if (value.completeNumber.isEmpty) {
@@ -97,7 +100,6 @@ class _VisitaState extends State<Visita> {
       final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
       String telefonoResponsabile = data["telefono responsabile"];
       String telefono = data["telefono"];
-      print("telefono : $telefono\n\nTel Resp : $telefonoResponsabile");
       try {
         secondaryDb.child("Prenotazione/" + id).set({
           "email": email,
@@ -522,6 +524,9 @@ class _VisitaState extends State<Visita> {
                                 }
                               },
                               validator: (value) {
+                                if (isAlreadyChecked) {
+                                  return null;
+                                }
                                 int validTime;
                                 if (value == null) {
                                   return "Dati Mancanti";
@@ -541,6 +546,8 @@ class _VisitaState extends State<Visita> {
                                       DateTime date =
                                           formatters.parse(dateTime);
                                       if (value.compareTo(date) == 0) {
+                                        lastDate = value;
+                                        lastValueCheck = date;
                                         validTime = 0;
                                         break;
                                       } else {
@@ -975,6 +982,11 @@ class _VisitaState extends State<Visita> {
                                                 } else {
                                                   checked = true;
                                                 }
+                                                if (lastDate.compareTo(
+                                                        lastValueCheck) ==
+                                                    0) {
+                                                  isAlreadyChecked = true;
+                                                }
                                               });
                                             },
                                             icon: Icon(
@@ -996,6 +1008,11 @@ class _VisitaState extends State<Visita> {
                                                   checked = false;
                                                 } else {
                                                   checked = true;
+                                                }
+                                                if (lastDate.compareTo(
+                                                        lastValueCheck) ==
+                                                    0) {
+                                                  isAlreadyChecked = true;
                                                 }
                                               });
                                             },
@@ -1028,7 +1045,6 @@ class _VisitaState extends State<Visita> {
                             ),
                             RaisedButton(
                               onPressed: () {
-                                print(data["telefono"]);
                                 if (_formKey.currentState.validate() &&
                                     checked) {
                                   data["tipo di gruppo"] = lista[dropdownValue];
