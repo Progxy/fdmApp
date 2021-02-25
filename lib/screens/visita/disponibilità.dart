@@ -1,9 +1,8 @@
-import 'package:bordered_text/bordered_text.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fdmApp/screens/databaseManager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../utilizzo.dart';
 
@@ -18,12 +17,15 @@ class Disponibilita extends StatefulWidget {
 }
 
 class _DisponibilitaState extends State<Disponibilita> {
+  bool isValidDate = false;
+  DateTime _dateTime;
+  String resultDisponibility = "Nessuna Data Scelta";
   @override
   Widget build(BuildContext context) {
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
-    List data = [];
     getData(FirebaseDatabase database) async {
-      data = await DatabaseManager().getDisponibilita(database);
+      List data = await DatabaseManager().getDisponibilita(database);
+      return data;
     }
 
     return Scaffold(
@@ -35,7 +37,6 @@ class _DisponibilitaState extends State<Disponibilita> {
           "Calendario Disponibilità",
           style: TextStyle(
             color: Color.fromARGB(255, 192, 192, 192),
-            fontWeight: FontWeight.w700,
           ),
         ),
         actions: [
@@ -56,24 +57,80 @@ class _DisponibilitaState extends State<Disponibilita> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 15,
-                ),
+          SizedBox(
+            height: 130,
+          ),
+          Center(
+            child: RaisedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  "Giorni Disponibili\ne\nVolontari Presenti",
-                  textAlign: TextAlign.center,
+                  "Scegli una Data",
                   style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
               ),
-            ],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7.0),
+              ),
+              color: Color.fromARGB(255, 24, 37, 102),
+              onPressed: () async {
+                var date = await showDatePicker(
+                  context: context,
+                  initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                  builder: (BuildContext context, Widget child) {
+                    return Theme(
+                      data: ThemeData.light().copyWith(
+                        primaryColor: const Color.fromARGB(255, 24, 37, 102),
+                        accentColor: const Color.fromARGB(255, 24, 37, 102),
+                        colorScheme: ColorScheme.light(
+                            primary: const Color.fromARGB(255, 24, 37, 102)),
+                        buttonTheme:
+                            ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                      ),
+                      child: child,
+                    );
+                  },
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+                var datas = await getData(database);
+                //il datePicker deve poter prendere anche l'ora
+                //e poi verificarla
+                final DateFormat formatters = DateFormat('dd/MM/yyyy HH:mm');
+                final DateFormat formatter = DateFormat('dd-MM-yyyy');
+                for (var element in datas) {
+                  List hours = element[1].split("-");
+                  String newElement = formatter.format(element[0]);
+                  String day = newElement.replaceAll("-", "/");
+                  for (var hour in hours) {
+                    String dateTime = day + " " + hour;
+                    DateTime date = formatters.parse(dateTime);
+                    if (_dateTime.compareTo(date) == 0) {
+                      isValidDate = true;
+                      break;
+                    } else {
+                      isValidDate = false;
+                    }
+                  }
+                }
+                setState(() {
+                  _dateTime = date;
+                });
+              },
+            ),
           ),
+          SizedBox(
+            height: 135,
+          ),
+          Image(
+            image: AssetImage("assets/images/don_milani.png"),
+            fit: BoxFit.cover,
+          ),
+          /*
           SizedBox(
             height: 25,
           ),
@@ -152,6 +209,7 @@ class _DisponibilitaState extends State<Disponibilita> {
               );
             },
           ),
+        */
         ],
       ),
     );
