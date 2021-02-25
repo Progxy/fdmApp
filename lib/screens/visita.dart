@@ -58,18 +58,18 @@ class _VisitaState extends State<Visita> {
   final format = DateFormat("dd/MM/yyyy HH:mm");
 
   String simplePhoneValidator(value) {
-    if (value.isEmpty) {
+    if (value.completeNumber.isEmpty) {
       return "Dati Mancanti";
     }
-    data["telefono"] = value;
+    data["telefono"] = value.completeNumber;
     return null;
   }
 
   String simpleResponsabilePhoneValidator(value) {
-    if (value.isEmpty) {
+    if (value.completeNumber.isEmpty) {
       return "Dati Mancanti";
     }
-    data["telefono responsabile"] = value;
+    data["telefono responsabile"] = value.completeNumber;
     return null;
   }
 
@@ -95,6 +95,9 @@ class _VisitaState extends State<Visita> {
     addDataPrenotazione(String id, String email, Map dataPrenotazione) async {
       String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
       final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+      String telefonoResponsabile = data["telefono responsabile"];
+      String telefono = data["telefono"];
+      print("telefono : $telefono\n\nTel Resp : $telefonoResponsabile");
       try {
         secondaryDb.child("Prenotazione/" + id).set({
           "email": email,
@@ -102,9 +105,9 @@ class _VisitaState extends State<Visita> {
           "persone": data["numero del gruppo"],
           "provenienza": data["provenienza"],
           "indirizzo": data["indirizzo"],
-          "telefono": data["telefono"],
+          "telefono": telefono,
           "NomeCognomeResponsabile": data["nome responsabile"],
-          "CellulareResponsabile": data["telefono responsabile"],
+          "CellulareResponsabile": telefonoResponsabile,
           "EmailResponsabile": data["email del responsabile"],
           "gruppo": data["tipo di gruppo"],
           "presaVisione": "no"
@@ -719,7 +722,7 @@ class _VisitaState extends State<Visita> {
                                 ),
                               ),
                               initialCountryCode: 'IT',
-                              validator: simpleResponsabilePhoneValidator,
+                              onChanged: simplePhoneValidator,
                             ),
                             SizedBox(
                               height: 15,
@@ -766,13 +769,13 @@ class _VisitaState extends State<Visita> {
                                 border: OutlineInputBorder(),
                                 labelText: "Telefono Responsabile",
                                 labelStyle: TextStyle(
-                                  fontSize: 20.5,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black87,
                                 ),
                               ),
                               initialCountryCode: 'IT',
-                              validator: simplePhoneValidator,
+                              onChanged: simpleResponsabilePhoneValidator,
                             ),
                             SizedBox(
                               height: 15,
@@ -1025,6 +1028,7 @@ class _VisitaState extends State<Visita> {
                             ),
                             RaisedButton(
                               onPressed: () {
+                                print(data["telefono"]);
                                 if (_formKey.currentState.validate() &&
                                     checked) {
                                   data["tipo di gruppo"] = lista[dropdownValue];
