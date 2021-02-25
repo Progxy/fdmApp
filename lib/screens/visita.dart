@@ -455,7 +455,7 @@ class _VisitaState extends State<Visita> {
                             DateTimeField(
                               controller: _dateController,
                               decoration: InputDecoration(
-                                labelText: "Data Visita (8:00 - 17:30)",
+                                labelText: "Data Visita",
                                 labelStyle: TextStyle(
                                   fontSize: 23.0,
                                   fontWeight: FontWeight.w600,
@@ -519,17 +519,27 @@ class _VisitaState extends State<Visita> {
                                 if (value == null) {
                                   return "Dati Mancanti";
                                 } else {
-                                  final DateFormat formatter =
-                                      DateFormat('dd/MM/yyyy');
                                   final DateFormat formatters =
                                       DateFormat('dd/MM/yyyy HH:mm');
+                                  final DateFormat formatter =
+                                      DateFormat('dd-MM-yyyy');
                                   for (var element in datas) {
-                                    if (formatter.format(value) ==
-                                        formatter.format(element[0])) {
-                                      validTime = 0;
-                                      break;
-                                    } else {
-                                      validTime = 1;
+                                    List hours = element[1].split("-");
+                                    String newElement =
+                                        formatter.format(element[0]);
+                                    String day =
+                                        newElement.replaceAll("-", "/");
+                                    for (var hour in hours) {
+                                      String dateTime = day + " " + hour;
+                                      DateTime date =
+                                          formatters.parse(dateTime);
+                                      print(date);
+                                      if (value == date) {
+                                        validTime = 0;
+                                        break;
+                                      } else {
+                                        validTime = 1;
+                                      }
                                     }
                                   }
                                   if (validTime != 0) {
