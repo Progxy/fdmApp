@@ -239,7 +239,7 @@ class _VisitaState extends State<Visita> {
                         MaterialPageRoute(builder: (context) => MyHomePage()));
                   },
                   child: Text(
-                    "Vai alla HomePage",
+                    "Vai alla Home",
                     style: TextStyle(
                       fontSize: 28,
                     ),
@@ -272,7 +272,7 @@ class _VisitaState extends State<Visita> {
                         MaterialPageRoute(builder: (context) => MyHomePage()));
                   },
                   child: Text(
-                    "Vai alla HomePage",
+                    "Vai alla Home",
                     style: TextStyle(
                       fontSize: 28,
                     ),
@@ -444,7 +444,7 @@ class _VisitaState extends State<Visita> {
                         color: Colors.grey.withOpacity(0.7),
                         spreadRadius: 10,
                         blurRadius: 10,
-                        offset: Offset(0, 3), // changes position of shadow
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),
@@ -1023,9 +1023,7 @@ class _VisitaState extends State<Visita> {
                             SizedBox(
                               height: 20,
                             ),
-                            FloatingActionButton(
-                              heroTag: null,
-                              backgroundColor: Color.fromARGB(255, 24, 37, 102),
+                            RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate() &&
                                     checked) {
@@ -1104,11 +1102,21 @@ class _VisitaState extends State<Visita> {
                                   }
                                 }
                               },
-                              child: Icon(
-                                Icons.send,
-                                size: 40.0,
-                                color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  "Invia Richiesta",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7.0),
+                              ),
+                              color: Color.fromARGB(255, 24, 37, 102),
                             ),
                             SizedBox(
                               height: 15,
