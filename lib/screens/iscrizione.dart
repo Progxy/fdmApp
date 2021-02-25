@@ -293,10 +293,10 @@ class _IscrizioneState extends State<Iscrizione> {
   };
 
   String simplePhoneValidator(value) {
-    if (value.isEmpty) {
+    if (value.completeNumber.isEmpty) {
       return "Dati Mancanti";
     }
-    data["telefono"] = value;
+    data["telefono"] = value.completeNumber;
     return null;
   }
 
@@ -619,7 +619,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                 ),
                               ),
                               initialCountryCode: 'IT',
-                              validator: simplePhoneValidator,
+                              onChanged: simplePhoneValidator,
                             ),
                             SizedBox(
                               height: 15,
