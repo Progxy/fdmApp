@@ -1,11 +1,9 @@
-import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mailer2/mailer.dart';
 
 import 'home.dart';
-import 'home/mainDrawer.dart';
 
 class FeedBack extends StatefulWidget {
   static const String routeName = "/feedback";
