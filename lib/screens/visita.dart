@@ -492,25 +492,29 @@ class _VisitaState extends State<Visita> {
                                   return -adate.compareTo(bdate);
                                 });
                                 final date = await showDatePicker(
-                                    context: context,
-                                    selectableDayPredicate: _predicate,
-                                    firstDate: datas.last[0],
-                                    initialDate:
-                                        datas.last[0] ?? DateTime.now(),
-                                    lastDate: DateTime(2100),
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: ThemeData(
-                                            primaryColor: Colors.blueGrey,
-                                            disabledColor: Colors.grey,
-                                            textTheme: TextTheme(
-                                              headline1: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            accentColor: Colors.blueGrey),
-                                        child: child,
-                                      );
-                                    });
+                                  context: context,
+                                  selectableDayPredicate: _predicate,
+                                  firstDate: datas.last[0],
+                                  initialDate: datas.last[0] ?? DateTime.now(),
+                                  lastDate: DateTime(2100),
+                                  builder:
+                                      (BuildContext context, Widget child) {
+                                    return Theme(
+                                      data: ThemeData.light().copyWith(
+                                        primaryColor: const Color.fromARGB(
+                                            255, 24, 37, 102),
+                                        accentColor: const Color.fromARGB(
+                                            255, 24, 37, 102),
+                                        colorScheme: ColorScheme.light(
+                                            primary: const Color.fromARGB(
+                                                255, 24, 37, 102)),
+                                        buttonTheme: ButtonThemeData(
+                                            textTheme: ButtonTextTheme.primary),
+                                      ),
+                                      child: child,
+                                    );
+                                  },
+                                );
 
                                 if (date != null) {
                                   final time = await showTimePicker(

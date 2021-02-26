@@ -28,7 +28,7 @@ class VerifyExpiration {
     });
     final databaseReference = database.reference();
     if (dateExp.isBefore(now)) {
-      //cahnge scaduto to true!
+      //change scaduto to true!
       return true;
     } else {
       return false;
