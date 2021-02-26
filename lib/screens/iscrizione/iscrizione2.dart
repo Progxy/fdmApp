@@ -152,7 +152,11 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     final String username = datas["username"];
     final int year = now.year;
     final String anniSocialis = year.toString();
-    print(anniSocialis);
+    final String scadenza = expDate.day.toString() +
+        "-" +
+        expDate.month.toString() +
+        "-" +
+        expDate.year.toString();
 
     var databaseReference = database.reference().child(firebaseAuthCheck);
 
@@ -164,7 +168,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
     final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
     try {
-      secondaryDb.child("Tessere/" + id).set({
+      secondaryDb.child("Tessere").child(id).set({
         "anniSociali": anniSocialis,
         "email": email,
         "provincia": datas["provincia"],
@@ -180,7 +184,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
         "username": username,
         "password": password,
         "data": date,
-        "scadenza": expDate,
+        "scadenza": scadenza,
         "scaduto": false,
         "fattoDa": "fdmApp"
       });
