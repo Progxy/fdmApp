@@ -19,7 +19,7 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
           color: Color.fromARGB(255, 192, 192, 192),
         ),
         title: Text(
-          "Iscrizione Socio Scaduta",
+          "Iscrizione Scaduta",
           style: TextStyle(
             color: Color.fromARGB(255, 192, 192, 192),
             fontWeight: FontWeight.w700,
@@ -43,13 +43,16 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 15,
+            ),
             Icon(
               Icons.error,
               color: Colors.red,
-              size: 65,
+              size: 85,
             ),
             SizedBox(
-              height: 25,
+              height: 10,
             ),
             Text(
               "Siamo spiacenti, l'iscrizione a socio del seguente account è scaduta!",
@@ -60,46 +63,54 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
               textAlign: TextAlign.center,
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  backgroundColor: Colors.blueGrey,
-                  child: Icon(
-                    Icons.home,
-                    size: 45,
+            ButtonTheme(
+              height: 60,
+              minWidth: 200,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
+                },
+                child: Text(
+                  "Home",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
                 ),
-                ButtonTheme(
-                  height: 60,
-                  minWidth: 200,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Rinnova()));
-                    },
-                    child: Text(
-                      "Rinnova",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                    color: Colors.blueGrey,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
-                    ),
+                color: Color.fromARGB(255, 24, 37, 102),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ButtonTheme(
+              height: 60,
+              minWidth: 200,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Rinnova()));
+                },
+                child: Text(
+                  "Rinnova",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
                   ),
-                )
-              ],
+                ),
+                color: Color.fromARGB(255, 24, 37, 102),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7.0),
+                ),
+              ),
             ),
             SizedBox(
               height: 25,

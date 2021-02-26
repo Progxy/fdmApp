@@ -258,14 +258,14 @@ class _RinnovaState extends State<Rinnova> {
             TextFormField(
               controller: _idController,
               decoration: const InputDecoration(
-                hintText: "Inserire l'id della prenotazione",
+                hintText: "Inserire l'id dell'iscrizione",
                 hintStyle: TextStyle(
                   fontSize: 23.0,
                   fontWeight: FontWeight.w600,
                   color: Colors.black87,
                 ),
                 border: OutlineInputBorder(),
-                labelText: "Id Prenotazione",
+                labelText: "Id Iscrizione",
                 labelStyle: TextStyle(
                   fontSize: 23.0,
                   fontWeight: FontWeight.w600,

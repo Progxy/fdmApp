@@ -157,41 +157,41 @@ class _LoginState extends State<Login> {
                           );
                       final firebaseAuthCheck =
                           FirebaseAuth.instance.currentUser;
-                      final bool isExpired =
-                          await VerifyExpiration().verify(database);
-                      if (isExpired) {
-                        context.read<AuthenticationService>().signOut();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => IscrizioneScaduta()));
-                      } else {
-                        if (firebaseAuthCheck != null) {
-                          await database
-                              .reference()
-                              .child(firebaseAuthCheck.uid)
-                              .child("User")
-                              .orderByValue()
-                              .once()
-                              .then((DataSnapshot snapshot) {
-                            LinkedHashMap<dynamic, dynamic> values =
-                                snapshot.value;
-                            String username;
-                            Map<String, String> map = values.map(
-                                (a, b) => MapEntry(a as String, b as String));
-                            map.forEach((k, value) => {username = k});
-                            AccountInfo().setter(username, email);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserPage()));
-                          });
-                        } else {
+                      if (firebaseAuthCheck != null) {
+                        final bool isExpired =
+                            await VerifyExpiration().verify(database);
+                        if (isExpired) {
+                          context.read<AuthenticationService>().signOut();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ErrorPage()));
+                                  builder: (context) => IscrizioneScaduta()));
+                          return;
                         }
+                        await database
+                            .reference()
+                            .child(firebaseAuthCheck.uid)
+                            .child("User")
+                            .orderByValue()
+                            .once()
+                            .then((DataSnapshot snapshot) {
+                          LinkedHashMap<dynamic, dynamic> values =
+                              snapshot.value;
+                          String username;
+                          Map<String, String> map = values.map(
+                              (a, b) => MapEntry(a as String, b as String));
+                          map.forEach((k, value) => {username = k});
+                          AccountInfo().setter(username, email);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserPage()));
+                        });
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ErrorPage()));
                       }
                     } else {
                       if (isIOS) {

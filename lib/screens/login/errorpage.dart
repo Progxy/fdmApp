@@ -1,5 +1,4 @@
 import 'package:fdmApp/authentication_service.dart';
-import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +35,6 @@ class ErrorPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
       ),
-      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -76,7 +74,7 @@ class ErrorPage extends StatelessWidget {
                   Icons.arrow_back_rounded,
                   size: 50.0,
                 ),
-                backgroundColor: Colors.blueGrey,
+                backgroundColor: Color.fromARGB(255, 24, 37, 102),
               ),
             ),
           ],

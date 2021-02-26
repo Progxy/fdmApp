@@ -98,20 +98,20 @@ class _VisitaState extends State<Visita> {
     addDataPrenotazione(String id, String email, Map dataPrenotazione) async {
       String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
       final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
-      String telefonoResponsabile = data["telefono responsabile"];
-      String telefono = data["telefono"];
+      String telefonoResponsabile = dataPrenotazione["telefono responsabile"];
+      String telefono = dataPrenotazione["telefono"];
       try {
         secondaryDb.child("Prenotazione/" + id).set({
           "email": email,
-          "data": data["giorno"],
-          "persone": data["numero del gruppo"],
-          "provenienza": data["provenienza"],
-          "indirizzo": data["indirizzo"],
+          "data": dataPrenotazione["giorno"],
+          "persone": dataPrenotazione["numero del gruppo"],
+          "provenienza": dataPrenotazione["provenienza"],
+          "indirizzo": dataPrenotazione["indirizzo"],
           "telefono": telefono,
-          "NomeCognomeResponsabile": data["nome responsabile"],
+          "NomeCognomeResponsabile": dataPrenotazione["nome responsabile"],
           "CellulareResponsabile": telefonoResponsabile,
-          "EmailResponsabile": data["email del responsabile"],
-          "gruppo": data["tipo di gruppo"],
+          "EmailResponsabile": dataPrenotazione["email del responsabile"],
+          "gruppo": dataPrenotazione["tipo di gruppo"],
           "presaVisione": "no"
         });
         return true;
