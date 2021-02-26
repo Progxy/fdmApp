@@ -36,9 +36,6 @@ class _IscrizioneState extends State<Iscrizione> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  //check if the date is close to the end of the year and if true -->
-  //report an alert that validity of the tickets will be so short
-
   Map data = {};
   String emailResponsabile;
   Map lista = {
@@ -291,6 +288,85 @@ class _IscrizioneState extends State<Iscrizione> {
     'VI': 'Vicenza',
     'VT': 'Viterbo'
   };
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      DateTime today = DateTime.now();
+      DateTime endYear = DateTime(today.year, 12, 31);
+      DateTime todar = DateTime(today.year, 12, 19);
+      int difference = todar.difference(endYear).inDays;
+      bool firstCondition = (difference > 0) == false;
+      bool secondCondition = (difference < -14) == false;
+      if (firstCondition && secondCondition) {
+        if (Platform.isIOS) {
+          showCupertinoDialog(
+            context: context,
+            builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(
+                "Attenzione",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Tra meno di due settimane inizierà il prossimo anno sociale!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                "Attenzione",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              content: Text(
+                "Tra meno di due settimane inizierà il prossimo anno sociale!",
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              actions: [
+                FlatButton(
+                  child: Text(
+                    "OK",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop('dialog');
+                  },
+                )
+              ],
+            ),
+          );
+        }
+      }
+    });
+  }
 
   String simplePhoneValidator(value) {
     if (value.completeNumber.isEmpty) {
@@ -588,7 +664,6 @@ class _IscrizioneState extends State<Iscrizione> {
                                 setState(() {
                                   provinceValue = newValue;
                                   data["provincia"] = newValue;
-                                  print(data["provincia"]);
                                 });
                               },
                               items: elementiSigle
