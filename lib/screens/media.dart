@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/media/detailedPhoto.dart';
 import 'package:fdmApp/screens/media/detailedVideo.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:marquee/marquee.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'badConnection.dart';
 import 'databaseManager.dart';
+import 'feedback.dart';
 import 'home/mainDrawer.dart';
 
 class Media extends StatefulWidget {
@@ -22,6 +25,27 @@ class Media extends StatefulWidget {
 }
 
 class _MediaState extends State<Media> {
+  final List<String> choices = <String>[
+    "FeedBack",
+    "Aiuto",
+  ];
+
+  void choiceAction(String choice) async {
+    if (choice == "Aiuto") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Utilizzo()));
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BadConnection()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FeedBack()));
+      }
+    }
+  }
+
   List<YoutubePlayerController> _controllers = [];
   List<TextEditingController> _idControllers = [];
   List<TextEditingController> _seekToControllers = [];
@@ -108,16 +132,22 @@ class _MediaState extends State<Media> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return choices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }).toList();
             },
-          ),
+          )
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,

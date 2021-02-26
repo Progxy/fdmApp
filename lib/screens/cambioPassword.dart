@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/IscrizioneScaduta.dart';
 import 'package:fdmApp/screens/VerifyExpiration.dart';
@@ -14,6 +15,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import 'badConnection.dart';
+import 'feedback.dart';
 import 'home/mainDrawer.dart';
 
 class CambioPassword extends StatefulWidget {
@@ -256,6 +259,26 @@ class _CambioPasswordState extends State<CambioPassword> {
     }
   }
 
+  final List<String> choices = <String>[
+    "FeedBack",
+    "Aiuto",
+  ];
+  void choiceAction(String choice) async {
+    if (choice == "Aiuto") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Utilizzo()));
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BadConnection()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FeedBack()));
+      }
+    }
+  }
+
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _oldpasswordController = TextEditingController();
@@ -284,16 +307,22 @@ class _CambioPasswordState extends State<CambioPassword> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return choices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }).toList();
             },
-          ),
+          )
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,

@@ -8,7 +8,7 @@ class MyPainter extends CustomPainter {
     final p1 = Offset(0, 25);
     final p2 = Offset(95, 25);
     final paint = Paint()
-      ..color = Colors.blueGrey
+      ..color = Color.fromARGB(255, 24, 37, 102)
       ..strokeWidth = 3;
     canvas.drawLine(p1, p2, paint);
   }

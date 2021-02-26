@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
@@ -12,6 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+
+import 'badConnection.dart';
+import 'feedback.dart';
 
 class RecuperoPassword extends StatefulWidget {
   static const String routeName = "/recuperopassword";
@@ -318,6 +322,27 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     }
   }
 
+  final List<String> choices = <String>[
+    "FeedBack",
+    "Aiuto",
+  ];
+
+  void choiceAction(String choice) async {
+    if (choice == "Aiuto") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Utilizzo()));
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BadConnection()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FeedBack()));
+      }
+    }
+  }
+
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   String email;
@@ -340,16 +365,22 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return choices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }).toList();
             },
-          ),
+          )
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,

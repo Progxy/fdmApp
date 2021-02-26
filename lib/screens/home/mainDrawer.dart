@@ -4,7 +4,6 @@ import 'package:fdmApp/screens/cambioPassword.dart';
 import 'package:fdmApp/screens/contatti.dart';
 import 'package:fdmApp/screens/disdici.dart';
 import 'package:fdmApp/screens/eventi.dart';
-import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
@@ -263,21 +262,6 @@ class _MainDrawerState extends State<MainDrawer> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => CambioPassword()));
-                  }
-                }),
-            ListTile(
-                title: Text("Feedback", style: TextStyle(fontSize: 23)),
-                onTap: () async {
-                  var connectivityResult =
-                      await (Connectivity().checkConnectivity());
-                  if (connectivityResult == ConnectivityResult.none) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BadConnection()));
-                  } else {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => FeedBack()));
                   }
                 }),
             Divider(

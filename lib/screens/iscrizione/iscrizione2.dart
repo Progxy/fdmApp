@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
@@ -15,6 +16,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../authentication_service.dart';
+import '../badConnection.dart';
+import '../feedback.dart';
 import '../painter.dart';
 import '../paymentService.dart';
 
@@ -28,98 +31,10 @@ class PayIscrizione extends StatefulWidget {
 }
 
 class _PayIscrizioneState extends State<PayIscrizione> {
-  //metodo per inviare dati via email alla fondazione
-
-  sendDataToFdm(Map datas) async {
-    var options = new GmailSmtpOptions()
-      ..username = 'ermes.express.fdm@gmail.com'
-      ..password = 'CASTELLO1967';
-
-    var emailTransport = new SmtpTransport(options);
-
-    String emailBody = "";
-
-    final String id = datas["id"];
-
-    datas.forEach((k, v) => emailBody += "$k: $v\n");
-
-    var envelope = new Envelope()
-      ..from = 'ermes.express.fdm@gmail.com'
-      ..recipients.add("eossmario@gmail.com") //utilizza mail per iscrizioni
-      ..subject = '$id - AdesioneSocio'
-      ..text =
-          "Dati per Adesione a Socio:\n" + emailBody + "\n\nErmes-Express FDM";
-
-    await emailTransport.send(envelope).then((envelope) async {
-      print("Success!");
-    }).catchError((e) async {
-      print(e);
-      if (Platform.isIOS) {
-        showCupertinoDialog(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-            title: Text(
-              "Errore",
-              style: TextStyle(
-                fontSize: 28,
-              ),
-            ),
-            content: Text(
-              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-              style: TextStyle(
-                fontSize: 27,
-              ),
-            ),
-            actions: [
-              CupertinoDialogAction(
-                child: Text(
-                  "OK",
-                  style: TextStyle(
-                    fontSize: 28,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop('dialog');
-                },
-              )
-            ],
-          ),
-        );
-      } else {
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(
-              "Errore",
-              style: TextStyle(
-                fontSize: 28,
-              ),
-            ),
-            content: Text(
-              "Ops... Qualcosa è andato storto!\nNon è stato possibile inviare la email!",
-              style: TextStyle(
-                fontSize: 27,
-              ),
-            ),
-            actions: [
-              FlatButton(
-                child: Text(
-                  "OK",
-                  style: TextStyle(
-                    fontSize: 28,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop('dialog');
-                },
-              )
-            ],
-          ),
-        );
-      }
-    });
-  }
+  final List<String> choices = <String>[
+    "FeedBack",
+    "Aiuto",
+  ];
 
   //metodo per inviare i dati necessari al nuovo socio
 
@@ -141,10 +56,9 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     var envelope = new Envelope()
       ..from = 'ermes.express.fdm@gmail.com'
       ..recipients.add(email)
-      ..subject = '$id - AdesioneSocio'
+      ..subject = 'Conferma Iscrizione'
       ..text =
-          "Username : $username,\nEmail : $email,\nPassword : $password,\nId : $id." +
-              "\n\nErmes-Express FDM";
+          "Le confermiamo la sua iscrizione, di seguito le forniamo i suoi dati riguardo l'area soci : \n\nId : $id\nUsername : $username\nPassword : $password\nPer eventuali richieste si prega di rispondere a eossmario@gmail.com !\n\nErmes Express Fdm";
 
     await emailTransport.send(envelope).then((envelope) async {
       print("Success!");
@@ -225,23 +139,55 @@ class _PayIscrizioneState extends State<PayIscrizione> {
           password: datas["password"].trim(),
         );
     final firebaseAuthCheck = FirebaseAuth.instance.currentUser.uid;
+    if (firebaseAuthCheck == null) {
+      return;
+    }
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     final String id = datas["id"];
     final DateTime now = DateTime.now();
-    final DateTime expDate = new DateTime(now.year + 1, now.month, now.day);
+    final DateTime expDate = new DateTime(now.year, 12, 31);
     final String date = formatter.format(expDate).toString();
     final String email = datas["email"];
     final String password = datas["password"];
     final String username = datas["username"];
+    final int year = now.year;
+    final String anniSocialis = year.toString();
+    print(anniSocialis);
 
-    var databaseReference = firebaseAuthCheck != null
-        ? database.reference().child(firebaseAuthCheck)
-        : database.reference();
+    var databaseReference = database.reference().child(firebaseAuthCheck);
 
     databaseReference.child("Id").set({id: email});
     databaseReference.child("Date").set({date: email});
     databaseReference.child("Pass").set({password: email});
     databaseReference.child("User").set({username: email});
+
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    try {
+      secondaryDb.child("Tessere/" + id).set({
+        "anniSociali": anniSocialis,
+        "email": email,
+        "provincia": datas["provincia"],
+        "indirizzo": datas["indirizzo"],
+        "telefono": datas["telefono"],
+        "intestazione": datas["intestazione gruppo"],
+        "nome": datas["nome"],
+        "cognome": datas["cognome"],
+        "citta": datas["città"],
+        "cap": datas["CAP"],
+        "Tipo di Tessera": datas["tipo di gruppo"],
+        "messaggio": datas["messaggio"],
+        "username": username,
+        "password": password,
+        "data": date,
+        "scadenza": expDate,
+        "scaduto": false,
+        "fattoDa": "fdmApp"
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   final Map data = DatiAccount.datiSocio;
@@ -260,7 +206,6 @@ class _PayIscrizioneState extends State<PayIscrizione> {
         await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
     if (response.message == "Transaction successful") {
       await addAccount(datas, database);
-      await sendDataToFdm(datas);
       await sendDataToSocio(datas);
       await dialog.hide();
       Platform.isIOS
@@ -394,6 +339,22 @@ class _PayIscrizioneState extends State<PayIscrizione> {
     return null;
   }
 
+  void choiceAction(String choice) async {
+    if (choice == "Aiuto") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Utilizzo()));
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BadConnection()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FeedBack()));
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -411,23 +372,29 @@ class _PayIscrizioneState extends State<PayIscrizione> {
           color: Color.fromARGB(255, 192, 192, 192),
         ),
         title: Text(
-          "Pagamento Adesione Socio",
+          "Pagamento Iscrizione",
           style: TextStyle(
             color: Color.fromARGB(255, 192, 192, 192),
             fontWeight: FontWeight.w700,
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return choices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }).toList();
             },
-          ),
+          )
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
@@ -459,7 +426,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                           color: Colors.white,
                         ),
                       ),
-                      color: Colors.blueGrey,
+                      color: Color.fromARGB(255, 24, 37, 102),
                       onPressed: () {
                         payViaNewCard(context, data, database);
                       },
@@ -479,7 +446,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
@@ -517,7 +484,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
@@ -550,7 +517,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   lineLength: 100,
                   lineThickness: 3.0,
                   dashLength: 6.0,
-                  dashColor: Colors.blueGrey,
+                  dashColor: Color.fromARGB(255, 24, 37, 102),
                   dashGapLength: 6.0,
                   dashGapColor: Colors.transparent,
                 ),
@@ -576,7 +543,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                         style: TextStyle(
                           fontSize: 27,
                           fontWeight: FontWeight.w700,
-                          color: Colors.blueGrey,
+                          color: Color.fromARGB(255, 24, 37, 102),
                         ),
                       ),
                     ),

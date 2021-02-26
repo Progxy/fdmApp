@@ -295,8 +295,7 @@ class _IscrizioneState extends State<Iscrizione> {
     Future.delayed(Duration.zero, () {
       DateTime today = DateTime.now();
       DateTime endYear = DateTime(today.year, 12, 31);
-      DateTime todar = DateTime(today.year, 12, 19);
-      int difference = todar.difference(endYear).inDays;
+      int difference = today.difference(endYear).inDays;
       bool firstCondition = (difference > 0) == false;
       bool secondCondition = (difference < -14) == false;
       if (firstCondition && secondCondition) {
@@ -1241,7 +1240,7 @@ class _IscrizioneState extends State<Iscrizione> {
                       style: TextStyle(
                         fontSize: 27,
                         fontWeight: FontWeight.w700,
-                        color: Colors.blueGrey,
+                        color: Color.fromARGB(255, 24, 37, 102),
                       ),
                     ),
                   ),
@@ -1254,7 +1253,7 @@ class _IscrizioneState extends State<Iscrizione> {
                   lineLength: 100,
                   lineThickness: 3.0,
                   dashLength: 6.0,
-                  dashColor: Colors.blueGrey,
+                  dashColor: Color.fromARGB(255, 24, 37, 102),
                   dashGapLength: 6.0,
                   dashGapColor: Colors.transparent,
                 ),
@@ -1276,9 +1275,10 @@ class _IscrizioneState extends State<Iscrizione> {
                     child: Text(
                       "2",
                       style: TextStyle(
-                          fontSize: 27,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.blueGrey),
+                        fontSize: 27,
+                        fontWeight: FontWeight.w700,
+                        color: Color.fromARGB(255, 24, 37, 102),
+                      ),
                     ),
                   ),
                 ),
@@ -1290,7 +1290,7 @@ class _IscrizioneState extends State<Iscrizione> {
                   lineLength: 100,
                   lineThickness: 3.0,
                   dashLength: 6.0,
-                  dashColor: Colors.blueGrey,
+                  dashColor: Color.fromARGB(255, 24, 37, 102),
                   dashGapLength: 6.0,
                   dashGapColor: Colors.transparent,
                 ),
@@ -1314,7 +1314,7 @@ class _IscrizioneState extends State<Iscrizione> {
                       style: TextStyle(
                         fontSize: 27,
                         fontWeight: FontWeight.w700,
-                        color: Colors.blueGrey,
+                        color: Color.fromARGB(255, 24, 37, 102),
                       ),
                     ),
                   ),

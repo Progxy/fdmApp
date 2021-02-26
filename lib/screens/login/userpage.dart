@@ -34,6 +34,7 @@ class UserPage extends StatelessWidget {
             icon: Icon(
               Icons.logout,
               size: 40.0,
+              color: Color.fromARGB(255, 192, 192, 192),
             ),
           )
         ],

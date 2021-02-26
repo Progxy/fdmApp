@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/iscrizione/DatiAccount.dart';
 import 'package:fdmApp/screens/login.dart';
@@ -5,6 +6,8 @@ import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../badConnection.dart';
+import '../feedback.dart';
 import '../painter.dart';
 
 class ResultIscrizione extends StatefulWidget {
@@ -16,6 +19,26 @@ class ResultIscrizione extends StatefulWidget {
 
 class _ResultIscrizioneState extends State<ResultIscrizione> {
   Map data = DatiAccount.datiSocio;
+  final List<String> choices = <String>[
+    "FeedBack",
+    "Aiuto",
+  ];
+
+  void choiceAction(String choice) async {
+    if (choice == "Aiuto") {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Utilizzo()));
+    } else {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BadConnection()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FeedBack()));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +49,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
     final String id = data["id"];
     final String citta = data["città"];
     final String cap = data["CAP"];
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -39,16 +63,22 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return choices.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                );
+              }).toList();
             },
-          ),
+          )
         ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
@@ -95,16 +125,29 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                  child: Icon(
-                    Icons.home,
-                    size: 50.0,
+                ButtonTheme(
+                  height: 55,
+                  minWidth: 175,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
+                    },
+                    child: Text(
+                      "Home",
+                      style: TextStyle(
+                        fontSize: 32,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    color: Color.fromARGB(255, 24, 37, 102),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0),
+                    ),
                   ),
-                  backgroundColor: Colors.blueGrey,
                 ),
                 SizedBox(
                   height: 20,
@@ -135,7 +178,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7.0),
                     ),
@@ -155,7 +198,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
@@ -190,7 +233,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
@@ -225,7 +268,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.blueGrey,
+                    color: Color.fromARGB(255, 24, 37, 102),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),

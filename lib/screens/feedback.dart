@@ -188,22 +188,9 @@ class _FeedBackState extends State<FeedBack> {
             fontWeight: FontWeight.w700,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.help,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Utilizzo()));
-            },
-          ),
-        ],
         backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
       ),
-      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
