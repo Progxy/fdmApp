@@ -69,8 +69,10 @@ class _DisdiciState extends State<Disdici> {
 
     emailTransport.send(envelope).then((envelope) {
       print("Email Sended!");
+      return true;
     }).catchError((e) {
       print(e);
+      return false;
     });
   }
 
@@ -313,7 +315,78 @@ class _DisdiciState extends State<Disdici> {
                       dialog.style(message: 'Caricamento...');
                       await dialog.show();
                       await addDisdetta(email, motivazione, nomeGruppo, id);
-                      await sendResponse(email);
+                      bool result = await sendResponse(email);
+                      if (!result) {
+                        await dialog.hide();
+                        if (isIOS) {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              content: Text(
+                                "Ops...\nSi è verificato un errore!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              content: Text(
+                                "Ops...\nSi è verificato un errore!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                FlatButton(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                        return;
+                      }
                       await dialog.hide();
                       if (isIOS) {
                         showCupertinoDialog(
