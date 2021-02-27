@@ -1,19 +1,18 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/feedback.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 import 'badConnection.dart';
+import 'home.dart';
 import 'home/mainDrawer.dart';
 
 class Disdici extends StatefulWidget {
   static const String routeName = "/disdici";
-  Disdici({this.app});
-  final FirebaseApp app;
 
   @override
   _DisdiciState createState() => _DisdiciState();
@@ -26,7 +25,9 @@ class _DisdiciState extends State<Disdici> {
   final _messaggioController = TextEditingController();
   String email;
   String id;
-  String messaggio;
+  String motivazione;
+  String nomeGruppo;
+  List idPrenotazioni;
   final List<String> choices = <String>[
     "FeedBack",
     "Aiuto",
@@ -48,10 +49,45 @@ class _DisdiciState extends State<Disdici> {
     }
   }
 
+  addDisdetta(
+      String email, String motivazione, String nomeGruppo, String id) async {
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    try {
+      secondaryDb.child("Disdette").child(id).set({
+        "email": email,
+        "motivazione": motivazione,
+        "nomeGruppo": nomeGruppo,
+        "presaVisione": "no"
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  getIDs() async {
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    try {
+      await secondaryDb
+          .child("Prenotazione")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        final Map ids = snapshot.value;
+        ids.forEach((k, val) => {idPrenotazioni.add(k.toString())});
+      });
+      return;
+    } catch (e) {
+      idPrenotazioni.clear();
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    // final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
 
     return Scaffold(
       appBar: AppBar(
@@ -97,6 +133,16 @@ class _DisdiciState extends State<Disdici> {
           children: [
             SizedBox(
               height: 25,
+            ),
+            FutureBuilder(
+              future: getIDs(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<Future<dynamic>> snapshot) {
+                print(idPrenotazioni);
+                return SizedBox(
+                  height: 1,
+                );
+              },
             ),
             TextFormField(
               controller: _emailController,
@@ -154,7 +200,40 @@ class _DisdiciState extends State<Disdici> {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
                 }
+                for (var ids in idPrenotazioni) {
+                  if (ids != id) {
+                    return "Id Inesistente";
+                  }
+                }
                 id = value;
+                return null;
+              },
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            TextFormField(
+              controller: _idController,
+              decoration: const InputDecoration(
+                hintText: "Inserire il nome del gruppo",
+                hintStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+                border: OutlineInputBorder(),
+                labelText: "Nome Gruppo",
+                labelStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Dati Mancanti";
+                }
+                nomeGruppo = value;
                 return null;
               },
             ),
@@ -184,7 +263,7 @@ class _DisdiciState extends State<Disdici> {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
                 }
-                messaggio = value;
+                motivazione = value;
                 return null;
               },
             ),
@@ -198,7 +277,82 @@ class _DisdiciState extends State<Disdici> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      print("Implementa disdici function !");
+                      ProgressDialog dialog = new ProgressDialog(context);
+                      dialog.style(message: 'Caricamento...');
+                      await dialog.show();
+                      await addDisdetta(email, motivazione, nomeGruppo, id);
+                      await dialog.hide();
+                      if (isIOS) {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              CupertinoAlertDialog(
+                            title: Text(
+                              "Successo",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Disdetta effetuata con successo!",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text(
+                                  "Home",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text(
+                              "Successo",
+                              style: TextStyle(
+                                fontSize: 28,
+                              ),
+                            ),
+                            content: Text(
+                              "Disdetta effetuata con successo!",
+                              style: TextStyle(
+                                fontSize: 27,
+                              ),
+                            ),
+                            actions: [
+                              FlatButton(
+                                child: Text(
+                                  "Home",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      }
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
