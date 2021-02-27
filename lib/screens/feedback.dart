@@ -21,6 +21,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    
     sendFeedBack(String feedBack, double rating) async {
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'

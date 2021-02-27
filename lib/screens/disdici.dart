@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:mailer2/mailer.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import 'badConnection.dart';
@@ -47,6 +48,29 @@ class _DisdiciState extends State<Disdici> {
             context, MaterialPageRoute(builder: (context) => FeedBack()));
       }
     }
+  }
+
+  sendResponse(String email) async {
+    final String message =
+        "Le confermiamo che la sua prenotazione è stata annullata.\nPer eventuali richieste si prega di rispondere a eossmario@gmail.com !\n\nLa Fondazione Don Milani.\n\n\nErmes Express Fdm";
+
+    var options = new GmailSmtpOptions()
+      ..username = 'ermes.express.fdm@gmail.com'
+      ..password = 'CASTELLO1967';
+
+    var emailTransport = new SmtpTransport(options);
+
+    var envelope = new Envelope()
+      ..from = 'ermes.express.fdm@gmail.com'
+      ..recipients.add(email)
+      ..subject = "Conferma Disdetta"
+      ..text = message;
+
+    emailTransport.send(envelope).then((envelope) {
+      print("Email Sended!");
+    }).catchError((e) {
+      print(e);
+    });
   }
 
   addDisdetta(
@@ -281,6 +305,7 @@ class _DisdiciState extends State<Disdici> {
                       dialog.style(message: 'Caricamento...');
                       await dialog.show();
                       await addDisdetta(email, motivazione, nomeGruppo, id);
+                      await sendResponse(email);
                       await dialog.hide();
                       if (isIOS) {
                         showCupertinoDialog(
