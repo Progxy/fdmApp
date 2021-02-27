@@ -23,12 +23,13 @@ class _DisdiciState extends State<Disdici> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _idController = TextEditingController();
-  final _messaggioController = TextEditingController();
+  final _motivazioneController = TextEditingController();
+  final _nomeGruppoController = TextEditingController();
   String email;
   String id;
   String motivazione;
   String nomeGruppo;
-  List idPrenotazioni;
+  List<String> idPrenotazioni = [];
   final List<String> choices = <String>[
     "FeedBack",
     "Aiuto",
@@ -93,6 +94,7 @@ class _DisdiciState extends State<Disdici> {
   getIDs() async {
     String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
     final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    List<String> prenotazioni = [];
     try {
       await secondaryDb
           .child("Prenotazione")
@@ -100,12 +102,11 @@ class _DisdiciState extends State<Disdici> {
           .once()
           .then((DataSnapshot snapshot) {
         final Map ids = snapshot.value;
-        ids.forEach((k, val) => {idPrenotazioni.add(k.toString())});
+        ids.forEach((k, val) => {prenotazioni.add(k.toString())});
       });
-      return;
+      return prenotazioni;
     } catch (e) {
-      idPrenotazioni.clear();
-      return;
+      return prenotazioni;
     }
   }
 
@@ -160,9 +161,8 @@ class _DisdiciState extends State<Disdici> {
             ),
             FutureBuilder(
               future: getIDs(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<Future<dynamic>> snapshot) {
-                print(idPrenotazioni);
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                idPrenotazioni = snapshot.data;
                 return SizedBox(
                   height: 1,
                 );
@@ -224,20 +224,28 @@ class _DisdiciState extends State<Disdici> {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
                 }
+                bool isValidId;
                 for (var ids in idPrenotazioni) {
-                  if (ids != id) {
-                    return "Id Inesistente";
+                  if (ids != value) {
+                    isValidId = false;
+                  } else {
+                    isValidId = true;
+                    break;
                   }
                 }
-                id = value;
-                return null;
+                if (isValidId) {
+                  id = value;
+                  return null;
+                } else {
+                  return "Id Inesistente";
+                }
               },
             ),
             SizedBox(
               height: 25,
             ),
             TextFormField(
-              controller: _idController,
+              controller: _nomeGruppoController,
               decoration: const InputDecoration(
                 hintText: "Inserire il nome del gruppo",
                 hintStyle: TextStyle(
@@ -265,7 +273,7 @@ class _DisdiciState extends State<Disdici> {
               height: 25,
             ),
             TextFormField(
-              controller: _messaggioController,
+              controller: _motivazioneController,
               keyboardType: TextInputType.multiline,
               maxLines: 10,
               decoration: const InputDecoration(
