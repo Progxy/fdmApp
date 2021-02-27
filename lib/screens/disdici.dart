@@ -30,6 +30,7 @@ class _DisdiciState extends State<Disdici> {
   String motivazione;
   String nomeGruppo;
   List<String> idPrenotazioni = [];
+  List<String> idDisdette = [];
   final List<String> choices = <String>[
     "FeedBack",
     "Aiuto",
@@ -112,6 +113,25 @@ class _DisdiciState extends State<Disdici> {
     }
   }
 
+  getDisdette() async {
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    List<String> prenotazioni = [];
+    try {
+      await secondaryDb
+          .child("Disdette")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        final Map ids = snapshot.value;
+        ids.forEach((k, val) => {prenotazioni.add(k.toString())});
+      });
+      return prenotazioni;
+    } catch (e) {
+      return prenotazioni;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
@@ -165,6 +185,15 @@ class _DisdiciState extends State<Disdici> {
               future: getIDs(),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 idPrenotazioni = snapshot.data;
+                return SizedBox(
+                  height: 1,
+                );
+              },
+            ),
+            FutureBuilder(
+              future: getDisdette(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                idDisdette = snapshot.data;
                 return SizedBox(
                   height: 1,
                 );
@@ -226,7 +255,14 @@ class _DisdiciState extends State<Disdici> {
                 if (value.isEmpty) {
                   return "Dati Mancanti";
                 }
-                bool isValidId;
+                bool isValidId = false;
+                bool isAlreadyCanceled = false;
+                for (var elements in idDisdette) {
+                  if (elements == value) {
+                    isAlreadyCanceled = true;
+                    break;
+                  }
+                }
                 for (var ids in idPrenotazioni) {
                   if (ids != value) {
                     isValidId = false;
@@ -234,6 +270,9 @@ class _DisdiciState extends State<Disdici> {
                     isValidId = true;
                     break;
                   }
+                }
+                if (isAlreadyCanceled) {
+                  return "Id Già Disdetto";
                 }
                 if (isValidId) {
                   id = value;
