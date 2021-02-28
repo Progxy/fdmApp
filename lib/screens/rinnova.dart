@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/VerifyExpiration.dart';
+import 'package:fdmApp/screens/home.dart';
+import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/paymentService.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,11 +12,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:intl/intl.dart';
 
 import 'badConnection.dart';
 import 'feedback.dart';
 import 'home/mainDrawer.dart';
-import 'iscrizione/iscrizione3.dart';
 
 class Rinnova extends StatefulWidget {
   static const String routeName = "/rinnova";
@@ -51,22 +54,245 @@ class _RinnovaState extends State<Rinnova> {
     }
   }
 
-  //verify that the account is expired
-
-  resetAccount(Map datas, FirebaseDatabase database) async {
-    //retrieve account by id and then update expiration Date and add it to Rinnovi as he could say who as updated the subscription
+  getAccount(String id, String email, FirebaseDatabase database) async {
+    bool result = false;
+    String authId;
+    await database.reference().once().then((DataSnapshot snapshot) async {
+      Map val = new Map.from(snapshot.value);
+      List names = val.keys.toList();
+      for (int index = 0; index < names.length; index++) {
+        if ((names[index] != "Disponibilita") &&
+            (names[index] != "Indisponibilita") &&
+            (names[index] != "News") &&
+            (names[index] != "Media") &&
+            (names[index] != "SeCHS")) {
+          await database
+              .reference()
+              .child(names[index] + "/Id")
+              .once()
+              .then((DataSnapshot snapshot) {
+            Map valId = new Map.from(snapshot.value);
+            String idCopy = valId.keys.toList()[0];
+            String emailCopy = valId.values.toList()[0];
+            if (idCopy == id && emailCopy == email) {
+              result = true;
+              authId = names[index];
+              return;
+            }
+          });
+          if (result) {
+            break;
+          }
+        }
+      }
+      if (result) {
+        return;
+      }
+    });
+    if (result) {
+      return authId;
+    }
+    return null;
   }
 
-  payViaNewCard(
-      BuildContext context, Map datas, FirebaseDatabase database) async {
-    final String _price = "1500"; //get the type of ticket
+  getTypeTicket(String id) async {
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    String result;
+    try {
+      await secondaryDb
+          .child("Tessere/" + id + "/Tipo di Tessera")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        result = snapshot.value.toString();
+      });
+      return result;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  resetAccount(
+      String id, String authId, String email, FirebaseDatabase database) async {
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final DateTime now = DateTime.now();
+    final DateTime expDate = new DateTime(now.year, 12, 31);
+    final String date = formatter.format(expDate).toString();
+    var databaseReference = database.reference().child(authId);
+    databaseReference.child("Date").update({date: email});
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    try {
+      secondaryDb.child("Tessere/" + id).update({
+        "scaduto": false,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  payViaNewCard(BuildContext context, FirebaseDatabase database) async {
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
+    String _price = await getTypeTicket(id);
+    switch (_price) {
+      case "Singolo":
+        {
+          _price = "1500";
+          break;
+        }
+
+      case "Familiare":
+        {
+          _price = "3000";
+          break;
+        }
+      case "Gruppo":
+        {
+          _price = "5000";
+          break;
+        }
+
+      default:
+        {
+          Platform.isIOS
+              ? showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                      size: 55.0,
+                    ),
+                    content: Text(
+                      "Ops...\nSi è verificato un errore!",
+                      style: TextStyle(
+                        fontSize: 27,
+                      ),
+                    ),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            fontSize: 28,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .pop('dialog');
+                        },
+                      )
+                    ],
+                  ),
+                )
+              : showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                      size: 55.0,
+                    ),
+                    content: Text(
+                      "Ops...\nSi è verificato un errore!",
+                      style: TextStyle(
+                        fontSize: 27,
+                      ),
+                    ),
+                    actions: [
+                      FlatButton(
+                        child: Text(
+                          "OK",
+                          style: TextStyle(
+                            fontSize: 28,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .pop('dialog');
+                        },
+                      )
+                    ],
+                  ),
+                );
+          return;
+        }
+    }
     var response =
         await StripeService.payWithNewCard(amount: _price, currency: 'EUR');
     if (response.message == "Transaction successful") {
-      await resetAccount(datas, database);
+      final String authId = await getAccount(id, email, database);
+      if (authId == null) {
+        Platform.isIOS
+            ? showCupertinoDialog(
+                context: context,
+                builder: (BuildContext context) => CupertinoAlertDialog(
+                  title: Icon(
+                    Icons.error,
+                    color: Colors.red,
+                    size: 55.0,
+                  ),
+                  content: Text(
+                    "Id non trovato!",
+                    style: TextStyle(
+                      fontSize: 27,
+                    ),
+                  ),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: Text(
+                        "OK",
+                        style: TextStyle(
+                          fontSize: 28,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pop('dialog');
+                      },
+                    )
+                  ],
+                ),
+              )
+            : showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Icon(
+                    Icons.error,
+                    color: Colors.red,
+                    size: 55.0,
+                  ),
+                  content: Text(
+                    "Id non trovato!",
+                    style: TextStyle(
+                      fontSize: 27,
+                    ),
+                  ),
+                  actions: [
+                    FlatButton(
+                      child: Text(
+                        "OK",
+                        style: TextStyle(
+                          fontSize: 28,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true)
+                            .pop('dialog');
+                      },
+                    )
+                  ],
+                ),
+              );
+        return;
+      }
+      await resetAccount(id, authId, email, database);
       await dialog.hide();
       Platform.isIOS
           ? showCupertinoDialog(
@@ -78,7 +304,7 @@ class _RinnovaState extends State<Rinnova> {
                   size: 55.0,
                 ),
                 content: Text(
-                  "Transazione effetuata con successo!",
+                  "Iscrizione rinnovata con successo!",
                   style: TextStyle(
                     fontSize: 27,
                   ),
@@ -86,16 +312,14 @@ class _RinnovaState extends State<Rinnova> {
                 actions: [
                   CupertinoDialogAction(
                     child: Text(
-                      "OK",
+                      "Login",
                       style: TextStyle(
                         fontSize: 28,
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResultIscrizione()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     },
                   )
                 ],
@@ -111,7 +335,7 @@ class _RinnovaState extends State<Rinnova> {
                   size: 55.0,
                 ),
                 content: Text(
-                  "Transazione effetuata con successo!",
+                  "Iscrizione rinnovata con successo!",
                   style: TextStyle(
                     fontSize: 27,
                   ),
@@ -119,16 +343,14 @@ class _RinnovaState extends State<Rinnova> {
                 actions: [
                   FlatButton(
                     child: Text(
-                      "OK",
+                      "Login",
                       style: TextStyle(
                         fontSize: 28,
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResultIscrizione()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     },
                   )
                 ],
@@ -200,9 +422,15 @@ class _RinnovaState extends State<Rinnova> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    StripeService.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    // final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
+    final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
 
     return Scaffold(
       appBar: AppBar(
@@ -319,7 +547,154 @@ class _RinnovaState extends State<Rinnova> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      print("Implementa rinnova function !");
+                      bool isExpired =
+                          await VerifyExpiration().isAlreadyExpired(id);
+                      if (isExpired == null) {
+                        Platform.isIOS
+                            ? showCupertinoDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    CupertinoAlertDialog(
+                                  title: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                    size: 55.0,
+                                  ),
+                                  content: Text(
+                                    "Id non trovato!",
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                    ),
+                                  ),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                      child: Text(
+                                        "Home",
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyHomePage()));
+                                      },
+                                    )
+                                  ],
+                                ),
+                              )
+                            : showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                    size: 55.0,
+                                  ),
+                                  content: Text(
+                                    "Id non trovato!",
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                    ),
+                                  ),
+                                  actions: [
+                                    FlatButton(
+                                      child: Text(
+                                        "Home",
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyHomePage()));
+                                      },
+                                    )
+                                  ],
+                                ),
+                              );
+                        return;
+                      }
+                      if (!isExpired) {
+                        Platform.isIOS
+                            ? showCupertinoDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    CupertinoAlertDialog(
+                                  title: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                    size: 55.0,
+                                  ),
+                                  content: Text(
+                                    "Iscrizione ancora valida!",
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                    ),
+                                  ),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                      child: Text(
+                                        "Home",
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyHomePage()));
+                                      },
+                                    )
+                                  ],
+                                ),
+                              )
+                            : showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                    size: 55.0,
+                                  ),
+                                  content: Text(
+                                    "Iscrizione ancora valida!",
+                                    style: TextStyle(
+                                      fontSize: 27,
+                                    ),
+                                  ),
+                                  actions: [
+                                    FlatButton(
+                                      child: Text(
+                                        "Home",
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MyHomePage()));
+                                      },
+                                    )
+                                  ],
+                                ),
+                              );
+                        return;
+                      }
+                      await payViaNewCard(context, database);
+                      return;
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
