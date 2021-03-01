@@ -60,14 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
     List<String> infoTitle = [];
     await database
         .reference()
-        .child("InfoBarbiana")
+        .child("Info")
         .orderByValue()
         .once()
         .then((DataSnapshot snapshot) {
       Map map = new Map.from(snapshot.value);
       map.forEach((name, val) => infoTitle.add(name));
       map.forEach((name, value) => infoText.add(value));
-    });
+    }).catchError((e) {});
     int index = 0;
     for (var element in infoText) {
       bool isAlreadySeen = await LogFileManager().getData(element.toString());
@@ -100,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    var androidInitilize = new AndroidInitializationSettings('app_icon');
+    var androidInitilize =
+        new AndroidInitializationSettings("launch_background");
     var iOSinitilize = new IOSInitializationSettings();
     var initilizationsSettings = new InitializationSettings(
         android: androidInitilize, iOS: iOSinitilize);
