@@ -5,7 +5,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,8 +27,49 @@ class RecuperoPassword extends StatefulWidget {
 }
 
 class _RecuperoPasswordState extends State<RecuperoPassword> {
-  sendCredentials(
-      String email, String password, String username, String id) async {
+  getAccountInfo(String id, String email, FirebaseDatabase database) async {
+    bool result = false;
+    String authId;
+    await database.reference().once().then((DataSnapshot snapshot) async {
+      Map val = new Map.from(snapshot.value);
+      List names = val.keys.toList();
+      for (int index = 0; index < names.length; index++) {
+        if ((names[index] != "Disponibilita") &&
+            (names[index] != "Indisponibilita") &&
+            (names[index] != "News") &&
+            (names[index] != "Media") &&
+            (names[index] != "SeCHS")) {
+          await database
+              .reference()
+              .child(names[index] + "/Id")
+              .once()
+              .then((DataSnapshot snapshot) {
+            Map valId = new Map.from(snapshot.value);
+            String idCopy = valId.keys.toList()[0];
+            String emailCopy = valId.values.toList()[0];
+            if (idCopy == id && emailCopy == email) {
+              result = true;
+              authId = names[index];
+              return;
+            }
+          });
+          if (result) {
+            break;
+          }
+        }
+      }
+      if (result) {
+        return;
+      }
+    });
+    if (result) {
+      return authId;
+    }
+    return null;
+  }
+
+  sendCredentials(String email, String password, String username, String id,
+      String expDate) async {
     var options = new GmailSmtpOptions()
       ..username = 'ermes.express.fdm@gmail.com'
       ..password = 'CASTELLO1967';
@@ -39,9 +79,9 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     var envelope = new Envelope()
       ..from = 'ermes.express.fdm@gmail.com'
       ..recipients.add(email)
-      ..subject = '$id - Recupero Credenziali'
+      ..subject = 'Recupero Credenziali'
       ..text =
-          "Username : $username,\nEmail : $email,\nPassword : $password,\nId : $id." +
+          "Ecco le credenziali richieste :\n\nUsername : $username,\nEmail : $email,\nPassword : $password,\nScadenza : $expDate,\nId : $id." +
               "\n\nErmes-Express FDM";
 
     await emailTransport.send(envelope).then((envelope) async {
@@ -115,18 +155,80 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     });
   }
 
-  getAccount(String email, FirebaseDatabase database, _controller) async {
+  getAccount(String email, String id, FirebaseDatabase database) async {
     String password;
     String username;
-    String id;
     String expDate;
-    final firebaseAuthCheck = FirebaseAuth.instance.currentUser;
+    final String authId = await getAccountInfo(id, email, database);
+    if (authId == null) {
+      Platform.isIOS
+          ? showCupertinoDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Id o Email non trovato!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            )
+          : showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 55.0,
+                ),
+                content: Text(
+                  "Id o Email non trovato!",
+                  style: TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                    child: Text(
+                      "OK",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop('dialog');
+                    },
+                  )
+                ],
+              ),
+            );
+      return;
+    }
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
     await database
         .reference()
-        .child(firebaseAuthCheck.uid)
+        .child(authId)
         .child("Pass")
         .orderByValue()
         .equalTo(email)
@@ -143,7 +245,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     });
     await database
         .reference()
-        .child(firebaseAuthCheck.uid)
+        .child(authId)
         .child("User")
         .orderByValue()
         .equalTo(email)
@@ -159,23 +261,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
     });
     await database
         .reference()
-        .child(firebaseAuthCheck.uid)
-        .child("Id")
-        .orderByValue()
-        .equalTo(email)
-        .once()
-        .then((DataSnapshot snapshot) {
-      if (snapshot.value == null) {
-        return id = null;
-      }
-      LinkedHashMap<dynamic, dynamic> values = snapshot.value;
-      Map<String, String> map =
-          values.map((a, b) => MapEntry(a as String, b as String));
-      map.forEach((k, val) => {id = k});
-    });
-    await database
-        .reference()
-        .child(firebaseAuthCheck.uid)
+        .child(authId)
         .child("Date")
         .orderByValue()
         .equalTo(email)
@@ -189,8 +275,8 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
           values.map((a, b) => MapEntry(a as String, b as String));
       map.forEach((k, val) => {expDate = k});
     });
-    if (password != null && id != null && username != null && expDate != null) {
-      await sendCredentials(email, password, username, id);
+    if (password != null && username != null && expDate != null) {
+      await sendCredentials(email, password, username, id, expDate);
       await dialog.hide();
       Platform.isIOS
           ? showCupertinoDialog(
@@ -209,10 +295,11 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                 ),
                 actions: [
                   CupertinoDialogAction(
-                    child: Icon(
-                      Icons.home,
-                      size: 50,
-                      color: Colors.blueGrey,
+                    child: Text(
+                      "Home",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -241,10 +328,11 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                 ),
                 actions: [
                   FlatButton(
-                    child: Icon(
-                      Icons.home,
-                      size: 50,
-                      color: Colors.blueGrey,
+                    child: Text(
+                      "Home",
+                      style: TextStyle(
+                        fontSize: 28,
+                      ),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -257,7 +345,6 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
               ),
             );
     } else {
-      _controller.clear();
       await dialog.hide();
       Platform.isIOS
           ? showCupertinoDialog(
@@ -345,7 +432,9 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final _idController = TextEditingController();
   String email;
+  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -430,6 +519,34 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
               },
             ),
             SizedBox(
+              height: 25,
+            ),
+            TextFormField(
+              controller: _idController,
+              decoration: const InputDecoration(
+                hintText: "Inserire l'id dell'iscrizione",
+                hintStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+                border: OutlineInputBorder(),
+                labelText: "Id Iscrizione",
+                labelStyle: TextStyle(
+                  fontSize: 23.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Dati Mancanti";
+                }
+                id = value;
+                return null;
+              },
+            ),
+            SizedBox(
               height: 30,
             ),
             Center(
@@ -438,7 +555,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                 child: RaisedButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
-                      await getAccount(email, database, _emailController);
+                      await getAccount(email, id, database);
                     } else {
                       if (isIOS) {
                         showCupertinoDialog(
