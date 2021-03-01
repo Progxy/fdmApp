@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/home/infoAggiornamenti.dart';
 import 'package:fdmApp/screens/home/mainBarbiana.dart';
 import 'package:fdmApp/screens/home/mainNews.dart';
 import 'package:fdmApp/screens/loadUsername.dart';
@@ -41,6 +42,25 @@ class _MyHomePageState extends State<MyHomePage> {
             context, MaterialPageRoute(builder: (context) => FeedBack()));
       }
     }
+  }
+
+  showNews() async {
+    await showInfo();
+    await showUpdate();
+  }
+
+  showInfo() async {
+    //get data from database and if there's show the notification
+  }
+
+  showUpdate() async {
+    //get updates info from database and if there's move to the application
+    List<String> infos = [];
+    Navigator.pushNamed(
+      context,
+      InfoAggiornamento.routeName,
+      arguments: infos,
+    );
   }
 
   @override
@@ -185,6 +205,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     return SizedBox(
                       height: 15,
+                    );
+                  },
+                ),
+                FutureBuilder(
+                  future: showNews(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    return SizedBox(
+                      height: 1,
                     );
                   },
                 ),

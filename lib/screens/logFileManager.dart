@@ -18,4 +18,15 @@ class LogFileManager {
     prefs.remove(data);
     return;
   }
+
+  Future<bool> firstVisit() async {
+    final prefs = await SharedPreferences.getInstance();
+    int counter = prefs.getInt('counter') ?? 0;
+    if (counter == 0) {
+      return true;
+    }
+    counter++;
+    prefs.setInt('counter', counter);
+    return false;
+  }
 }

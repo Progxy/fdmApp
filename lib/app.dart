@@ -9,6 +9,7 @@ import 'package:fdmApp/screens/disdici.dart';
 import 'package:fdmApp/screens/eventi.dart';
 import 'package:fdmApp/screens/eventi/InfoEvento.dart';
 import 'package:fdmApp/screens/feedback.dart';
+import 'package:fdmApp/screens/home/infoAggiornamenti.dart';
 import 'package:fdmApp/screens/iscrizione.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
           Utilizzo.routeName: (context) => Utilizzo(),
           Disdici.routeName: (context) => Disdici(),
           Rinnova.routeName: (context) => Rinnova(),
+          InfoAggiornamento.routeName: (context) => InfoAggiornamento(),
         },
       ),
     );
