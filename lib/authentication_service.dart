@@ -1,3 +1,4 @@
+import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
@@ -8,6 +9,7 @@ class AuthenticationService {
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
   Future<void> signOut() async {
+    AccountInfo().resetCredentials();
     await _firebaseAuth.signOut();
   }
 

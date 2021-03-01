@@ -4,7 +4,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/authentication_service.dart';
 import 'package:fdmApp/screens/IscrizioneScaduta.dart';
 import 'package:fdmApp/screens/VerifyExpiration.dart';
-import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +17,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'badConnection.dart';
 import 'feedback.dart';
 import 'home/mainDrawer.dart';
+import 'login.dart';
 
 class CambioPassword extends StatefulWidget {
   static const String routeName = "/cambiopassword";
@@ -34,10 +34,10 @@ class _CambioPasswordState extends State<CambioPassword> {
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Caricamento...');
     await dialog.show();
+    context.read<AuthenticationService>().signOut();
     bool isLogged;
     final log = FirebaseAuth.instance.currentUser;
     log != null ? isLogged = true : isLogged = false;
-    print(isLogged);
     if (isLogged == false) {
       await context.read<AuthenticationService>().signIn(
             email: emails.trim(),
@@ -61,6 +61,8 @@ class _CambioPasswordState extends State<CambioPassword> {
             .child(user.uid)
             .child("Pass")
             .set({password: email});
+        String id = await getId(user.uid, database);
+        await updateDbManager(id, password);
         await dialog.hide();
         context.read<AuthenticationService>().signOut();
         if (Platform.isIOS) {
@@ -80,14 +82,15 @@ class _CambioPasswordState extends State<CambioPassword> {
               ),
               actions: [
                 CupertinoDialogAction(
-                  child: Icon(
-                    Icons.home,
-                    color: Colors.blueGrey,
-                    size: 50,
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => Login()));
                   },
                 )
               ],
@@ -111,14 +114,15 @@ class _CambioPasswordState extends State<CambioPassword> {
               ),
               actions: [
                 FlatButton(
-                  child: Icon(
-                    Icons.home,
-                    color: Colors.blueGrey,
-                    size: 50,
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => Login()));
                   },
                 )
               ],
@@ -128,7 +132,7 @@ class _CambioPasswordState extends State<CambioPassword> {
       }).catchError((error) async {
         await dialog.hide();
         context.read<AuthenticationService>().signOut();
-        print(error);
+        print("\n-\nerror : $error\n-\n");
         if (Platform.isIOS) {
           showCupertinoDialog(
             context: context,
@@ -257,6 +261,33 @@ class _CambioPasswordState extends State<CambioPassword> {
         );
       }
     }
+  }
+
+  updateDbManager(String id, String newPass) async {
+    final String fdbUrl2 =
+        "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    try {
+      secondaryDb.child("Tessere/" + id).update({"password": newPass});
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  getId(String uid, FirebaseDatabase database) async {
+    String id = "";
+    await database
+        .reference()
+        .child(uid)
+        .child("Id")
+        .once()
+        .then((DataSnapshot snapshot) {
+      var valId = snapshot.value;
+      var idCopy = valId.keys.toList()[0];
+      id = idCopy;
+    });
+    return id;
   }
 
   final List<String> choices = <String>[
@@ -482,14 +513,13 @@ class _CambioPasswordState extends State<CambioPassword> {
                           context: context,
                           builder: (BuildContext context) =>
                               CupertinoAlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
+                            title: Icon(
+                              Icons.error,
+                              color: Colors.red,
+                              size: 50,
                             ),
                             content: Text(
-                              "Email o Password mancanti!",
+                              "Ricompilare il campo come indicato!",
                               style: TextStyle(
                                 fontSize: 27,
                               ),
@@ -515,14 +545,13 @@ class _CambioPasswordState extends State<CambioPassword> {
                           barrierDismissible: false,
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
+                            title: Icon(
+                              Icons.error,
+                              color: Colors.red,
+                              size: 50,
                             ),
                             content: Text(
-                              "Email o Password mancanti!",
+                              "Ricompilare il campo come indicato!",
                               style: TextStyle(
                                 fontSize: 27,
                               ),
