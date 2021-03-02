@@ -327,12 +327,12 @@ class _ContattiState extends State<Contatti> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Color.fromARGB(255, 192, 192, 192),
+          color: Color.fromARGB(255, 24, 37, 102),
         ),
         title: Text(
           "Contatti",
           style: TextStyle(
-            color: Color.fromARGB(255, 192, 192, 192),
+            color: Color.fromARGB(255, 24, 37, 102),
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -346,7 +346,9 @@ class _ContattiState extends State<Contatti> {
                   child: Text(
                     choice,
                     style: TextStyle(
+                      color: Color.fromARGB(255, 24, 37, 102),
                       fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 );
@@ -354,31 +356,20 @@ class _ContattiState extends State<Contatti> {
             },
           )
         ],
-        backgroundColor: Color.fromARGB(255, 24, 37, 102),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
         centerTitle: true,
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "CONTATTI",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-              ),
+            SizedBox(
+              height: 25,
             ),
             Text(
-              "\nFONDAZIONE DON LORENZO MILANI",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text(
-              "\nSede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it\n\nE-mail in caso di malfunzionamenti: theprogxy@gmail.com",
+              "Sede Legale:\nLoc. Barbiana, 9 – 50031 Vicchio Mugello (FI)\n\nSede Operativa:\nVia Spinuci, 19 – 50141 Firenze\nTel. e Fax: 055.418811\n\nE-mail: contatti@donlorenzomilani.it\n\nE-mail in caso di malfunzionamenti: theprogxy@gmail.com",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w600,

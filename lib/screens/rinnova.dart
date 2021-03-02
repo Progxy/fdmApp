@@ -113,8 +113,8 @@ class _RinnovaState extends State<Rinnova> {
     }
   }
 
-  resetAccount(
-      String id, String authId, String email, FirebaseDatabase database) async {
+  resetAccount(String id, String authId, String email,
+      FirebaseDatabase database, String yearsCount) async {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     final DateTime now = DateTime.now();
     final DateTime expDate = new DateTime(now.year, 12, 31);
@@ -126,6 +126,67 @@ class _RinnovaState extends State<Rinnova> {
     try {
       secondaryDb.child("Tessere/" + id).update({
         "scaduto": false,
+        "anniSociali": yearsCount,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  getYearsCount(String id) async {
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    String anniSocialis;
+    try {
+      await secondaryDb
+          .child("Tessere/" + id + "/anniSociali")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        anniSocialis = snapshot.value.toString();
+      });
+      return anniSocialis;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  addRinnovoNotification(String id, String email, String anniSocialis) async {
+    String typeTicket = await getTypeTicket(id);
+    String fdbUrl2 = "https://fdmmanager-2fef4-default-rtdb.firebaseio.com/";
+    final secondaryDb = FirebaseDatabase(databaseURL: fdbUrl2).reference();
+    String nome;
+    String cognome;
+    try {
+      await secondaryDb
+          .child("Tessere/" + id + "/nome")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        nome = snapshot.value.toString();
+      });
+    } catch (e) {
+      print(e);
+    }
+    try {
+      await secondaryDb
+          .child("Tessere/" + id + "/cognome")
+          .orderByValue()
+          .once()
+          .then((DataSnapshot snapshot) {
+        cognome = snapshot.value.toString();
+      });
+    } catch (e) {
+      print(e);
+    }
+    try {
+      secondaryDb.child("Rinnovi/" + id).set({
+        "tipo di tessera": typeTicket,
+        "email": email,
+        "nome": nome,
+        "cognome": cognome,
+        "anniSociali": anniSocialis,
       });
       return true;
     } catch (e) {
@@ -292,7 +353,12 @@ class _RinnovaState extends State<Rinnova> {
               );
         return;
       }
-      await resetAccount(id, authId, email, database);
+      final DateTime now = DateTime.now();
+      final String year = now.year.toString();
+      String anniSocialis = await getYearsCount(id);
+      anniSocialis = anniSocialis + "-" + year;
+      await resetAccount(id, authId, email, database, anniSocialis);
+      await addRinnovoNotification(id, email, anniSocialis);
       await dialog.hide();
       Platform.isIOS
           ? showCupertinoDialog(
