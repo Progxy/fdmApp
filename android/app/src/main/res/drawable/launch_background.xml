@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/img_launcher" />
+            android:src="@drawable/img_donlauncher" />
     </item> 
 </layer-list>
