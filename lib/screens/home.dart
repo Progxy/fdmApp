@@ -111,7 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future notificationSelected(String payload) async {
-    print("\n-\npayload : $payload");
     await LogFileManager().storeData(payload);
   }
 
