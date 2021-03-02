@@ -677,7 +677,7 @@ class _VisitaState extends State<Visita> {
                                   color: Colors.black87,
                                 ),
                                 border: OutlineInputBorder(),
-                                labelText: "Grandezza del Gruppo",
+                                labelText: "Numero di Persone",
                                 labelStyle: TextStyle(
                                   fontSize: 23.0,
                                   fontWeight: FontWeight.w600,
@@ -808,7 +808,7 @@ class _VisitaState extends State<Visita> {
                                   color: Colors.black87,
                                 ),
                                 border: OutlineInputBorder(),
-                                labelText: "Telefono Responsabile",
+                                labelText: "Tel. Responsabile",
                                 labelStyle: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
