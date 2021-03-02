@@ -100,8 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    var androidInitilize =
-        new AndroidInitializationSettings("launch_background");
+    var androidInitilize = new AndroidInitializationSettings("don_milani");
     var iOSinitilize = new IOSInitializationSettings();
     var initilizationsSettings = new InitializationSettings(
         android: androidInitilize, iOS: iOSinitilize);
