@@ -4,8 +4,9 @@
     <!-- <item android:drawable="@android:color/white" /> -->
 
     <item>
-        <bitmap
-            android:gravity="center"
-            android:icon="@mipmap/ic_launcher" />
-    </item> 
+        <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" /> 
+    </item>
 </layer-list>
