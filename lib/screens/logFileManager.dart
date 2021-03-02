@@ -28,6 +28,8 @@ class LogFileManager {
     final prefs = await SharedPreferences.getInstance();
     int counter = prefs.getInt('counter') ?? 0;
     if (counter == 0) {
+      counter++;
+      prefs.setInt('counter', counter);
       return true;
     }
     counter++;

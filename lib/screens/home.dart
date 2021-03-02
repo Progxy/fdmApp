@@ -67,13 +67,13 @@ class _MyHomePageState extends State<MyHomePage> {
       Map map = new Map.from(snapshot.value);
       map.forEach((name, val) => infoTitle.add(name));
       map.forEach((name, value) => infoText.add(value));
-    }).catchError((e) {});
-    int index = 0;
-    for (var element in infoText) {
+    }).catchError((e) {
+      print("\n-\nErrore : $e\n-\n");
+    });
+    for (int index = infoTitle.length - 1; index >= 0; index--) {
+      String element = infoTitle[index];
       bool isAlreadySeen = await LogFileManager().getData(element.toString());
-      if (!isAlreadySeen) {
-        await LogFileManager().storeData(element.toString());
-      } else {
+      if (isAlreadySeen) {
         infoTitle.removeAt(index);
         infoText.removeAt(index);
       }
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
     for (var title in infoTitle) {
       String text = infoText[ind];
       await showNotification(title, text);
+      ind++;
     }
   }
 
@@ -110,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future notificationSelected(String payload) async {
+    print("\n-\npayload : $payload");
     await LogFileManager().storeData(payload);
   }
 
