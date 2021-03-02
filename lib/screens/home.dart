@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Color.fromARGB(255, 192, 192, 192),
         ),
         title: Text(
-          "Fondazione Don Milani",
+          "Home",
           style: TextStyle(
             color: Color.fromARGB(255, 192, 192, 192),
             fontWeight: FontWeight.w700,

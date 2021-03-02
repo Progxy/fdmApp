@@ -43,11 +43,14 @@ class _StampaState extends State<Stampa> {
         iconTheme: IconThemeData(
           color: Color.fromARGB(255, 192, 192, 192),
         ),
-        title: Text(
-          "Stampa e Ci Hanno Scritto",
-          style: TextStyle(
-            color: Color.fromARGB(255, 192, 192, 192),
-            fontWeight: FontWeight.w700,
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            "Stampa e Ci Hanno Scritto",
+            style: TextStyle(
+              color: Color.fromARGB(255, 192, 192, 192),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         actions: [

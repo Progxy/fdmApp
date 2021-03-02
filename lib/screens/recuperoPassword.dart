@@ -446,11 +446,14 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
         iconTheme: IconThemeData(
           color: Color.fromARGB(255, 192, 192, 192),
         ),
-        title: Text(
-          "Recupero Credenziali",
-          style: TextStyle(
-            color: Color.fromARGB(255, 192, 192, 192),
-            fontWeight: FontWeight.w700,
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            "Recupero Credenziali",
+            style: TextStyle(
+              color: Color.fromARGB(255, 192, 192, 192),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         actions: [
