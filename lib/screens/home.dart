@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    var androidInitilize = new AndroidInitializationSettings("don_milani");
+    var androidInitilize = new AndroidInitializationSettings("ic_stat_dn_ml");
     var iOSinitilize = new IOSInitializationSettings();
     var initilizationsSettings = new InitializationSettings(
         android: androidInitilize, iOS: iOSinitilize);
@@ -115,8 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future showNotification(String title, String body) async {
     var androidDetails = new AndroidNotificationDetails(
-        "Fondazione Don Milani", "FDM", "Notifica di Fdm",
-        importance: Importance.max);
+        "Fondazione Don Milani", "Fondazione Don Milani", "Notifica di Fdm",
+        importance: Importance.max, color: Color.fromARGB(255, 24, 37, 102));
     var iSODetails = new IOSNotificationDetails();
     var generalNotificationDetails =
         new NotificationDetails(android: androidDetails, iOS: iSODetails);
