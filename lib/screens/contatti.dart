@@ -327,12 +327,12 @@ class _ContattiState extends State<Contatti> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Color.fromARGB(255, 24, 37, 102),
+          color: Color.fromARGB(255, 192, 192, 192),
         ),
         title: Text(
           "Contatti",
           style: TextStyle(
-            color: Color.fromARGB(255, 24, 37, 102),
+            color: Color.fromARGB(255, 192, 192, 192),
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -346,9 +346,7 @@ class _ContattiState extends State<Contatti> {
                   child: Text(
                     choice,
                     style: TextStyle(
-                      color: Color.fromARGB(255, 24, 37, 102),
                       fontSize: 20,
-                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 );
@@ -356,8 +354,7 @@ class _ContattiState extends State<Contatti> {
             },
           )
         ],
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        backgroundColor: Color.fromARGB(255, 24, 37, 102),
         centerTitle: true,
       ),
       drawer: MainDrawer(),
