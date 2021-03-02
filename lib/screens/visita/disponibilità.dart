@@ -64,10 +64,13 @@ class _DisponibilitaState extends State<Disponibilita> {
         iconTheme: IconThemeData(
           color: Color.fromARGB(255, 192, 192, 192),
         ),
-        title: Text(
-          "Calendario Disponibilità",
-          style: TextStyle(
-            color: Color.fromARGB(255, 192, 192, 192),
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            "Calendario Disponibilità",
+            style: TextStyle(
+              color: Color.fromARGB(255, 192, 192, 192),
+            ),
           ),
         ),
         actions: [

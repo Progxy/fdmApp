@@ -266,7 +266,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 }),
             Divider(
               thickness: 1,
-              color: Colors.blueGrey,
+              color: Color.fromARGB(255, 24, 37, 102),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

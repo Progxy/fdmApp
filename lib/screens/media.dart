@@ -204,7 +204,8 @@ class _MediaState extends State<Media> {
                                                 _controllers[infos.last],
                                             showVideoProgressIndicator: true,
                                             progressIndicatorColor:
-                                                Colors.blueGrey,
+                                                Color.fromARGB(
+                                                    255, 24, 37, 102),
                                             topActions: <Widget>[
                                               const SizedBox(width: 8.0),
                                               Expanded(
@@ -270,8 +271,10 @@ class _MediaState extends State<Media> {
                                             child: Icon(
                                               Icons.double_arrow,
                                               size: 30,
+                                              color: Colors.white,
                                             ),
-                                            backgroundColor: Colors.blueGrey,
+                                            backgroundColor: Color.fromARGB(
+                                                255, 24, 37, 102),
                                             onPressed: () {
                                               Navigator.pushNamed(
                                                 context,
@@ -378,8 +381,10 @@ class _MediaState extends State<Media> {
                                             child: Icon(
                                               Icons.double_arrow,
                                               size: 30,
+                                              color: Colors.white,
                                             ),
-                                            backgroundColor: Colors.blueGrey,
+                                            backgroundColor: Color.fromARGB(
+                                                255, 24, 37, 102),
                                           ),
                                         ),
                                       ],
