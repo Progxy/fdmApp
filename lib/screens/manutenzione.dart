@@ -82,9 +82,9 @@ class _ManutenzioneState extends State<Manutenzione> {
                   top: 20.0,
                 ),
                 child: Icon(
-                  Icons.error,
+                  Icons.report_problem_rounded,
                   size: 75.0,
-                  color: Colors.red,
+                  color: Colors.yellow[600],
                 ),
               ),
             ),
