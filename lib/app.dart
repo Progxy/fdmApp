@@ -15,6 +15,7 @@ import 'package:fdmApp/screens/iscrizione/iscrizione2.dart';
 import 'package:fdmApp/screens/iscrizione/iscrizione3.dart';
 import 'package:fdmApp/screens/login.dart';
 import 'package:fdmApp/screens/login/userpage.dart';
+import 'package:fdmApp/screens/manutenzione.dart';
 import 'package:fdmApp/screens/media.dart';
 import 'package:fdmApp/screens/media/detailedPhoto.dart';
 import 'package:fdmApp/screens/media/detailedVideo.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
           Disdici.routeName: (context) => Disdici(),
           Rinnova.routeName: (context) => Rinnova(),
           InfoAggiornamento.routeName: (context) => InfoAggiornamento(),
+          Manutenzione.routeName: (context) => Manutenzione(),
         },
       ),
     );

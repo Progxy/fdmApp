@@ -14,6 +14,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'badConnection.dart';
 import 'feedback.dart';
 import 'home/mainDrawer.dart';
+import 'manutenzione.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String routeName = "/home";
@@ -48,6 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   showNews(FirebaseDatabase database) async {
+    bool result = await isOnManutenzione(database);
+    if (result) {
+      return;
+    }
     await showInfo(database);
     bool isFirstPlay = await LogFileManager().firstVisit();
     if (isFirstPlay) {
@@ -96,6 +101,25 @@ class _MyHomePageState extends State<MyHomePage> {
       InfoAggiornamento.routeName,
       arguments: infos,
     );
+  }
+
+  isOnManutenzione(FirebaseDatabase database) async {
+    bool result = false;
+    await database
+        .reference()
+        .child("Manutenzione")
+        .once()
+        .then((DataSnapshot snapshot) {
+      result = snapshot.value;
+    }).catchError((e) {
+      print("\n-\nErrore : $e\n-\n");
+    });
+    if (result) {
+      Navigator.pushReplacementNamed(context, Manutenzione.routeName);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
