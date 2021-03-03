@@ -30,6 +30,7 @@ class Utilizzo extends StatelessWidget {
             Center(
               child: Text(
                 "Benvenuto nella pagina di\nGuida all'utilizzo !",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w800,
@@ -98,7 +99,7 @@ class Utilizzo extends StatelessWidget {
               height: 15,
             ),
             Text(
-              "Quindi vi ritroverete nella seguente schermata, che in questo caso è inerente alla scuola, dato che è stato selezionato quel pulsante.",
+              "Quindi vi ritroverete nella seguente schermata, che sarà inerente al percorso selezionato.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -288,6 +289,258 @@ class Utilizzo extends StatelessWidget {
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "In Disdici Visita troverete un form da compilare per disdire la visita (vedi sotto).",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/disdiciForm_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "EVENTI",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/eventi_guida.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Nella sezione Eventi troverete dei tondi con all'interno i dati principali dell'evento, oltre al pulsante (che è stato evidenziato) con il quale potrete recarvi nella pagina di approfondimento dell'evento selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/eventoInfo_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Quindi vi ritroverete nella seguente schermata, che sarà inerente all'evento selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "STAMPA E CI HANNO SCRITTO",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/SECHS_guida.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Nella sezione Stampa e Ci Hanno Scritto troverete dei tondi con all'interno i dati principali dell'articolo, oltre al pulsante (che è stato evidenziato) con il quale potrete recarvi nella pagina di approfondimento dell'articolo selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/sechsInfo_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Quindi vi ritroverete nella seguente schermata, che sarà inerente all'articolo selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "FOTO E VIDEO",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/media_guida.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Nella sezione Foto e Video troverete dei tondi con all'interno o un video o una foto insieme ai relativi dati, oltre al pulsante (che è stato evidenziato) con il quale potrete recarvi nella pagina di approfondimento della foto o del video selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/mediaInfo_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Quindi vi ritroverete nella seguente schermata, che sarà inerente alla foto o al video selezionato.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "DIVENTA SOCIO",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image:
+                    AssetImage("assets/images/guida/iscrizioneForm_guida.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "In Diventa Socio troverete un form da compilare per iscrivervi alla fondazione.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/pagamento_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Una volta compilato e inviato il form verrete ridiretti alla pagina di pagamento, in cui troverete il pulsante per attivare il form del pagamento, compilandolo con i dati del bancomat.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
