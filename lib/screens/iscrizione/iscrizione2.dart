@@ -236,10 +236,8 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResultIscrizione()));
+                      Navigator.pushReplacementNamed(
+                          context, ResultIscrizione.routeName);
                     },
                   )
                 ],
@@ -269,10 +267,8 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResultIscrizione()));
+                      Navigator.pushReplacementNamed(
+                          context, ResultIscrizione.routeName);
                     },
                   )
                 ],
