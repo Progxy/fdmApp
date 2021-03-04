@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
         title: 'FdmApp',
         theme: ThemeData(
           fontFamily: "PlayfairDisplay",
+          primaryColor: Color.fromARGB(255, 24, 37, 102),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: MyHomePage(),

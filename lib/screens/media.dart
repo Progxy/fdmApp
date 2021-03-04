@@ -411,7 +411,9 @@ class _MediaState extends State<Media> {
               );
             }
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: Color.fromARGB(255, 24, 37, 102),
+              ),
             );
           },
         ),
