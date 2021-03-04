@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, //ricordati di riattivarmi
+        debugShowCheckedModeBanner: false,
         title: 'FdmApp',
         theme: ThemeData(
           fontFamily: "PlayfairDisplay",
