@@ -376,6 +376,7 @@ class Utilizzo extends StatelessWidget {
             ),
             Text(
               "STAMPA E CI HANNO SCRITTO",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -536,7 +537,7 @@ class Utilizzo extends StatelessWidget {
               height: 15,
             ),
             Text(
-              "Una volta compilato e inviato il form verrete ridiretti alla pagina di pagamento, in cui troverete il pulsante per attivare il form del pagamento, compilandolo con i dati del bancomat.",
+              "Una volta compilato e inviato il form verrete ridiretti alla pagina di pagamento, in cui troverete il pulsante per attivare il form del pagamento, compilandolo con i dati della carta. Infine, verrete ridiretti alla pagina di conferma dell'iscrizione.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
