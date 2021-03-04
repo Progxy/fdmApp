@@ -544,6 +544,145 @@ class Utilizzo extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "RINNOVA ISCRIZIONE",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "In Rinnova Iscrizione troverete un form da compilare per rinnovare l'iscrizione (vedi sotto).",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/rinnovaForm_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Una volta compilato e confermato il form, si aprirà un popup con un form da compilare con i dati della carta.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "RECUPERO CREDENZIALI",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "In Recupero Credenziali troverete un form da compilare per recuperare le credenziali (vedi sotto), che verranno inviate via e-mail.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image:
+                    AssetImage("assets/images/guida/recuperoForm_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "CAMBIO PASSWORD",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "In Cambio Password troverete un form da compilare per recuperare le credenziali (vedi sotto), che verranno inviate via e-mail.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 10.0,
+                left: 10.0,
+              ),
+              child: Image(
+                image: AssetImage("assets/images/guida/cambioForm_guida.jpeg"),
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Divider(
+              thickness: 2,
+              color: Color.fromARGB(255, 24, 37, 102),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              "In caso di ulteriori problemi o nel caso aveste idee o consigli per migliorare l'applicazione contattare la seguente email : theprogxy@gmail.com.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 24, 37, 102),
+              ),
+            ),
+            SizedBox(
+              height: 35,
+            ),
           ],
         ),
       ),
