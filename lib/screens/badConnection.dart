@@ -111,7 +111,7 @@ class _BadConnectionState extends State<BadConnection> {
                   Icons.home,
                   size: 50,
                 ),
-                backgroundColor: Colors.blueGrey,
+                backgroundColor: Color.fromARGB(255, 24, 37, 102),
               ),
             ),
             SizedBox(
