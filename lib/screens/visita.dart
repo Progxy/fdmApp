@@ -72,9 +72,20 @@ class _VisitaState extends State<Visita> {
     "One": "Scolastico",
     "Two": "Parrocchiale",
     "Three": "Scout",
-    "Four": "Altro",
+    "Four": "Associazione",
+    "Five": "Familiare",
+    "Six": "Amici",
+    "Seven": "Altro",
   };
-  List<String> elementi = ["One", "Two", "Three", "Four"];
+  List<String> elementi = [
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven"
+  ];
   String dropdownValue = "One";
   String groupType;
   bool checked = false;
