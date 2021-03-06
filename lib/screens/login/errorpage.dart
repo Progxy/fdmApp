@@ -1,12 +1,13 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:fdmApp/authentication_service.dart';
+import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../authentication_service.dart';
 import '../badConnection.dart';
 import '../feedback.dart';
-import '../login.dart';
-import '../utilizzo.dart';
+import '../home.dart';
+
 
 class ErrorPage extends StatefulWidget {
   @override
@@ -103,7 +104,7 @@ class _ErrorPageState extends State<ErrorPage> {
                 onPressed: () {
                   context.read<AuthenticationService>().signOut();
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login()));
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
                 },
                 child: Icon(
                   Icons.arrow_back_rounded,

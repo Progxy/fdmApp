@@ -1,5 +1,4 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,22 +95,6 @@ class _BadConnectionState extends State<BadConnection> {
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-                child: Icon(
-                  Icons.home,
-                  size: 50,
-                ),
-                backgroundColor: Color.fromARGB(255, 24, 37, 102),
               ),
             ),
             SizedBox(

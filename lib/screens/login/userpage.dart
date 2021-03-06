@@ -1,10 +1,10 @@
-import 'package:fdmApp/authentication_service.dart';
+import 'package:fdmApp/screens/home.dart';
 import 'package:fdmApp/screens/home/accountInfo.dart';
 import 'package:fdmApp/screens/home/mainDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../login.dart';
+import '../../authentication_service.dart';
 
 class UserPage extends StatelessWidget {
   static const String routeName = "/userpage";
@@ -28,8 +28,8 @@ class UserPage extends StatelessWidget {
             onPressed: () {
               context.read<AuthenticationService>().signOut();
               AccountInfo().resetCredentials();
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
             },
             icon: Icon(
               Icons.logout,

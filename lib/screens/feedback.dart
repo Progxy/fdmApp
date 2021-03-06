@@ -1,9 +1,8 @@
+import 'package:fdmApp/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mailer2/mailer.dart';
-
-import 'home.dart';
 
 class FeedBack extends StatefulWidget {
   static const String routeName = "/feedback";
@@ -21,7 +20,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   Widget build(BuildContext context) {
     final bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-    
+
     sendFeedBack(String feedBack, double rating) async {
       var options = new GmailSmtpOptions()
         ..username = 'ermes.express.fdm@gmail.com'
@@ -32,7 +31,7 @@ class _FeedBackState extends State<FeedBack> {
       var envelope = new Envelope()
         ..from = 'ermes.express.fdm@gmail.com'
         ..recipients.add('theprogxy@gmail.com') //utilizza mail apposita
-        ..subject = 'FeedBack'
+        ..subject = 'FeedBack - fdmApp'
         ..text = "FeedBack:\n" +
             feedBack +
             "\n\nRating: " +
