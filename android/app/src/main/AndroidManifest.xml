@@ -12,12 +12,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="fdmApp"
         android:icon="@mipmap/ic_launcher">
-      <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
-        <intent-filter>
-          <action android:name="android.intent.action.BOOT_COMPLETED"/>
-          <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-        </intent-filter>
-      </receiver>
+    <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+      </intent-filter>
+    </receiver>
     <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />        
         <activity
             android:name=".MainActivity"
