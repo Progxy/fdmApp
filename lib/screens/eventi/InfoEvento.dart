@@ -1,8 +1,9 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/mapToWidget.dart';
 import 'package:flutter/material.dart';
-
 import '../badConnection.dart';
 import '../feedback.dart';
+import '../mapDecoder.dart';
 import '../utilizzo.dart';
 
 class InfoEvento extends StatefulWidget {
@@ -37,12 +38,12 @@ class _InfoEventoState extends State<InfoEvento> {
   @override
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
-    final List content = infoContent["Content"]
-        .replaceAll("[", "")
-        .replaceAll("]", "")
-        .split(",");
     final String title = infoContent["Title"];
-    print(content[0]);
+    final contentInfo = MapDecoder().decoder(infoContent["Content"]);
+    var content = contentInfo[0];
+    var type = content["Type"];
+    var res = MapToWidget().selector(type, content);
+    print(res);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -84,6 +85,7 @@ class _InfoEventoState extends State<InfoEvento> {
             SizedBox(
               height: 15,
             ),
+            res,
             SizedBox(
               height: 15,
             )
