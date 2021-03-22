@@ -99,7 +99,7 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
             ButtonTheme(
               height: 60,
               minWidth: 200,
-              child: RaisedButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -112,10 +112,6 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
                     color: Colors.white,
                   ),
                 ),
-                color: Color.fromARGB(255, 24, 37, 102),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
               ),
             ),
             SizedBox(
@@ -124,7 +120,7 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
             ButtonTheme(
               height: 60,
               minWidth: 200,
-              child: RaisedButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Rinnova()));
@@ -136,10 +132,6 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
-                ),
-                color: Color.fromARGB(255, 24, 37, 102),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
                 ),
               ),
             ),

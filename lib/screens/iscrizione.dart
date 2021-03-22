@@ -372,7 +372,7 @@ class _IscrizioneState extends State<Iscrizione> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "OK",
                     style: TextStyle(
@@ -1038,7 +1038,7 @@ class _IscrizioneState extends State<Iscrizione> {
                               child: ButtonTheme(
                                 minWidth: 150.0,
                                 height: 50.0,
-                                child: RaisedButton(
+                                child: TextButton(
                                   onPressed: () async {
                                     String email = data["email"];
                                     bool emailExist =
@@ -1126,7 +1126,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                               ),
                                             ),
                                             actions: [
-                                              FlatButton(
+                                              TextButton(
                                                 child: Text(
                                                   "OK",
                                                   style: TextStyle(
@@ -1197,7 +1197,7 @@ class _IscrizioneState extends State<Iscrizione> {
                                               ),
                                             ),
                                             actions: [
-                                              FlatButton(
+                                              TextButton(
                                                 child: Text(
                                                   "OK",
                                                   style: TextStyle(
@@ -1224,10 +1224,6 @@ class _IscrizioneState extends State<Iscrizione> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7.0),
-                                  ),
-                                  color: Color.fromARGB(255, 24, 37, 102),
                                 ),
                               ),
                             ),

@@ -34,7 +34,7 @@ class _FeedBackState extends State<FeedBack> {
         ..subject = 'FeedBack - fdmApp'
         ..text = "FeedBack:\n" +
             feedBack +
-            "\n\nRating: " +
+            "\n\nRating : " +
             rating.toString() +
             "\n\nErmes-Express FDM";
 
@@ -89,7 +89,7 @@ class _FeedBackState extends State<FeedBack> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -156,7 +156,7 @@ class _FeedBackState extends State<FeedBack> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "OK",
                     style: TextStyle(
@@ -278,14 +278,7 @@ class _FeedBackState extends State<FeedBack> {
                 child: Center(
                   child: ButtonTheme(
                     height: 43.0,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(
-                          color: Color.fromARGB(255, 24, 37, 102),
-                        ),
-                      ),
-                      color: Color.fromARGB(255, 24, 37, 102),
+                    child: TextButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           sendFeedBack(feedBack, ratingValue);
@@ -341,7 +334,7 @@ class _FeedBackState extends State<FeedBack> {
                                   ),
                                 ),
                                 actions: [
-                                  FlatButton(
+                                  TextButton(
                                     child: Text(
                                       "OK",
                                       style: TextStyle(

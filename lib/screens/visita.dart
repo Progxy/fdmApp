@@ -229,7 +229,7 @@ class _VisitaState extends State<Visita> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "OK",
                     style: TextStyle(
@@ -306,7 +306,7 @@ class _VisitaState extends State<Visita> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -374,7 +374,7 @@ class _VisitaState extends State<Visita> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "OK",
                     style: TextStyle(
@@ -1088,7 +1088,7 @@ class _VisitaState extends State<Visita> {
                             SizedBox(
                               height: 20,
                             ),
-                            RaisedButton(
+                            TextButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate() &&
                                     checked) {
@@ -1148,7 +1148,7 @@ class _VisitaState extends State<Visita> {
                                           ),
                                         ),
                                         actions: [
-                                          FlatButton(
+                                          TextButton(
                                             child: Text(
                                               "OK",
                                               style: TextStyle(
@@ -1178,10 +1178,6 @@ class _VisitaState extends State<Visita> {
                                   ),
                                 ),
                               ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(7.0),
-                              ),
-                              color: Color.fromARGB(255, 24, 37, 102),
                             ),
                             SizedBox(
                               height: 15,
@@ -1201,7 +1197,7 @@ class _VisitaState extends State<Visita> {
   }
 
   void showerInfoSnackBar(String text) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Container(
         height: 240.0,
         child: Text(

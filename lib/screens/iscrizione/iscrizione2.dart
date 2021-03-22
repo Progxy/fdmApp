@@ -113,7 +113,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
               ),
             ),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text(
                   "OK",
                   style: TextStyle(
@@ -259,7 +259,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ),
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "OK",
                       style: TextStyle(
@@ -321,7 +321,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ),
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "OK",
                       style: TextStyle(
@@ -420,7 +420,7 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                 children: <Widget>[
                   ButtonTheme(
                     height: 57,
-                    child: RaisedButton(
+                    child: TextButton(
                       child: Text(
                         "Paga e Continua",
                         style: TextStyle(
@@ -429,7 +429,6 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                           color: Colors.white,
                         ),
                       ),
-                      color: Color.fromARGB(255, 24, 37, 102),
                       onPressed: () {
                         payViaNewCard(context, data, database);
                       },

@@ -204,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   actions: [
-                    FlatButton(
+                    TextButton(
                       child: Text(
                         "OK",
                         style: TextStyle(

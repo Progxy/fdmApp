@@ -128,7 +128,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                 ButtonTheme(
                   height: 55,
                   minWidth: 175,
-                  child: RaisedButton(
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -142,10 +142,6 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
-                    ),
-                    color: Color.fromARGB(255, 24, 37, 102),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),
@@ -165,7 +161,7 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                 ButtonTheme(
                   height: 55,
                   minWidth: 175,
-                  child: RaisedButton(
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Login()));
@@ -177,10 +173,6 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
-                    ),
-                    color: Color.fromARGB(255, 24, 37, 102),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
                     ),
                   ),
                 ),

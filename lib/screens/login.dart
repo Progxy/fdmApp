@@ -178,7 +178,7 @@ class _LoginState extends State<Login> {
               child: ButtonTheme(
                 minWidth: 150.0,
                 height: 50.0,
-                child: RaisedButton(
+                child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       await context.read<AuthenticationService>().signIn(
@@ -275,7 +275,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "OK",
                                   style: TextStyle(
@@ -301,10 +301,6 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),

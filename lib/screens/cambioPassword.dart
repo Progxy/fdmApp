@@ -113,7 +113,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "Login",
                     style: TextStyle(
@@ -180,7 +180,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   child: Text(
                     "OK",
                     style: TextStyle(
@@ -245,7 +245,7 @@ class _CambioPasswordState extends State<CambioPassword> {
               ),
             ),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text(
                   "OK",
                   style: TextStyle(
@@ -503,7 +503,7 @@ class _CambioPasswordState extends State<CambioPassword> {
               child: ButtonTheme(
                 minWidth: 150.0,
                 height: 50.0,
-                child: RaisedButton(
+                child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       changePassword(email, password, oldPassword, database);
@@ -557,7 +557,7 @@ class _CambioPasswordState extends State<CambioPassword> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "OK",
                                   style: TextStyle(
@@ -583,10 +583,6 @@ class _CambioPasswordState extends State<CambioPassword> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),

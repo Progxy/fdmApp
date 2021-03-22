@@ -102,7 +102,7 @@ class _DisponibilitaState extends State<Disponibilita> {
               height: 130,
             ),
             Center(
-              child: RaisedButton(
+              child: TextButton(
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
@@ -114,10 +114,6 @@ class _DisponibilitaState extends State<Disponibilita> {
                     ),
                   ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7.0),
-                ),
-                color: Color.fromARGB(255, 24, 37, 102),
                 onPressed: () async {
                   var date = await showDatePicker(
                     context: context,
@@ -207,7 +203,7 @@ class _DisponibilitaState extends State<Disponibilita> {
                                 ),
                               ),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                   child: Text(
                                     "OK",
                                     style: TextStyle(
@@ -284,7 +280,7 @@ class _DisponibilitaState extends State<Disponibilita> {
                                 ),
                               ),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                   child: Text(
                                     "OK",
                                     style: TextStyle(
@@ -355,7 +351,7 @@ class _DisponibilitaState extends State<Disponibilita> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "OK",
                                   style: TextStyle(

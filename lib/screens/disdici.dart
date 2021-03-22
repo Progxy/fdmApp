@@ -347,7 +347,7 @@ class _DisdiciState extends State<Disdici> {
               child: ButtonTheme(
                 minWidth: 150.0,
                 height: 50.0,
-                child: RaisedButton(
+                child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       ProgressDialog dialog = new ProgressDialog(context);
@@ -408,7 +408,7 @@ class _DisdiciState extends State<Disdici> {
                                 ),
                               ),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                   child: Text(
                                     "OK",
                                     style: TextStyle(
@@ -480,7 +480,7 @@ class _DisdiciState extends State<Disdici> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "Home",
                                   style: TextStyle(
@@ -550,7 +550,7 @@ class _DisdiciState extends State<Disdici> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "OK",
                                   style: TextStyle(
@@ -576,10 +576,6 @@ class _DisdiciState extends State<Disdici> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),

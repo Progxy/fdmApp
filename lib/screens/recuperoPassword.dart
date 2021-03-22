@@ -137,7 +137,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
               ),
             ),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text(
                   "OK",
                   style: TextStyle(
@@ -207,7 +207,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                   ),
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "OK",
                       style: TextStyle(
@@ -327,7 +327,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                   ),
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "Home",
                       style: TextStyle(
@@ -392,7 +392,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                   ),
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "OK",
                       style: TextStyle(
@@ -555,7 +555,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
             Center(
               child: ButtonTheme(
                 height: 50.0,
-                child: RaisedButton(
+                child: TextButton(
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       await getAccount(email, id, database);
@@ -611,7 +611,7 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text(
                                   "OK",
                                   style: TextStyle(
@@ -637,10 +637,6 @@ class _RecuperoPasswordState extends State<RecuperoPassword> {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-                  color: Color.fromARGB(255, 24, 37, 102),
                 ),
               ),
             ),
