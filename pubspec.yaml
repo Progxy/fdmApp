@@ -44,12 +44,13 @@ dependencies:
   cloud_firestore: ^0.16.0
   dotted_line: ^2.0.2
   connectivity: ^2.0.2
-  stripe_payment: ^1.0.9
+  stripe_payment: ^1.0.11
   progress_dialog: ^1.2.4
   flutter_launcher_icons: ^0.8.1
   http: ^0.12.2
   flutter_local_notifications: ^4.0.1+1
   shared_preferences: ^0.5.12+4
+  dynamic_widget: ^3.0.5
 
 
 dev_dependencies:

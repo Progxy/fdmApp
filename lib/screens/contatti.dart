@@ -461,12 +461,21 @@ class _ContattiState extends State<Contatti> {
               height: 35,
             ),
             TextButton(
-              child: Text("prova"),
+              child: Text(
+                "prova",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
               onPressed: () async {
                 await ContentManager().getArticle();
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 24, 37, 102),
+                ),
+              ),
             ),
-            SizedBox(),
           ],
         ),
       ),
