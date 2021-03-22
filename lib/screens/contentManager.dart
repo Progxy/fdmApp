@@ -1,8 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
 class ContentManager {
-  ContentManager({this.database});
-  final FirebaseDatabase database;
+  final FirebaseDatabase database = FirebaseDatabase.instance;
 
   getArticle() async {
     await database.reference().child("Articolo").orderByValue().once().then(

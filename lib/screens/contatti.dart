@@ -1,6 +1,7 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/contentManager.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -458,7 +459,14 @@ class _ContattiState extends State<Contatti> {
             ),
             SizedBox(
               height: 35,
-            )
+            ),
+            TextButton(
+              child: Text("prova"),
+              onPressed: () async {
+                await ContentManager().getArticle();
+              },
+            ),
+            SizedBox(),
           ],
         ),
       ),
