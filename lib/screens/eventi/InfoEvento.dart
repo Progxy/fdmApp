@@ -9,6 +9,7 @@ import '../utilizzo.dart';
 
 class InfoEvento extends StatefulWidget {
   static const String routeName = "/infoevento";
+  static bool isLoaded = false;
 
   @override
   _InfoEventoState createState() => _InfoEventoState();
@@ -39,16 +40,19 @@ class _InfoEventoState extends State<InfoEvento> {
   bool isSecondary = false;
   int numVideoPlayer = 0;
 
+  refresh() {
+    setState(() {
+      print("refresh");
+    });
+  }
+
   video(Map content) async {
     final String top = content["Top"];
     final String bottom = content["Bottom"];
     final String right = content["Right"];
     final String left = content["Left"];
     final String videoLink = content["VideoLink"];
-    numVideoPlayer += 1;
-    if (numVideoPlayer == 2) {
-      isSecondary = true;
-    }
+    isSecondary = _videoController != null;
     if (isSecondary) {
       _videoControllerSecondary = VideoPlayerController.network(videoLink);
       await _videoControllerSecondary.initialize();
@@ -131,6 +135,7 @@ class _InfoEventoState extends State<InfoEvento> {
           ? _videoController.pause()
           : _videoController.play();
     });
+    refresh();
   }
 
   managerVideocontrollerSecondary() {
@@ -139,9 +144,15 @@ class _InfoEventoState extends State<InfoEvento> {
           ? _videoControllerSecondary.pause()
           : _videoControllerSecondary.play();
     });
+    refresh();
   }
 
   loadContent(Map infoContent) async {
+    if (InfoEvento.isLoaded) {
+      return;
+    } else {
+      InfoEvento.isLoaded = true;
+    }
     final contentInfo = MapDecoder().decoder(infoContent["Content"]);
     List<Widget> result = [];
     for (var element in contentInfo) {
@@ -152,11 +163,21 @@ class _InfoEventoState extends State<InfoEvento> {
         result.add(MapToWidget().selector(type, element));
       }
     }
-    return result;
+    setState(() {
+      contents = result;
+    });
+    return;
   }
 
   VideoPlayerController _videoController;
   VideoPlayerController _videoControllerSecondary;
+  List<Widget> contents = [
+    Center(
+      child: CircularProgressIndicator(
+        strokeWidth: 4.0,
+      ),
+    ),
+  ];
 
   @override
   void dispose() {
@@ -169,6 +190,7 @@ class _InfoEventoState extends State<InfoEvento> {
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
     final String title = infoContent["Title"];
+    loadContent(infoContent);
 
     return Scaffold(
       appBar: AppBar(
@@ -211,20 +233,8 @@ class _InfoEventoState extends State<InfoEvento> {
             SizedBox(
               height: 15,
             ),
-            FutureBuilder(
-              future: loadContent(infoContent),
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: snapshot.data,
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 4.0,
-                  ),
-                );
-              },
+            Column(
+              children: contents,
             ),
             SizedBox(
               height: 15,

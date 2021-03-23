@@ -104,6 +104,7 @@ class _InfoBuilderState extends State<InfoBuilder> {
                           child: FloatingActionButton(
                             heroTag: null,
                             onPressed: () {
+                              InfoEvento.isLoaded = false;
                               Navigator.pushNamed(context, InfoEvento.routeName,
                                   arguments: infoContent);
                             },
