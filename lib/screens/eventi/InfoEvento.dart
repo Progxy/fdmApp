@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/mapToWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import '../badConnection.dart';
 import '../feedback.dart';
 import '../mapDecoder.dart';
@@ -35,15 +36,125 @@ class _InfoEventoState extends State<InfoEvento> {
     }
   }
 
+  bool isSecondary = false;
+  int numVideoPlayer = 0;
+
+  video(Map content) {
+    numVideoPlayer += 1;
+    if (numVideoPlayer == 2) {
+      isSecondary = true;
+    }
+    final String top = content["Top"];
+    final String bottom = content["Bottom"];
+    final String right = content["Right"];
+    final String left = content["Left"];
+    final Widget result = Padding(
+      padding: EdgeInsets.only(
+        top: double.parse(top),
+        bottom: double.parse(bottom),
+        left: double.parse(left),
+        right: double.parse(right),
+      ),
+      child: GestureDetector(
+        onTap: isSecondary
+            ? () => managerVideocontrollerSecondary()
+            : () => managerVideoController(),
+        child: Container(
+          child: isSecondary
+              ? _videoControllerSecondary.value.initialized
+                  ? AspectRatio(
+                      aspectRatio: _videoControllerSecondary.value.aspectRatio,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          VideoPlayer(_videoControllerSecondary),
+                          VideoProgressIndicator(
+                            _videoControllerSecondary,
+                            allowScrubbing: true,
+                            colors: VideoProgressColors(
+                              playedColor:
+                                  const Color.fromARGB(255, 24, 37, 102),
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      color: Colors.black,
+                      height: 200,
+                      width: 200,
+                    )
+              : _videoController.value.initialized
+                  ? AspectRatio(
+                      aspectRatio: _videoController.value.aspectRatio,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: <Widget>[
+                          VideoPlayer(_videoController),
+                          VideoProgressIndicator(
+                            _videoController,
+                            allowScrubbing: true,
+                            colors: VideoProgressColors(
+                              playedColor:
+                                  const Color.fromARGB(255, 24, 37, 102),
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      color: Colors.black,
+                      height: 200,
+                      width: 200,
+                    ),
+        ),
+      ),
+    );
+    return result;
+  }
+
+  managerVideoController() {
+    setState(() {
+      _videoController.value.isPlaying
+          ? _videoController.pause()
+          : _videoController.play();
+    });
+  }
+
+  managerVideocontrollerSecondary() {
+    setState(() {
+      _videoControllerSecondary.value.isPlaying
+          ? _videoControllerSecondary.pause()
+          : _videoControllerSecondary.play();
+    });
+  }
+
+  VideoPlayerController _videoController;
+  VideoPlayerController _videoControllerSecondary;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _videoController.dispose();
+    _videoControllerSecondary.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
     final String title = infoContent["Title"];
     final contentInfo = MapDecoder().decoder(infoContent["Content"]);
-    var content = contentInfo[0];
-    var type = content["Type"];
-    var res = MapToWidget().selector(type, content);
-    print(res);
+    List<Widget> result = [];
+    for (var element in contentInfo) {
+      var type = element["Type"];
+      if (type == "Video") {
+        result.add(video(element));
+      } else {
+        result.add(MapToWidget().selector(type, element));
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -85,7 +196,9 @@ class _InfoEventoState extends State<InfoEvento> {
             SizedBox(
               height: 15,
             ),
-            res,
+            Column(
+              children: result,
+            ),
             SizedBox(
               height: 15,
             )
