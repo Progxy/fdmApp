@@ -39,15 +39,25 @@ class _InfoEventoState extends State<InfoEvento> {
   bool isSecondary = false;
   int numVideoPlayer = 0;
 
-  video(Map content) {
-    numVideoPlayer += 1;
-    if (numVideoPlayer == 2) {
-      isSecondary = true;
-    }
+  video(Map content) async {
     final String top = content["Top"];
     final String bottom = content["Bottom"];
     final String right = content["Right"];
     final String left = content["Left"];
+    final String videoLink = content["VideoLink"];
+    numVideoPlayer += 1;
+    if (numVideoPlayer == 2) {
+      isSecondary = true;
+    }
+    if (isSecondary) {
+      _videoControllerSecondary = VideoPlayerController.network(videoLink);
+      await _videoControllerSecondary.initialize();
+      await _videoControllerSecondary.setLooping(true);
+    } else {
+      _videoController = VideoPlayerController.network(videoLink);
+      await _videoController.initialize();
+      await _videoController.setLooping(true);
+    }
     final Widget result = Padding(
       padding: EdgeInsets.only(
         top: double.parse(top),
@@ -131,6 +141,20 @@ class _InfoEventoState extends State<InfoEvento> {
     });
   }
 
+  loadContent(Map infoContent) async {
+    final contentInfo = MapDecoder().decoder(infoContent["Content"]);
+    List<Widget> result = [];
+    for (var element in contentInfo) {
+      var type = element["Type"];
+      if (type == "Video") {
+        result.add(await video(element));
+      } else {
+        result.add(MapToWidget().selector(type, element));
+      }
+    }
+    return result;
+  }
+
   VideoPlayerController _videoController;
   VideoPlayerController _videoControllerSecondary;
 
@@ -145,16 +169,7 @@ class _InfoEventoState extends State<InfoEvento> {
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
     final String title = infoContent["Title"];
-    final contentInfo = MapDecoder().decoder(infoContent["Content"]);
-    List<Widget> result = [];
-    for (var element in contentInfo) {
-      var type = element["Type"];
-      if (type == "Video") {
-        result.add(video(element));
-      } else {
-        result.add(MapToWidget().selector(type, element));
-      }
-    }
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -196,8 +211,20 @@ class _InfoEventoState extends State<InfoEvento> {
             SizedBox(
               height: 15,
             ),
-            Column(
-              children: result,
+            FutureBuilder(
+              future: loadContent(infoContent),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: snapshot.data,
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 4.0,
+                  ),
+                );
+              },
             ),
             SizedBox(
               height: 15,
