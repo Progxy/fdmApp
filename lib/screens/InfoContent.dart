@@ -2,20 +2,20 @@ import 'package:connectivity/connectivity.dart';
 import 'package:fdmApp/screens/mapToWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import '../badConnection.dart';
-import '../feedback.dart';
-import '../mapDecoder.dart';
-import '../utilizzo.dart';
+import 'badConnection.dart';
+import 'feedback.dart';
+import 'mapDecoder.dart';
+import 'utilizzo.dart';
 
-class InfoEvento extends StatefulWidget {
+class InfoContent extends StatefulWidget {
   static const String routeName = "/infoevento";
   static bool isLoaded = false;
 
   @override
-  _InfoEventoState createState() => _InfoEventoState();
+  _InfoContentState createState() => _InfoContentState();
 }
 
-class _InfoEventoState extends State<InfoEvento> {
+class _InfoContentState extends State<InfoContent> {
   final List<String> choices = <String>[
     "FeedBack",
     "Aiuto",
@@ -148,10 +148,10 @@ class _InfoEventoState extends State<InfoEvento> {
   }
 
   loadContent(Map infoContent) async {
-    if (InfoEvento.isLoaded) {
+    if (InfoContent.isLoaded) {
       return;
     } else {
-      InfoEvento.isLoaded = true;
+      InfoContent.isLoaded = true;
     }
     final contentInfo = MapDecoder().decoder(infoContent["Content"]);
     List<Widget> result = [];

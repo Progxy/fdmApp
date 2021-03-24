@@ -1,20 +1,25 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../InfoContent.dart';
 import '../contentManager.dart';
 
-class InfoBuilder extends StatefulWidget {
+class FotoBuilder extends StatefulWidget {
+  FotoBuilder({this.app});
+  final FirebaseApp app;
+
   @override
-  _InfoBuilderState createState() => _InfoBuilderState();
+  _FotoBuilderState createState() => _FotoBuilderState();
 }
 
-class _InfoBuilderState extends State<InfoBuilder> {
+class _FotoBuilderState extends State<FotoBuilder> {
   @override
   Widget build(BuildContext context) {
     generateContent() async {
       final Map contents = await ContentManager().getArticle();
+      //TODO: change to getPhoto();
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {

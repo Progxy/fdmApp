@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import '../InfoContent.dart';
 import '../contentManager.dart';
 
-class InfoBuilder extends StatefulWidget {
+class VideoBuilder extends StatefulWidget {
   @override
-  _InfoBuilderState createState() => _InfoBuilderState();
+  _VideoBuilderState createState() => _VideoBuilderState();
 }
 
-class _InfoBuilderState extends State<InfoBuilder> {
+class _VideoBuilderState extends State<VideoBuilder> {
   @override
   Widget build(BuildContext context) {
     generateContent() async {
       final Map contents = await ContentManager().getArticle();
+      //TODO: change to getVideo();
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {
