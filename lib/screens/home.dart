@@ -1,9 +1,13 @@
+import 'dart:math';
 import 'package:connectivity/connectivity.dart';
+import 'package:fdmApp/screens/SeCHS/stampaBuilder.dart';
+import 'package:fdmApp/screens/eventi/eventiBuilder.dart';
+import 'package:fdmApp/screens/eventi/infoBuilder.dart';
 import 'package:fdmApp/screens/home/infoAggiornamenti.dart';
-import 'package:fdmApp/screens/home/mainBarbiana.dart';
-import 'package:fdmApp/screens/home/mainNews.dart';
 import 'package:fdmApp/screens/loadUsername.dart';
 import 'package:fdmApp/screens/logFileManager.dart';
+import 'package:fdmApp/screens/media/fotoBuilder.dart';
+import 'package:fdmApp/screens/media/videoBuilder.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'SeCHS/CHSBuilder.dart';
 import 'badConnection.dart';
 import 'feedback.dart';
 import 'home/mainDrawer.dart';
@@ -27,6 +32,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   FlutterLocalNotificationsPlugin fltrNotification;
+  final Map methodsNews = {
+    0: FotoBuilder(),
+    1: VideoBuilder(),
+    2: CHSBuilder(),
+    3: StampaBuilder(),
+    4: EventiBuilder(),
+    5: InfoBuilder(),
+  };
   final List<String> choices = <String>[
     "FeedBack",
     "Aiuto",
@@ -225,6 +238,15 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
+    Random random = new Random();
+    final int firstNumber = random.nextInt(5);
+    int secondNumber = random.nextInt(5);
+    secondNumber == firstNumber
+        ? firstNumber == 5
+            ? secondNumber -= 1
+            : secondNumber += 1
+        : secondNumber = secondNumber;
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -271,11 +293,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 30, left: 15, right: 20),
-                  child: MainNews(),
+                  child: methodsNews[firstNumber],
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 30, left: 15, right: 20),
-                  child: MainBarbiana(),
+                  child: methodsNews[secondNumber],
                 ),
                 FutureBuilder(
                   future: check(),
