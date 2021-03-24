@@ -18,8 +18,7 @@ class _FotoBuilderState extends State<FotoBuilder> {
   @override
   Widget build(BuildContext context) {
     generateContent() async {
-      final Map contents = await ContentManager().getArticle();
-      //TODO: change to getPhoto();
+      final Map contents = await ContentManager().getFoto();
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {

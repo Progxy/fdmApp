@@ -14,8 +14,7 @@ class _VideoBuilderState extends State<VideoBuilder> {
   @override
   Widget build(BuildContext context) {
     generateContent() async {
-      final Map contents = await ContentManager().getArticle();
-      //TODO: change to getVideo();
+      final Map contents = await ContentManager().getVideo();
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {

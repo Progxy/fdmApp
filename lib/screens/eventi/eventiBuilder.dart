@@ -14,8 +14,7 @@ class _EventiBuilderState extends State<EventiBuilder> {
   @override
   Widget build(BuildContext context) {
     generateContent() async {
-      final Map contents = await ContentManager().getArticle();
-      //TODO: change to getEvent();
+      final Map contents = await ContentManager().getEvent();
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {
