@@ -190,6 +190,7 @@ class _InfoContentState extends State<InfoContent> {
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
     final String title = infoContent["Title"];
+    final String author = "Autore Articolo : " + infoContent["Author"];
     loadContent(infoContent);
 
     return Scaffold(
@@ -230,6 +231,17 @@ class _InfoContentState extends State<InfoContent> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              author,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: Colors.grey,
+                fontSize: 20,
+              ),
+            ),
             SizedBox(
               height: 15,
             ),
