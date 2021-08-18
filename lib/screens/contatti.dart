@@ -6,6 +6,7 @@ import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
 import 'badConnection.dart';
 import 'feedback.dart';
@@ -320,6 +321,36 @@ class _ContattiState extends State<Contatti> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => FeedBack()));
       }
+    }
+  }
+    void _launchURL(BuildContext context) async {
+    try {
+      await launch(
+        'https://flutter.io/',
+        option: new CustomTabsOption(
+          toolbarColor: Theme.of(context).primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: new CustomTabsAnimation.slideIn()
+          // or user defined animation.
+          animation: new CustomTabsAnimation(
+            startEnter: 'slide_up',
+            startExit: 'android:anim/fade_out',
+            endEnter: 'android:anim/fade_in',
+            endExit: 'slide_down',
+          ),
+          extraCustomTabs: <String>[
+            // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
+            'org.mozilla.firefox',
+            // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
+            'com.microsoft.emmx',
+          ],        
+        ),
+      );
+    } catch (e) {
+      // An exception is thrown if browser app is not installed on Android device.
+      debugPrint(e.toString());
     }
   }
 
