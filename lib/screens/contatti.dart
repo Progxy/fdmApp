@@ -1,12 +1,11 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:fdmApp/screens/contentManager.dart';
 import 'package:fdmApp/screens/utilizzo.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import 'badConnection.dart';
 import 'feedback.dart';
@@ -323,34 +322,75 @@ class _ContattiState extends State<Contatti> {
       }
     }
   }
-    void _launchURL(BuildContext context) async {
+
+  void launchURL(BuildContext context, String urlText) async {
     try {
       await launch(
-        'https://flutter.io/',
+        urlText,
         option: new CustomTabsOption(
           toolbarColor: Theme.of(context).primaryColor,
           enableDefaultShare: true,
           enableUrlBarHiding: true,
           showPageTitle: true,
-          animation: new CustomTabsAnimation.slideIn()
-          // or user defined animation.
-          animation: new CustomTabsAnimation(
-            startEnter: 'slide_up',
-            startExit: 'android:anim/fade_out',
-            endEnter: 'android:anim/fade_in',
-            endExit: 'slide_down',
-          ),
+          animation: new CustomTabsAnimation.slideIn(),
           extraCustomTabs: <String>[
-            // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
             'org.mozilla.firefox',
-            // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
             'com.microsoft.emmx',
-          ],        
+          ],
         ),
       );
     } catch (e) {
-      // An exception is thrown if browser app is not installed on Android device.
+      //show popup to redirect to download chrome
       debugPrint(e.toString());
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(
+            "Browser non trovato",
+            style: TextStyle(
+              fontSize: 28,
+            ),
+          ),
+          content: Text(
+            "Per aprire il link e' necessario avere un browser, se non si possiede un browser cliccare su 'Scarica Browser', altrimenti cliccare su 'Riprova'.",
+            style: TextStyle(
+              fontSize: 27,
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  child: Text(
+                    "Scarica Browser",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    StoreRedirect.redirect(
+                        androidAppId: "com.android.chrome",
+                        iOSAppId: "535886823");
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    "Riprova",
+                    style: TextStyle(
+                      fontSize: 28,
+                    ),
+                  ),
+                  onPressed: () {
+                    launchURL(context, urlText);
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      );
     }
   }
 
@@ -450,7 +490,7 @@ class _ContattiState extends State<Contatti> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  launch(info[2]);
+                                  launchURL(context, info[2]);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -490,22 +530,6 @@ class _ContattiState extends State<Contatti> {
             ),
             SizedBox(
               height: 35,
-            ),
-            TextButton(
-              child: Text(
-                "prova",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () async {
-                await ContentManager().getArticle();
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color.fromARGB(255, 24, 37, 102),
-                ),
-              ),
             ),
           ],
         ),
