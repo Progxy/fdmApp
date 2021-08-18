@@ -340,10 +340,8 @@ class _ContattiState extends State<Contatti> {
         ),
       );
     } catch (e) {
-      //show popup to redirect to download chrome
-      debugPrint(e.toString());
       showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: Text(
