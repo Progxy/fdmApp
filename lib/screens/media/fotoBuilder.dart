@@ -134,7 +134,8 @@ class _FotoBuilderState extends State<FotoBuilder> {
     return FutureBuilder(
         future: generateContent(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData && snapshot.data == null) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.data == null) {
             return Container(
               height: 225,
               width: 360,
@@ -150,12 +151,15 @@ class _FotoBuilderState extends State<FotoBuilder> {
                   ),
                 ],
               ),
-              child: Text("Contentuti non trovati",
-                  style: TextStyle(
-                    fontSize: 25,
-                  )),
+              child: Center(
+                child: Text("Contentuti non trovati !",
+                    style: TextStyle(
+                      fontSize: 28,
+                    )),
+              ),
             );
-          } else if (snapshot.hasData && snapshot.data != null) {
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.data != null) {
             return CarouselSlider(
               items: snapshot.data,
               options: CarouselOptions(
@@ -165,12 +169,13 @@ class _FotoBuilderState extends State<FotoBuilder> {
                   enableInfiniteScroll: true,
                   viewportFraction: 0.8),
             );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 4.0,
+              ),
+            );
           }
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 4.0,
-            ),
-          );
         });
   }
 }
