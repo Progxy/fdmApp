@@ -15,6 +15,9 @@ class _StampaBuilderState extends State<StampaBuilder> {
   Widget build(BuildContext context) {
     generateContent() async {
       final Map contents = await ContentManager().getStampa();
+      if (contents == null) {
+        return null;
+      }
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {

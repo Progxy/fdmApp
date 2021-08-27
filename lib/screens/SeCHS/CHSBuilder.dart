@@ -15,6 +15,9 @@ class _CHSBuilderState extends State<CHSBuilder> {
   Widget build(BuildContext context) {
     generateContent() async {
       final Map contents = await ContentManager().getCHS();
+      if (contents == null) {
+        return null;
+      }
       final List infoContents = contents.values.toList();
       List<Widget> generatedContents = [];
       for (var element in infoContents) {
