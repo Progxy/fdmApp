@@ -49,6 +49,7 @@ dependencies:
   video_player: ^1.0.1
   flutter_custom_tabs: ^0.6.0
   store_redirect: ^1.0.2
+  ffi: ^1.0.0
 
 
 dev_dependencies:

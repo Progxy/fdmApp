@@ -7,8 +7,12 @@ class ContentManager {
     Map result;
     await database.reference().child("Articolo").orderByValue().once().then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;
@@ -18,8 +22,12 @@ class ContentManager {
     Map result;
     await database.reference().child("Foto").orderByValue().once().then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;
@@ -29,8 +37,12 @@ class ContentManager {
     Map result;
     await database.reference().child("Video").orderByValue().once().then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;
@@ -40,8 +52,12 @@ class ContentManager {
     Map result;
     await database.reference().child("Evento").orderByValue().once().then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;
@@ -56,8 +72,12 @@ class ContentManager {
         .once()
         .then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;
@@ -67,8 +87,12 @@ class ContentManager {
     Map result;
     await database.reference().child("Stampa").orderByValue().once().then(
       (DataSnapshot snapshot) {
-        final Map map = new Map.from(snapshot.value);
-        result = map;
+        if (snapshot.value == null) {
+          result = null;
+        } else {
+          final Map map = new Map.from(snapshot.value);
+          result = map;
+        }
       },
     );
     return result;

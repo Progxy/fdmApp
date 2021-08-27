@@ -127,7 +127,28 @@ class _CHSBuilderState extends State<CHSBuilder> {
     return FutureBuilder(
         future: generateContent(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data == null) {
+            return Container(
+              height: 225,
+              width: 360,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Text("Contentuti non trovati",
+                  style: TextStyle(
+                    fontSize: 25,
+                  )),
+            );
+          } else if (snapshot.hasData && snapshot.data != null) {
             return CarouselSlider(
               items: snapshot.data,
               options: CarouselOptions(
