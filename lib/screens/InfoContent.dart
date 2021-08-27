@@ -190,8 +190,7 @@ class _InfoContentState extends State<InfoContent> {
   Widget build(BuildContext context) {
     final Map infoContent = ModalRoute.of(context).settings.arguments as Map;
     final String title = infoContent["Title"];
-    final String author = "Autore Articolo : " + infoContent["Author"];
-    loadContent(infoContent);
+    final String author = "Autore Articolo : ${infoContent['Author']}";
 
     return Scaffold(
       appBar: AppBar(
@@ -231,6 +230,12 @@ class _InfoContentState extends State<InfoContent> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            FutureBuilder(
+                future: loadContent(infoContent),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return SizedBox(height: 1);
+                }),
             SizedBox(
               height: 15,
             ),
