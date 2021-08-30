@@ -421,6 +421,11 @@ class _PayIscrizioneState extends State<PayIscrizione> {
                   ButtonTheme(
                     height: 57,
                     child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Color.fromARGB(255, 24, 37, 102),
+                        ),
+                      ),
                       child: Text(
                         "Paga e Continua",
                         style: TextStyle(

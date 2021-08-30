@@ -100,6 +100,11 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
               height: 60,
               minWidth: 200,
               child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 24, 37, 102),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -121,6 +126,11 @@ class _IscrizioneScadutaState extends State<IscrizioneScaduta> {
               height: 60,
               minWidth: 200,
               child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 24, 37, 102),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Rinnova()));

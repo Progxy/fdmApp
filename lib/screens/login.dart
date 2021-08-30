@@ -179,6 +179,11 @@ class _LoginState extends State<Login> {
                 minWidth: 150.0,
                 height: 50.0,
                 child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 24, 37, 102),
+                    ),
+                  ),
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       await context.read<AuthenticationService>().signIn(

@@ -129,6 +129,11 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                   height: 55,
                   minWidth: 175,
                   child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 24, 37, 102),
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -162,6 +167,11 @@ class _ResultIscrizioneState extends State<ResultIscrizione> {
                   height: 55,
                   minWidth: 175,
                   child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 24, 37, 102),
+                      ),
+                    ),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Login()));

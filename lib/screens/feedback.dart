@@ -279,6 +279,11 @@ class _FeedBackState extends State<FeedBack> {
                   child: ButtonTheme(
                     height: 43.0,
                     child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Color.fromARGB(255, 24, 37, 102),
+                        ),
+                      ),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           sendFeedBack(feedBack, ratingValue);
