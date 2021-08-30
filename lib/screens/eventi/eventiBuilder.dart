@@ -148,7 +148,7 @@ class _EventiBuilderState extends State<EventiBuilder> {
                 ],
               ),
               child: Center(
-                child: Text("Contentuti non trovati !",
+                child: Text("Contenuti non trovati !",
                     style: TextStyle(
                       fontSize: 28,
                     )),

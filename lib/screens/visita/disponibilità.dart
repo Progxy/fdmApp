@@ -103,6 +103,11 @@ class _DisponibilitaState extends State<Disponibilita> {
             ),
             Center(
               child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 24, 37, 102),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
