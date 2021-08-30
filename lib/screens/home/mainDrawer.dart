@@ -28,7 +28,7 @@ class _MainDrawerState extends State<MainDrawer> {
 
   final int subVersion = 2;
 
-  final String beta = "Beta";
+  final String typeVersion = "Alfa";
 
   final String name = AccountInfo.name;
 
@@ -274,7 +274,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 Container(
                   padding: EdgeInsets.only(left: 17),
                   child: Text(
-                    "Versione $beta $version.$subVersion",
+                    "Versione $typeVersion $version.$subVersion",
                     style: TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.w700,
