@@ -175,129 +175,124 @@ class _LoginState extends State<Login> {
               height: 30,
             ),
             Center(
-              child: ButtonTheme(
-                minWidth: 150.0,
-                height: 50.0,
-                child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 24, 37, 102),
-                    ),
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 24, 37, 102),
                   ),
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      await context.read<AuthenticationService>().signIn(
-                            email: _emailController.text.trim(),
-                            password: _passwordController.text.trim(),
-                          );
-                      final firebaseAuthCheck =
-                          FirebaseAuth.instance.currentUser;
-                      if (firebaseAuthCheck != null) {
-                        final bool isExpired =
-                            await VerifyExpiration().verify(database);
-                        if (isExpired) {
-                          context.read<AuthenticationService>().signOut();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => IscrizioneScaduta()));
-                          return;
-                        }
-                        await database
-                            .reference()
-                            .child(firebaseAuthCheck.uid)
-                            .child("User")
-                            .orderByValue()
-                            .once()
-                            .then((DataSnapshot snapshot) {
-                          LinkedHashMap<dynamic, dynamic> values =
-                              snapshot.value;
-                          String username;
-                          Map<String, String> map = values.map(
-                              (a, b) => MapEntry(a as String, b as String));
-                          map.forEach((k, value) => {username = k});
-                          AccountInfo().setter(username, email);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserPage()));
-                        });
-                      } else {
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    await context.read<AuthenticationService>().signIn(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        );
+                    final firebaseAuthCheck = FirebaseAuth.instance.currentUser;
+                    if (firebaseAuthCheck != null) {
+                      final bool isExpired =
+                          await VerifyExpiration().verify(database);
+                      if (isExpired) {
+                        context.read<AuthenticationService>().signOut();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ErrorPage()));
+                                builder: (context) => IscrizioneScaduta()));
+                        return;
                       }
+                      await database
+                          .reference()
+                          .child(firebaseAuthCheck.uid)
+                          .child("User")
+                          .orderByValue()
+                          .once()
+                          .then((DataSnapshot snapshot) {
+                        LinkedHashMap<dynamic, dynamic> values = snapshot.value;
+                        String username;
+                        Map<String, String> map = values
+                            .map((a, b) => MapEntry(a as String, b as String));
+                        map.forEach((k, value) => {username = k});
+                        AccountInfo().setter(username, email);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserPage()));
+                      });
                     } else {
-                      if (isIOS) {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              CupertinoAlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Email o Password mancanti!",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text(
-                                  "OK",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                },
-                              )
-                            ],
-                          ),
-                        );
-                      } else {
-                        showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Email o Password mancanti!",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(
-                                  "OK",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                },
-                              )
-                            ],
-                          ),
-                        );
-                      }
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ErrorPage()));
                     }
-                  },
+                  } else {
+                    if (isIOS) {
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoAlertDialog(
+                          title: Text(
+                            "Errore",
+                            style: TextStyle(
+                              fontSize: 28,
+                            ),
+                          ),
+                          content: Text(
+                            "Email o Password mancanti!",
+                            style: TextStyle(
+                              fontSize: 27,
+                            ),
+                          ),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop('dialog');
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                            "Errore",
+                            style: TextStyle(
+                              fontSize: 28,
+                            ),
+                          ),
+                          content: Text(
+                            "Email o Password mancanti!",
+                            style: TextStyle(
+                              fontSize: 27,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop('dialog');
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 2, bottom: 2, left: 25, right: 25),
                   child: Text(
                     "Login",
                     style: TextStyle(

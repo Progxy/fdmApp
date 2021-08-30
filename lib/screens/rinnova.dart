@@ -533,328 +533,333 @@ class _RinnovaState extends State<Rinnova> {
       ),
       drawer: MainDrawer(),
       body: SingleChildScrollView(
-          child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 25,
-            ),
-            TextFormField(
-              controller: _emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                hintText: "Inserire l'email",
-                hintStyle: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
-                border: OutlineInputBorder(),
-                labelText: "Email",
-                labelStyle: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
+          child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 25,
               ),
-              validator: (value) {
-                String _emailPattern =
-                    r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
-                bool isValid(String pattern, String input) =>
-                    RegExp(pattern).hasMatch(input);
-                if (value == null) {
-                  return "Dati Mancanti";
-                } else if (isValid(_emailPattern, value) == false) {
-                  return "Email Errata";
-                }
-                email = value;
-                return null;
-              },
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            TextFormField(
-              controller: _idController,
-              decoration: const InputDecoration(
-                hintText: "Inserire l'id dell'iscrizione",
-                hintStyle: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
-                border: OutlineInputBorder(),
-                labelText: "Id Iscrizione",
-                labelStyle: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87,
-                ),
-              ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Dati Mancanti";
-                }
-                id = value;
-                return null;
-              },
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: ButtonTheme(
-                minWidth: 150.0,
-                height: 50.0,
-                child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 24, 37, 102),
-                    ),
+              TextFormField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  hintText: "Inserire l'email",
+                  hintStyle: TextStyle(
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      bool isExpired =
-                          await VerifyExpiration().isAlreadyExpired(id);
-                      if (isExpired == null) {
-                        Platform.isIOS
-                            ? showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    CupertinoAlertDialog(
-                                  title: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                    size: 55.0,
-                                  ),
-                                  content: Text(
-                                    "Id non trovato!",
-                                    style: TextStyle(
-                                      fontSize: 27,
+                  border: OutlineInputBorder(),
+                  labelText: "Email",
+                  labelStyle: TextStyle(
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                validator: (value) {
+                  String _emailPattern =
+                      r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$";
+                  bool isValid(String pattern, String input) =>
+                      RegExp(pattern).hasMatch(input);
+                  if (value == null) {
+                    return "Dati Mancanti";
+                  } else if (isValid(_emailPattern, value) == false) {
+                    return "Email Errata";
+                  }
+                  email = value;
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              TextFormField(
+                controller: _idController,
+                decoration: const InputDecoration(
+                  hintText: "Inserire l'id dell'iscrizione",
+                  hintStyle: TextStyle(
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                  border: OutlineInputBorder(),
+                  labelText: "Id Iscrizione",
+                  labelStyle: TextStyle(
+                    fontSize: 23.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Dati Mancanti";
+                  }
+                  id = value;
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: ButtonTheme(
+                  minWidth: 150.0,
+                  height: 50.0,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 24, 37, 102),
+                      ),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        bool isExpired =
+                            await VerifyExpiration().isAlreadyExpired(id);
+                        if (isExpired == null) {
+                          Platform.isIOS
+                              ? showCupertinoDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      CupertinoAlertDialog(
+                                    title: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 55.0,
                                     ),
-                                  ),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      child: Text(
-                                        "Home",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
+                                    content: Text(
+                                      "Id non trovato!",
+                                      style: TextStyle(
+                                        fontSize: 27,
                                       ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                    )
-                                  ],
-                                ),
-                              )
-                            : showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                    size: 55.0,
-                                  ),
-                                  content: Text(
-                                    "Id non trovato!",
-                                    style: TextStyle(
-                                      fontSize: 27,
                                     ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                        "Home",
-                                        style: TextStyle(
-                                          fontSize: 28,
+                                    actions: [
+                                      CupertinoDialogAction(
+                                        child: Text(
+                                          "Home",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
                                         ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHomePage()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 55.0,
+                                    ),
+                                    content: Text(
+                                      "Id non trovato!",
+                                      style: TextStyle(
+                                        fontSize: 27,
                                       ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                          "Home",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHomePage()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                          return;
+                        }
+                        if (!isExpired) {
+                          Platform.isIOS
+                              ? showCupertinoDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      CupertinoAlertDialog(
+                                    title: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 55.0,
+                                    ),
+                                    content: Text(
+                                      "Iscrizione ancora valida!",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                      ),
+                                    ),
+                                    actions: [
+                                      CupertinoDialogAction(
+                                        child: Text(
+                                          "Home",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHomePage()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 55.0,
+                                    ),
+                                    content: Text(
+                                      "Iscrizione ancora valida!",
+                                      style: TextStyle(
+                                        fontSize: 27,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(
+                                          "Home",
+                                          style: TextStyle(
+                                            fontSize: 28,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHomePage()));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                          return;
+                        }
+                        await payViaNewCard(context, database);
                         return;
-                      }
-                      if (!isExpired) {
-                        Platform.isIOS
-                            ? showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    CupertinoAlertDialog(
-                                  title: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                    size: 55.0,
-                                  ),
-                                  content: Text(
-                                    "Iscrizione ancora valida!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      child: Text(
-                                        "Home",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                    )
-                                  ],
-                                ),
-                              )
-                            : showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Icon(
-                                    Icons.error,
-                                    color: Colors.red,
-                                    size: 55.0,
-                                  ),
-                                  content: Text(
-                                    "Iscrizione ancora valida!",
-                                    style: TextStyle(
-                                      fontSize: 27,
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                        "Home",
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    MyHomePage()));
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                        return;
-                      }
-                      await payViaNewCard(context, database);
-                      return;
-                    } else {
-                      if (isIOS) {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              CupertinoAlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Email o Id mancanti!",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text(
-                                  "OK",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                },
-                              )
-                            ],
-                          ),
-                        );
                       } else {
-                        showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: Text(
-                              "Errore",
-                              style: TextStyle(
-                                fontSize: 28,
-                              ),
-                            ),
-                            content: Text(
-                              "Email o Id mancanti!",
-                              style: TextStyle(
-                                fontSize: 27,
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text(
-                                  "OK",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                  ),
+                        if (isIOS) {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop('dialog');
-                                },
-                              )
-                            ],
-                          ),
-                        );
+                              ),
+                              content: Text(
+                                "Email o Id mancanti!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text(
+                                "Errore",
+                                style: TextStyle(
+                                  fontSize: 28,
+                                ),
+                              ),
+                              content: Text(
+                                "Email o Id mancanti!",
+                                style: TextStyle(
+                                  fontSize: 27,
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop('dialog');
+                                  },
+                                )
+                              ],
+                            ),
+                          );
+                        }
                       }
-                    }
-                  },
-                  child: Text(
-                    "Rinnova Iscrizione",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700,
+                    },
+                    child: Text(
+                      "Rinnova Iscrizione",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Image(
-              image: AssetImage("assets/images/don_milani.png"),
-              fit: BoxFit.cover,
-            ),
-          ],
+              SizedBox(
+                height: 50,
+              ),
+              Image(
+                image: AssetImage("assets/images/don_milani.png"),
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
         ),
       )),
     );
